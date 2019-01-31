@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import "package:pull_to_refresh/pull_to_refresh.dart";
 
 class RatingPage extends StatelessWidget {
   @override
@@ -13,59 +14,127 @@ class RatingPage extends StatelessWidget {
 class RatingAppState extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return new NewsListpageState();
+    return new PullToRefresh();
   }
 }
 
-class NewsListpageState extends State<RatingAppState> {
-  var curPage = 1;
-  ScrollController _controller = new ScrollController();
-  var listData = List<String>.generate(30, (i) => "CL $i");
-
-  Future<Null> _pullToRefresh() async {
-//    curPage = 1;
-    //下拉刷新做处理
-    setState(() {
-      ////改变数据，这里随意发挥
-      listData = List<String>.generate(30, (i) => "CL $i");
-    });
-    return null;
+class PullToRefresh extends State<RatingAppState> {
+//  RefreshMode  refreshing = RefreshMode.idle;
+//  LoadMode loading = LoadMode.idle;
+  RefreshController _refreshController;
+  List<Widget> data = [];
+  void _getDatas() {
+    for (int i = 0; i < 14; i++) {
+      data.add(new Card(
+        margin:
+            new EdgeInsets.only(left: 10.0, right: 10.0, top: 5.0, bottom: 5.0),
+        child: new Center(
+          child: new Text('Data $i'),
+        ),
+      ));
+    }
   }
 
-  NewsListpageState() {
-    _controller.addListener(() {
-      var maxScroll = _controller.position.maxScrollExtent;
-      var pixels = _controller.position.pixels;
+  void enterRefresh() {
+    _refreshController.requestRefresh(true);
+  }
 
-      if (maxScroll == pixels && listData.length < 100) {
-//        上拉刷新做处理
-        print('load more ...');
-//        curPage++;
-        setState(() {
-          //改变数据，这里随意发挥
-          listData = List<String>.generate(100, (i) => "CL $i");
-        });
-      }
-    });
+  void _onOffsetCallback(bool isUp, double offset) {
+    // if you want change some widgets state ,you should rewrite the callback
   }
 
   @override
-  Widget build(BuildContext context) {
-    Widget listView = new ListView.builder(
-      itemCount: listData.length,
-      itemBuilder: (context, i) {
-        //这里填充自己想要的列表UI
-        return new Container(
-          height: 45.0,
-          color: Colors.blue,
-          child: new Text(
-            "$i",
-            style: new TextStyle(fontSize: 15.0),
-          ),
-        );
-      },
-      controller: _controller,
+  void initState() {
+    // TODO: implement initState
+    _getDatas();
+    _refreshController = new RefreshController();
+    super.initState();
+  }
+
+  Widget _headerCreate(BuildContext context, int mode) {
+    return new ClassicIndicator(
+      mode: mode,
+      refreshingText: "",
+      idleIcon: new Container(),
+      idleText: "Load more...",
     );
-    return new RefreshIndicator(child: listView, onRefresh: _pullToRefresh);
+  }
+
+//  Widget _footerCreate(BuildContext context,int mode){
+//    return new ClassicIndicator(mode: mode);
+//  }
+
+  @override
+  Widget build(BuildContext context) {
+    return new Container(
+        child: new SmartRefresher(
+            enablePullDown: true,
+            enablePullUp: true,
+            controller: _refreshController,
+            onRefresh: (up) {
+              if (up)
+                new Future.delayed(const Duration(milliseconds: 2009))
+                    .then((val) {
+                  data.add(new Card(
+                    margin: new EdgeInsets.only(
+                        left: 10.0, right: 10.0, top: 5.0, bottom: 5.0),
+                    child: new Center(
+                      child: new Text('Data '),
+                    ),
+                  ));
+
+                  _refreshController.scrollTo(
+                      _refreshController.scrollController.offset + 100.0);
+                  _refreshController.sendBack(true, RefreshStatus.idle);
+                  setState(() {});
+//                refresher.sendStatus(RefreshStatus.completed);
+                });
+              else {
+                new Future.delayed(const Duration(milliseconds: 2009))
+                    .then((val) {
+                  data.add(new Card(
+                    margin: new EdgeInsets.only(
+                        left: 10.0, right: 10.0, top: 5.0, bottom: 5.0),
+                    child: new Center(
+                      child: new Text('Data '),
+                    ),
+                  ));
+                  setState(() {});
+                  _refreshController.sendBack(false, RefreshStatus.idle);
+                });
+              }
+            },
+            onOffsetChange: _onOffsetCallback,
+            child: new ListView.builder(
+              reverse: true,
+              itemExtent: 100.0,
+              itemCount: data.length,
+              itemBuilder: (context, index) => new Item(),
+            )));
+  }
+}
+
+class Item extends StatefulWidget {
+  @override
+  _ItemState createState() => new _ItemState();
+}
+
+class _ItemState extends State<Item> {
+  @override
+  Widget build(BuildContext context) {
+    return new Card(
+      margin:
+          new EdgeInsets.only(left: 10.0, right: 10.0, top: 5.0, bottom: 5.0),
+      child: new Center(
+        child: new Text('Data'),
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    print("销毁");
+    super.dispose();
   }
 }

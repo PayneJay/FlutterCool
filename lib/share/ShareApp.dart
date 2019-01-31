@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:sy_flutter_wechat/sy_flutter_wechat.dart';
-import 'package:flutter_wechat/flutter_wechat.dart';
+// import 'package:flutter_wechat/flutter_wechat.dart';
 
 class ShareApp extends StatelessWidget {
   @override
@@ -17,9 +17,15 @@ class ShareApp extends StatelessWidget {
 class ShareAppState extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
+    _register();
     return new Sharing();
   }
 }
+
+_register() async {
+    bool result = await SyFlutterWechat.register('wx974682567cca6ff8');
+    print(result);
+  }
 
 Widget buildGrid() {
   return new GridView.extent(
@@ -68,7 +74,7 @@ Widget buildShareList() {
         child: Text('支付'),
         onPressed: () async {
           String payInfo =
-              '{"appid":"wxf9909bde17439ac2","partnerid":"1518469211","prepayid":"wx120649521695951d501636f91748325073","package":"Sign=WXPay","noncestr":"1541976592","timestamp":"1541976592","sign":"E760C99A1A981B9A7D8F17B08EF60FCC"}';
+              '{"appid":"wx974682567cca6ff8","partnerid":"1518469211","prepayid":"wx120649521695951d501636f91748325073","package":"Sign=WXPay","noncestr":"1541976592","timestamp":"1541976592","sign":"E760C99A1A981B9A7D8F17B08EF60FCC"}';
           SyPayResult payResult = await SyFlutterWechat.pay(
               SyPayInfo.fromJson(json.decode(payInfo)));
           print(payResult);
@@ -128,12 +134,12 @@ class Sharing extends State<ShareAppState> {
 
   Future<void> testShare() async {
     // 分享
-    await FlutterWechat.shareText(
-      text: "我在测试flutter的分享，求成功！",
-      type: 0,
-    ).then((state) {
-      print(state);
-    }); //文字分享 type 0 聊天页面 1 朋友圈
+    // await FlutterWechat.shareText(
+    //   text: "我在测试flutter的分享，求成功！",
+    //   type: 0,
+    // ).then((state) {
+    //   print(state);
+    // }); //文字分享 type 0 聊天页面 1 朋友圈
     // await FlutterWechat.shareImage(
     //   imgUrl: "https://ps.ssl.qhmsg.com/bdr/1080__/t013213f30f7a50af19.jpg",
     //   type: 0,

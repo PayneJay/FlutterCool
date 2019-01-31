@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'widget/RandomWords.dart';
+import 'package:myapp/home/BottomNavigationWidget.dart';
 
 void main() => runApp(new MyApp());
 
@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
     return new MaterialApp(
       title: 'Welcome to Flutter',
       theme: new ThemeData(primaryColor: Colors.blueAccent),
-      home: new RandomWords(),
+      home: new BottomNavigationWidget(),
     );
   }
 }
