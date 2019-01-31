@@ -16,17 +16,18 @@ class BottomNavigationWidgetState extends State<BottomNavigationWidget> {
 
   @override
   void initState() {
-    super.initState();
     pages
       ..add(HomeScreen())
       ..add(EmailScreen())
       ..add(AlarmsScreen())
       ..add(ProfileScreen());
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      body: pages[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         items: [
           BottomNavigationBarItem(

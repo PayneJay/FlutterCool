@@ -11,15 +11,6 @@ class RandomWordState extends State<RandomWords> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: new AppBar(
-        title: new Text('Startup Name Generator'),
-        actions: <Widget>[
-          new IconButton(
-            icon: new Icon(Icons.list),
-            onPressed: _pushSaved,
-          )
-        ],
-      ),
       body: _buildSuggestions(),
     );
   }

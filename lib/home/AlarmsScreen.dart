@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/widget/RefreshWithHttp.dart';
 
 class AlarmsScreen extends StatefulWidget {
   @override
@@ -12,6 +13,7 @@ class AlarmsScreenState extends State<AlarmsScreen> {
       appBar: AppBar(
         title: Text('Alarms'),
       ),
+      body: new RefreshWithHttp(),
     );
   }
 }

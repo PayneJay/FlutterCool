@@ -1,24 +1,12 @@
 import 'package:flutter/material.dart';
 import "package:pull_to_refresh/pull_to_refresh.dart";
 
-class RatingPage extends StatelessWidget {
+class RatingPage extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: "Rating",
-      home: RatingAppState(),
-    );
-  }
+  PullToRefresh createState() => new PullToRefresh();
 }
 
-class RatingAppState extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() {
-    return new PullToRefresh();
-  }
-}
-
-class PullToRefresh extends State<RatingAppState> {
+class PullToRefresh extends State<RatingPage> {
 //  RefreshMode  refreshing = RefreshMode.idle;
 //  LoadMode loading = LoadMode.idle;
   RefreshController _refreshController;
@@ -45,13 +33,12 @@ class PullToRefresh extends State<RatingAppState> {
 
   @override
   void initState() {
-    // TODO: implement initState
     _getDatas();
     _refreshController = new RefreshController();
     super.initState();
   }
 
-  Widget _headerCreate(BuildContext context, int mode) {
+  Widget _footerCreate(BuildContext context, int mode) {
     return new ClassicIndicator(
       mode: mode,
       refreshingText: "",
@@ -60,9 +47,9 @@ class PullToRefresh extends State<RatingAppState> {
     );
   }
 
-//  Widget _footerCreate(BuildContext context,int mode){
-//    return new ClassicIndicator(mode: mode);
-//  }
+  Widget _headerCreate(BuildContext context, int mode) {
+    return new ClassicIndicator(mode: mode);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,6 +57,8 @@ class PullToRefresh extends State<RatingAppState> {
         child: new SmartRefresher(
             enablePullDown: true,
             enablePullUp: true,
+            headerBuilder: _headerCreate,
+            footerBuilder: _footerCreate,
             controller: _refreshController,
             onRefresh: (up) {
               if (up)
@@ -133,7 +122,6 @@ class _ItemState extends State<Item> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     print("销毁");
     super.dispose();
   }

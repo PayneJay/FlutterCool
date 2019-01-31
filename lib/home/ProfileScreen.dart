@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/refresh/Example4.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -12,6 +13,7 @@ class ProfileScreenState extends State<ProfileScreen> {
       appBar: AppBar(
         title: Text('Profile'),
       ),
+      body: new Example4(),
     );
   }
 }
