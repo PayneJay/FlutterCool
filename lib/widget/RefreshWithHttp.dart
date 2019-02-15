@@ -66,6 +66,7 @@ class RefreshWithHttpState extends State<RefreshWithHttp>
   void initState() {
     super.initState();
     _controller = new RefreshController();
+    _fetch();
   }
 
   Widget _headerCreate(BuildContext context, int mode) {

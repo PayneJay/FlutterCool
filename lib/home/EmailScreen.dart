@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/widget/RatingPage.dart';
+import 'package:myapp/widget/DetailPage.dart';
+
 
 class EmailScreen extends StatefulWidget {
   @override
@@ -13,7 +14,7 @@ class EmailScreenState extends State<EmailScreen> {
       appBar: AppBar(
         title: Text('Email'),
       ),
-      body: new RatingPage(),
+      body: new DetailPage(),
     );
   }
 }

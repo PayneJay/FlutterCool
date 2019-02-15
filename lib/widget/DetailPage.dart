@@ -102,28 +102,20 @@ class DetailPage extends StatelessWidget {
     );
 
     return new MaterialApp(
-      title: 'Flutter Demo',
-      theme: new ThemeData(
-        primarySwatch: Colors.blue,
-      ),
       home: new Scaffold(
-          appBar: new AppBar(
-            title: new Text('Detail'),
-            centerTitle: true,
-          ),
           body: new ListView(
-            children: <Widget>[
-              new Image.network(
-                'https://images.unsplash.com/photo-1471115853179-bb1d604434e0?dpr=1&auto=format&fit=crop&w=767&h=583&q=80&cs=tinysrgb&crop=',
-                height: 240.0,
-                width: 600.0,
-                fit: BoxFit.cover,
-              ),
-              titleSection,
-              buttonSection,
-              textSection,
-            ],
-          )),
+        children: <Widget>[
+          new Image.network(
+            'https://images.unsplash.com/photo-1471115853179-bb1d604434e0?dpr=1&auto=format&fit=crop&w=767&h=583&q=80&cs=tinysrgb&crop=',
+            height: 240.0,
+            width: 600.0,
+            fit: BoxFit.cover,
+          ),
+          titleSection,
+          buttonSection,
+          textSection,
+        ],
+      )),
     );
   }
 }

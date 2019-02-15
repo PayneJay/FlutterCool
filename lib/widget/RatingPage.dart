@@ -60,39 +60,6 @@ class PullToRefresh extends State<RatingPage> {
             headerBuilder: _headerCreate,
             footerBuilder: _footerCreate,
             controller: _refreshController,
-            onRefresh: (up) {
-              if (up)
-                new Future.delayed(const Duration(milliseconds: 2009))
-                    .then((val) {
-                  data.add(new Card(
-                    margin: new EdgeInsets.only(
-                        left: 10.0, right: 10.0, top: 5.0, bottom: 5.0),
-                    child: new Center(
-                      child: new Text('Data '),
-                    ),
-                  ));
-
-                  _refreshController.scrollTo(
-                      _refreshController.scrollController.offset + 100.0);
-                  _refreshController.sendBack(true, RefreshStatus.idle);
-                  setState(() {});
-//                refresher.sendStatus(RefreshStatus.completed);
-                });
-              else {
-                new Future.delayed(const Duration(milliseconds: 2009))
-                    .then((val) {
-                  data.add(new Card(
-                    margin: new EdgeInsets.only(
-                        left: 10.0, right: 10.0, top: 5.0, bottom: 5.0),
-                    child: new Center(
-                      child: new Text('Data '),
-                    ),
-                  ));
-                  setState(() {});
-                  _refreshController.sendBack(false, RefreshStatus.idle);
-                });
-              }
-            },
             onOffsetChange: _onOffsetCallback,
             child: new ListView.builder(
               reverse: true,

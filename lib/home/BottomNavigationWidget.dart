@@ -50,7 +50,7 @@ class BottomNavigationWidgetState extends State<BottomNavigationWidget> {
               )),
           BottomNavigationBarItem(
               icon: Icon(
-                Icons.pages,
+                Icons.alarm,
                 color: _bottomNavigationColor,
               ),
               title: Text(
