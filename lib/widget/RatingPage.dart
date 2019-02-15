@@ -11,11 +11,12 @@ class PullToRefresh extends State<RatingPage> {
 //  LoadMode loading = LoadMode.idle;
   RefreshController _refreshController;
   List<Widget> data = [];
+
   void _getDatas() {
     for (int i = 0; i < 14; i++) {
       data.add(new Card(
         margin:
-            new EdgeInsets.only(left: 10.0, right: 10.0, top: 5.0, bottom: 5.0),
+        new EdgeInsets.only(left: 10.0, right: 10.0, top: 5.0, bottom: 5.0),
         child: new Center(
           child: new Text('Data $i'),
         ),
@@ -53,20 +54,25 @@ class PullToRefresh extends State<RatingPage> {
 
   @override
   Widget build(BuildContext context) {
-    return new Container(
-        child: new SmartRefresher(
-            enablePullDown: true,
-            enablePullUp: true,
-            headerBuilder: _headerCreate,
-            footerBuilder: _footerCreate,
-            controller: _refreshController,
-            onOffsetChange: _onOffsetCallback,
-            child: new ListView.builder(
-              reverse: true,
-              itemExtent: 100.0,
-              itemCount: data.length,
-              itemBuilder: (context, index) => new Item(),
-            )));
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('PullToRefresh'),
+      ),
+      body: new Container(
+          child: new SmartRefresher(
+              enablePullDown: true,
+              enablePullUp: true,
+              headerBuilder: _headerCreate,
+              footerBuilder: _footerCreate,
+              controller: _refreshController,
+              onOffsetChange: _onOffsetCallback,
+              child: new ListView.builder(
+                reverse: true,
+                itemExtent: 100.0,
+                itemCount: data.length,
+                itemBuilder: (context, index) => new Item(),
+              ))),
+    );
   }
 }
 
@@ -80,7 +86,7 @@ class _ItemState extends State<Item> {
   Widget build(BuildContext context) {
     return new Card(
       margin:
-          new EdgeInsets.only(left: 10.0, right: 10.0, top: 5.0, bottom: 5.0),
+      new EdgeInsets.only(left: 10.0, right: 10.0, top: 5.0, bottom: 5.0),
       child: new Center(
         child: new Text('Data'),
       ),
