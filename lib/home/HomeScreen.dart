@@ -7,13 +7,21 @@ class HomeScreen extends StatefulWidget {
 }
 
 class HomeScreenState extends State<HomeScreen> {
+  RandomWords _randomWords = new RandomWords();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Home'),
+        actions: <Widget>[
+          new IconButton(
+            icon: new Icon(Icons.collections_bookmark, color: Colors.white),
+            onPressed: _randomWords.randomWordState.pushSaved,
+          )
+        ],
       ),
-      body: new RandomWords(),
+      body: _randomWords,
     );
   }
 }
