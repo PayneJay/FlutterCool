@@ -1,19 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/widget/DetailPage.dart';
 
-
-class EmailScreen extends StatefulWidget {
+class SiteScreen extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => EmailScreenState();
+  State<StatefulWidget> createState() => SiteScreenState();
 }
 
-class EmailScreenState extends State<EmailScreen> {
+class SiteScreenState extends State<SiteScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Email'),
-      ),
       body: new DetailPage(),
     );
   }

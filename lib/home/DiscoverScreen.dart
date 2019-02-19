@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/widget/RefreshWithHttp.dart';
 
-class AlarmsScreen extends StatefulWidget {
+class DiscoverScreen extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => AlarmsScreenState();
+  State<StatefulWidget> createState() => DiscoverScreenState();
 }
 
-class AlarmsScreenState extends State<AlarmsScreen> {
+class DiscoverScreenState extends State<DiscoverScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Alarms'),
-      ),
       body: new RefreshWithHttp(),
     );
   }
