@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/widget/RandomWords.dart';
+import 'package:myapp/widget/HomeArcitle.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -7,12 +7,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class HomeScreenState extends State<HomeScreen> {
-  RandomWords _randomWords = new RandomWords();
+  HomeArticle _article = new HomeArticle();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _randomWords,
+      body: _article,
     );
   }
 }

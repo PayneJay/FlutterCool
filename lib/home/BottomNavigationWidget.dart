@@ -4,7 +4,7 @@ import 'ProfileScreen.dart';
 import 'ThemeScreen.dart';
 import 'SiteScreen.dart';
 import 'DiscoverScreen.dart';
-import 'package:myapp/widget/SearchPage.dart';
+import 'package:myapp/search/SearchPage.dart';
 
 class BottomNavigationWidget extends StatefulWidget {
   @override
@@ -44,7 +44,7 @@ class BottomNavigationWidgetState extends State<BottomNavigationWidget> {
       appBar: AppBar(
         title: Text(titles[_currentIndex]),
         centerTitle: true,
-        actions: <Widget>[_showMoreMenu()],
+        actions: <Widget>[_showPopupMenu()],
         leading: Builder(
           builder: (BuildContext context) {
             return IconButton(
@@ -94,7 +94,7 @@ class BottomNavigationWidgetState extends State<BottomNavigationWidget> {
         ));
   }
 
-  PopupMenuButton _showMoreMenu() {
+  PopupMenuButton _showPopupMenu() {
     return new PopupMenuButton<String>(
         //这是点击弹出菜单的操作，点击对应菜单后，改变屏幕中间文本状态，将点击的菜单值赋予屏幕中间文本
         onSelected: (String value) {

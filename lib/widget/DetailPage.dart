@@ -15,6 +15,16 @@ class DetailPageState extends State<DetailPage> {
   Widget build(BuildContext context) {
     _context = context;
     return new Scaffold(
+      appBar: AppBar(
+        title: Text('正文'),
+        centerTitle: true,
+        actions: <Widget>[
+          new IconButton(
+            icon: Icon(Icons.more_horiz, color: Colors.white),
+            onPressed: null,
+          )
+        ],
+      ),
       body: _buildDetailList(),
     );
   }
