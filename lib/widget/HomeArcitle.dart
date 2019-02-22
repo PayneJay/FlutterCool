@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:transparent_image/transparent_image.dart';
 import 'DetailPage.dart';
+import 'package:myapp/http/Http.dart';
+import 'dart:convert';
+import 'package:myapp/models/ArticleList.dart';
 import 'EmptyPage.dart';
 
 class HomeArticle extends StatefulWidget {
-  final HomeArticleState _homeArcitleState = new HomeArticleState();
+  final HomeArticleState _homeArticleState = new HomeArticleState();
 
   @override
-  createState() => _homeArcitleState;
+  createState() => _homeArticleState;
 }
 
 class HomeArticleState extends State<HomeArticle> {
+  ArticleList _articleList;
+
   @override
   Widget build(BuildContext context) {
     return new DefaultTabController(
@@ -42,14 +48,25 @@ class HomeArticleState extends State<HomeArticle> {
     );
   }
 
-  Widget _buildSuggestions() {
-    return new ListView.builder(itemBuilder: (context, i) {
-      if (i.isOdd) return new Divider();
-      return _buildRow();
-    });
+  @override
+  void initState() {
+    _getArticles();
+    super.initState();
   }
 
-  Widget _buildRow() {
+  Widget _buildSuggestions() {
+    if (_articleList == null) {
+      return new EmptyPage();
+    }
+    return new ListView.builder(
+        itemCount: _articleList.articles.length,
+        itemBuilder: (context, i) {
+          if (i.isOdd) return new Divider(color: Colors.grey);
+          return _buildRow(i);
+        });
+  }
+
+  Widget _buildRow(int i) {
     return new GestureDetector(
       child: new Container(
         padding: const EdgeInsets.all(10.0),
@@ -61,15 +78,17 @@ class HomeArticleState extends State<HomeArticle> {
                 children: <Widget>[
                   new Container(
                     padding: const EdgeInsets.fromLTRB(0, 0, 10, 10),
-                    child: new Text(
-                        'TabBar可用于在TabBarView中显示的页面之间导航。虽然TabBar是一个可以出现在任何地方的普通widget，但它通常包含在应用程序的AppBar中。',
+                    child: new Text(_articleList.articles[i].title,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         softWrap: true,
                         style: new TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 16)),
                   ),
-                  new Text('腾讯科技 02-19 15:51',
+                  new Text(
+                      _articleList.articles[i].feed_title +
+                          "  " +
+                          _articleList.articles[i].rectime,
                       style: new TextStyle(
                         color: Colors.grey[500],
                       ))
@@ -79,11 +98,21 @@ class HomeArticleState extends State<HomeArticle> {
             new Container(
               width: 120,
               height: 80,
-              decoration: new BoxDecoration(
-                  image: new DecorationImage(
-                      image: new NetworkImage(
-                          'https://images.unsplash.com/photo-1471115853179-bb1d604434e0?dpr=1&auto=format&fit=crop&w=767&h=583&q=80&cs=tinysrgb&crop='),
-                      fit: BoxFit.cover)),
+              child: Stack(
+                children: <Widget>[
+                  Center(child: CircularProgressIndicator()),
+                  Center(
+                      child: _articleList.articles[i].img.isNotEmpty
+                          ? FadeInImage.memoryNetwork(
+                              image: _articleList.articles[i].img,
+                              placeholder: kTransparentImage /* 透明图片 */,
+                            )
+                          : Image(
+                              image:
+                                  AssetImage('images/img_banner_default.png'),
+                            )),
+                ],
+              ),
             )
           ],
         ),
@@ -96,6 +125,19 @@ class HomeArticleState extends State<HomeArticle> {
     Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
       return new DetailPage();
     }));
+  }
+
+  void _getArticles() {
+    dio
+        .get(
+            'https://api.tuicool.com/api/articles/hot.json?cid=0&lang=1&size=15')
+        .then((response) {
+      setState(() {
+        print(response.toString());
+        Map articleMap = json.decode(response.toString());
+        _articleList = new ArticleList.fromJson(articleMap);
+      });
+    });
   }
 }
 

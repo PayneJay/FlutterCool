@@ -1,9 +1,8 @@
 import 'dart:async';
 import 'dart:convert' show json;
 import 'package:flutter/material.dart';
-// import 'package:dio/dio.dart';
-import 'package:http/http.dart' as HTTP;
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:myapp/http/Http.dart';
 
 class RefreshWithHttp extends StatefulWidget {
   @override
@@ -17,12 +16,10 @@ class RefreshWithHttpState extends State<RefreshWithHttp>
   List<String> data = [];
 
   void _fetch() {
-    HTTP
-        .get(
-            'http://image.baidu.com/channel/listjson?pn=$indexPage&rn=30&tag1=%E6%98%8E%E6%98%9F&tag2=%E5%85%A8%E9%83%A8&ie=utf8')
-        .then((HTTP.Response response) {
-      Map map = json.decode(response.body);
-      print(response.body);
+    dio.get('http://image.baidu.com/channel/listjson?pn=$indexPage&rn=30&tag1=%E6%98%8E%E6%98%9F&tag2=%E5%85%A8%E9%83%A8&ie=utf8')
+        .then((r) {
+      Map map = json.decode(r.data);
+      print(map);
       return map["data"];
     }).then((array) {
       for (var item in array) {
