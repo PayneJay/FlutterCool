@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'DetailPage.dart';
@@ -5,6 +7,7 @@ import 'package:myapp/http/Http.dart';
 import 'dart:convert';
 import 'package:myapp/models/ArticleList.dart';
 import 'EmptyPage.dart';
+import 'package:flutter_easyrefresh/easy_refresh.dart';
 
 class HomeArticle extends StatefulWidget {
   final HomeArticleState _homeArticleState = new HomeArticleState();
@@ -14,7 +17,13 @@ class HomeArticle extends StatefulWidget {
 }
 
 class HomeArticleState extends State<HomeArticle> {
-  ArticleList _articleList;
+  GlobalKey<EasyRefreshState> _easyRefreshKey =
+      new GlobalKey<EasyRefreshState>();
+  GlobalKey<RefreshHeaderState> _headerKey =
+      new GlobalKey<RefreshHeaderState>();
+  GlobalKey<RefreshFooterState> _footerKey =
+      new GlobalKey<RefreshFooterState>();
+  List<Article> _articleList = new List();
 
   @override
   Widget build(BuildContext context) {
@@ -58,12 +67,37 @@ class HomeArticleState extends State<HomeArticle> {
     if (_articleList == null) {
       return new EmptyPage();
     }
-    return new ListView.builder(
-        itemCount: _articleList.articles.length,
-        itemBuilder: (context, i) {
-          if (i.isOdd) return new Divider(color: Colors.grey);
-          return _buildRow(i);
-        });
+
+    return new Center(
+      child: new EasyRefresh(
+        key: _easyRefreshKey,
+        behavior: ScrollOverBehavior(),
+        refreshHeader: ClassicsHeader(
+          key: _headerKey,
+          bgColor: Colors.transparent,
+          textColor: Colors.black87,
+          moreInfoColor: Colors.black54,
+          showMore: true,
+        ),
+        refreshFooter: ClassicsFooter(
+          key: _footerKey,
+          bgColor: Colors.transparent,
+          textColor: Colors.black87,
+          moreInfoColor: Colors.black54,
+          showMore: true,
+        ),
+        child: new ListView.builder(
+            itemCount: _articleList.length,
+            itemBuilder: (context, i) {
+              if (i.isOdd) return new Divider(color: Colors.grey);
+              return _buildRow(i);
+            }),
+        onRefresh: _getArticles,
+        loadMore: _getArticles,
+        autoLoad: true,
+        firstRefresh: true,
+      ),
+    );
   }
 
   Widget _buildRow(int i) {
@@ -78,7 +112,7 @@ class HomeArticleState extends State<HomeArticle> {
                 children: <Widget>[
                   new Container(
                     padding: const EdgeInsets.fromLTRB(0, 0, 10, 10),
-                    child: new Text(_articleList.articles[i].title,
+                    child: new Text(_articleList[i].title,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         softWrap: true,
@@ -86,9 +120,9 @@ class HomeArticleState extends State<HomeArticle> {
                             fontWeight: FontWeight.bold, fontSize: 16)),
                   ),
                   new Text(
-                      _articleList.articles[i].feed_title +
+                      _articleList[i].feed_title +
                           "  " +
-                          _articleList.articles[i].rectime,
+                          _articleList[i].rectime,
                       style: new TextStyle(
                         color: Colors.grey[500],
                       ))
@@ -100,11 +134,12 @@ class HomeArticleState extends State<HomeArticle> {
               height: 80,
               child: Stack(
                 children: <Widget>[
-                  Center(child: CircularProgressIndicator()),
+                  //图片加载loading
+//                  Center(child: CircularProgressIndicator()),
                   Center(
-                      child: _articleList.articles[i].img.isNotEmpty
+                      child: _articleList[i].img.isNotEmpty
                           ? FadeInImage.memoryNetwork(
-                              image: _articleList.articles[i].img,
+                              image: _articleList[i].img,
                               placeholder: kTransparentImage /* 透明图片 */,
                             )
                           : Image(
@@ -127,15 +162,20 @@ class HomeArticleState extends State<HomeArticle> {
     }));
   }
 
-  void _getArticles() {
-    dio
-        .get(
-            'https://api.tuicool.com/api/articles/hot.json?cid=0&lang=1&size=15')
-        .then((response) {
+  Future _getArticles() async {
+    print('---------https--------');
+    await dio.get("https://api.tuicool.com/api/articles/hot.json?",
+        queryParameters: {
+          "cid": 0,
+          "lang": 1,
+          "size": 15,
+          "pn": 1,
+          "last_id": ""
+        }).then((response) {
       setState(() {
-        print(response.toString());
-        Map articleMap = json.decode(response.toString());
-        _articleList = new ArticleList.fromJson(articleMap);
+        _articleList.addAll(
+            new ArticleList.fromJson(json.decode(response.toString()))
+                .articles);
       });
     });
   }

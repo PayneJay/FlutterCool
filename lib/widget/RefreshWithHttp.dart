@@ -16,7 +16,9 @@ class RefreshWithHttpState extends State<RefreshWithHttp>
   List<String> data = [];
 
   void _fetch() {
-    dio.get('http://image.baidu.com/channel/listjson?pn=$indexPage&rn=30&tag1=%E6%98%8E%E6%98%9F&tag2=%E5%85%A8%E9%83%A8&ie=utf8')
+    dio
+        .get(
+            'http://image.baidu.com/channel/listjson?pn=$indexPage&rn=30&tag1=%E6%98%8E%E6%98%9F&tag2=%E5%85%A8%E9%83%A8&ie=utf8')
         .then((r) {
       Map map = json.decode(r.data);
       print(map);
@@ -42,7 +44,6 @@ class RefreshWithHttpState extends State<RefreshWithHttp>
       print("sd");
       new Future.delayed(const Duration(milliseconds: 300)).then((val) {
         _controller.sendBack(true, RefreshStatus.completed);
-//                refresher.sendStatus(RefreshStatus.completed);
       });
     }
   }
