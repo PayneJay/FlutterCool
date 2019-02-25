@@ -4,8 +4,8 @@ import 'package:dio/dio.dart';
 
 var dio = new Dio(new BaseOptions(
   baseUrl: "http://www.api.tuicool.com",
-  connectTimeout: 5000,
-  receiveTimeout: 5000,
+  connectTimeout: 10000,
+  receiveTimeout: 30000,
   // 5s
   headers: _getHeaders(),
   contentType: ContentType.json,

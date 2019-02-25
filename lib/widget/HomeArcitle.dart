@@ -25,6 +25,12 @@ class HomeArticleState extends State<HomeArticle> {
       new GlobalKey<RefreshFooterState>();
   List<Article> _articleList = new List();
 
+  int _currentIndex;
+
+//  String _lastId = "";
+  String _currentCid = "";
+  bool _hasNext;
+
   @override
   Widget build(BuildContext context) {
     return new DefaultTabController(
@@ -59,7 +65,7 @@ class HomeArticleState extends State<HomeArticle> {
 
   @override
   void initState() {
-    _getArticles();
+    _onRefresh();
     super.initState();
   }
 
@@ -92,8 +98,8 @@ class HomeArticleState extends State<HomeArticle> {
               if (i.isOdd) return new Divider(color: Colors.grey);
               return _buildRow(i);
             }),
-        onRefresh: _getArticles,
-        loadMore: _getArticles,
+        onRefresh: _onRefresh,
+        loadMore: _loadMore,
         autoLoad: true,
         firstRefresh: true,
       ),
@@ -143,8 +149,7 @@ class HomeArticleState extends State<HomeArticle> {
                               placeholder: kTransparentImage /* 透明图片 */,
                             )
                           : Image(
-                              image:
-                                  AssetImage('images/img_banner_default.png'),
+                              image: AssetImage('images/IMG_3910.JPG'),
                             )),
                 ],
               ),
@@ -163,21 +168,39 @@ class HomeArticleState extends State<HomeArticle> {
   }
 
   Future _getArticles() async {
-    print('---------https--------');
     await dio.get("https://api.tuicool.com/api/articles/hot.json?",
         queryParameters: {
-          "cid": 0,
+          "cid": _currentCid,
           "lang": 1,
-          "size": 15,
-          "pn": 1,
+          "size": 30,
+          "pn": _currentIndex,
           "last_id": ""
         }).then((response) {
       setState(() {
-        _articleList.addAll(
-            new ArticleList.fromJson(json.decode(response.toString()))
-                .articles);
+        ArticleList articleList =
+            new ArticleList.fromJson(json.decode(response.toString()));
+        _hasNext = articleList.has_next;
+        _articleList.addAll(articleList.articles);
+//        _lastId = _articleList.elementAt(_articleList.length).id;
       });
     });
+  }
+
+  Future<void> _onRefresh() {
+    print('---------_onRefresh--------');
+    _currentIndex = 0;
+    _articleList.clear();
+    return _getArticles();
+  }
+
+  Future<void> _loadMore() {
+    if (_hasNext) {
+      _currentIndex++;
+      print('---------_loadMore--------');
+      return _getArticles();
+    }
+
+    return null;
   }
 }
 
@@ -189,12 +212,12 @@ class Choice {
 }
 
 const List<Choice> choices = const <Choice>[
-  const Choice(title: '推荐', icon: Icons.directions_car),
   const Choice(title: '热门', icon: Icons.directions_boat),
-  const Choice(title: '技术', icon: Icons.directions_bus),
-  const Choice(title: '创投', icon: Icons.directions_railway),
-  const Choice(title: '设计', icon: Icons.directions_subway),
+  const Choice(title: '推荐', icon: Icons.directions_car),
   const Choice(title: '科技', icon: Icons.directions_bike),
+  const Choice(title: '创投', icon: Icons.directions_railway),
   const Choice(title: '数码', icon: Icons.directions_walk),
+  const Choice(title: '技术', icon: Icons.directions_bus),
+  const Choice(title: '设计', icon: Icons.directions_subway),
   const Choice(title: '营销', icon: Icons.directions_run),
 ];

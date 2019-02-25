@@ -52,7 +52,8 @@ flutter:
 
   assets:
     - images/icon_empty.png
-    - img_banner_default.png
+    - images/img_banner_default.png
+    - images/IMG_3910.JPG
 
 
   # To add assets to your application, add an assets section, like this:
