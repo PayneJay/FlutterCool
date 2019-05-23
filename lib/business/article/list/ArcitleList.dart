@@ -2,11 +2,11 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:transparent_image/transparent_image.dart';
-import 'DetailPage.dart';
+import 'package:myapp/business/article/detail/ArticleDetail.dart';
 import 'package:myapp/http/Http.dart';
 import 'dart:convert';
 import 'package:myapp/models/ArticleList.dart';
-import 'EmptyPage.dart';
+import 'package:myapp/widget/EmptyPage.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 
 class HomeArticle extends StatefulWidget {
@@ -25,9 +25,8 @@ class HomeArticleState extends State<HomeArticle> {
       new GlobalKey<RefreshFooterState>();
   List<Article> _articleList = new List();
 
-  int _currentIndex;
-
-//  String _lastId = "";
+  int _currentPage;
+  String _lastId = "";
   String _currentCid = "";
   bool _hasNext;
 
@@ -37,19 +36,25 @@ class HomeArticleState extends State<HomeArticle> {
       length: choices.length,
       child: new Scaffold(
         appBar: new AppBar(
-          title: const Text('Tabbed AppBar'),
-          backgroundColor: Colors.white,
-          bottom: new TabBar(
-            isScrollable: true,
-            unselectedLabelColor: Colors.black54,
-            labelColor: Colors.blueAccent,
-            tabs: choices.map((Choice choice) {
-              return new Tab(
-                text: choice.title,
-                icon: new Icon(choice.icon),
-              );
-            }).toList(),
-          ),
+          backgroundColor: Colors.blueAccent,
+          bottom: new PreferredSize(
+              child: new TabBar(
+                isScrollable: true,
+                unselectedLabelColor: Colors.white54,
+                unselectedLabelStyle: new TextStyle(fontSize: 12.0),
+                labelColor: Colors.white,
+                labelStyle: new TextStyle(fontSize: 16.0),
+                indicatorColor: Colors.white,
+                indicatorWeight: 2,
+                indicatorSize: TabBarIndicatorSize.label,
+                tabs: choices.map((Choice choice) {
+                  return new Tab(
+                    text: choice.title,
+                    icon: new Icon(choice.icon),
+                  );
+                }).toList(),
+              ),
+              preferredSize: Size.fromHeight(18)),
         ),
         body: new TabBarView(
           children: choices.map((Choice choice) {
@@ -106,6 +111,7 @@ class HomeArticleState extends State<HomeArticle> {
     );
   }
 
+  //  创建列表条目
   Widget _buildRow(int i) {
     return new GestureDetector(
       child: new Container(
@@ -117,7 +123,7 @@ class HomeArticleState extends State<HomeArticle> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   new Container(
-                    padding: const EdgeInsets.fromLTRB(0, 0, 10, 10),
+                    padding: const EdgeInsets.fromLTRB(0, 0, 5, 5),
                     child: new Text(_articleList[i].title,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
@@ -149,7 +155,7 @@ class HomeArticleState extends State<HomeArticle> {
                               placeholder: kTransparentImage /* 透明图片 */,
                             )
                           : Image(
-                              image: AssetImage('images/IMG_3910.JPG'),
+                              image: AssetImage('images/img_default.jpg'),
                             )),
                 ],
               ),
@@ -157,13 +163,15 @@ class HomeArticleState extends State<HomeArticle> {
           ],
         ),
       ),
-      onTap: _viewDetail,
+      onTap: () {
+        _viewDetail(i);
+      },
     );
   }
 
-  void _viewDetail() {
+  void _viewDetail(int position) {
     Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
-      return new DetailPage();
+      return new DetailPage(_articleList[position].id);
     }));
   }
 
@@ -173,29 +181,30 @@ class HomeArticleState extends State<HomeArticle> {
           "cid": _currentCid,
           "lang": 1,
           "size": 30,
-          "pn": _currentIndex,
-          "last_id": ""
+          "pn": _currentPage,
+          "last_id": _lastId
         }).then((response) {
       setState(() {
         ArticleList articleList =
             new ArticleList.fromJson(json.decode(response.toString()));
         _hasNext = articleList.has_next;
+        _currentPage = articleList.pn;
         _articleList.addAll(articleList.articles);
-//        _lastId = _articleList.elementAt(_articleList.length).id;
+        _lastId = _articleList.elementAt(_articleList.length - 1).id;
       });
     });
   }
 
   Future<void> _onRefresh() {
     print('---------_onRefresh--------');
-    _currentIndex = 0;
+    _currentPage = 0;
+    _lastId = "";
     _articleList.clear();
     return _getArticles();
   }
 
   Future<void> _loadMore() {
     if (_hasNext) {
-      _currentIndex++;
       print('---------_loadMore--------');
       return _getArticles();
     }

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'HomeScreen.dart';
-import 'ProfileScreen.dart';
-import 'ThemeScreen.dart';
-import 'SiteScreen.dart';
-import 'DiscoverScreen.dart';
+import 'package:myapp/business/profile/ProfileScreen.dart';
+import 'package:myapp/business/theme/ThemeScreen.dart';
+import 'package:myapp/business/site/SiteScreen.dart';
+import 'package:myapp/business/discover/DiscoverScreen.dart';
 import 'package:myapp/search/SearchPage.dart';
 
 class BottomNavigationWidget extends StatefulWidget {
@@ -42,6 +42,7 @@ class BottomNavigationWidgetState extends State<BottomNavigationWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         title: Text(titles[_currentIndex]),
         centerTitle: true,
         actions: <Widget>[_showPopupMenu()],
@@ -57,7 +58,10 @@ class BottomNavigationWidgetState extends State<BottomNavigationWidget> {
           },
         ), // 左侧返回按钮，可以有按钮，可以有文字
       ),
-      body: pages[_currentIndex],
+      body: IndexedStack(
+        index: _currentIndex,
+        children: pages,
+      ),
       bottomNavigationBar: BottomNavigationBar(
         items: [
           _getBottomNavigationBarItem(0),
@@ -116,13 +120,7 @@ class BottomNavigationWidgetState extends State<BottomNavigationWidget> {
   PopupMenuItem<String> _getPopupMenuItem(int index) {
     var content = menuNames[index];
     return PopupMenuItem(
-      child: new ListTile(
-        leading: Icon(
-          Icons.language,
-          color: _bottomNavigationColor,
-        ),
-        title: new Text(menuNames[index]),
-      ),
+      child: new Text(menuNames[index]),
       value: '这是 $content',
     );
   }

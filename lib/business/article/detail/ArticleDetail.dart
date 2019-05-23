@@ -1,16 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'RatingPage.dart';
+import 'package:myapp/widget/RatingPage.dart';
 import 'package:myapp/share/ShareApp.dart';
+import 'package:myapp/http/Http.dart';
+import 'dart:convert';
 
 class DetailPage extends StatefulWidget {
+  final String _id;
+
+  DetailPage(this._id);
+
   @override
   State<StatefulWidget> createState() {
-    return DetailPageState();
+    return DetailPageState(_id);
   }
 }
 
 class DetailPageState extends State<DetailPage> {
+  final String _article_id;
+
+  DetailPageState(this._article_id);
+
   @override
   Widget build(BuildContext context) {
     _context = context;
@@ -27,6 +37,24 @@ class DetailPageState extends State<DetailPage> {
       ),
       body: _buildDetailList(),
     );
+  }
+
+  @override
+  void initState() {
+    _getArticleDetail();
+    super.initState();
+  }
+
+  void _getArticleDetail() async {
+    dio
+        .get(
+            "https://api.tuicool.com/api/articles/$_article_id.json?is_pad=1&need_image_meta=1")
+        .then((response) {
+      setState(() {
+        var decode = json.decode(response.data);
+        print("---------$decode");
+      });
+    });
   }
 }
 

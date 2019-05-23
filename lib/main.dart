@@ -15,6 +15,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     // final wordPair = new WordPair.random();  // 删除此行
     return new MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Welcome to Flutter',
       theme: new ThemeData(primaryColor: Colors.blueAccent),
       home: new BottomNavigationWidget(),

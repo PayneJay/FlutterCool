@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/widget/HomeArcitle.dart';
+import 'package:myapp/business/article/list/ArcitleList.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
