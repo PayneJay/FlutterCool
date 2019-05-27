@@ -25,11 +25,7 @@ class PullToRefresh extends State<RatingPage> {
   }
 
   void enterRefresh() {
-    _refreshController.requestRefresh(true);
-  }
-
-  void _onOffsetCallback(bool isUp, double offset) {
-    // if you want change some widgets state ,you should rewrite the callback
+    _refreshController.requestRefresh();
   }
 
   @override
@@ -39,19 +35,6 @@ class PullToRefresh extends State<RatingPage> {
     super.initState();
   }
 
-  Widget _footerCreate(BuildContext context, int mode) {
-    return new ClassicIndicator(
-      mode: mode,
-      refreshingText: "",
-      idleIcon: new Container(),
-      idleText: "Load more...",
-    );
-  }
-
-  Widget _headerCreate(BuildContext context, int mode) {
-    return new ClassicIndicator(mode: mode);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,19 +42,7 @@ class PullToRefresh extends State<RatingPage> {
         title: Text('PullToRefresh'),
       ),
       body: new Container(
-          child: new SmartRefresher(
-              enablePullDown: true,
-              enablePullUp: true,
-              headerBuilder: _headerCreate,
-              footerBuilder: _footerCreate,
-              controller: _refreshController,
-              onOffsetChange: _onOffsetCallback,
-              child: new ListView.builder(
-                reverse: true,
-                itemExtent: 100.0,
-                itemCount: data.length,
-                itemBuilder: (context, index) => new Item(),
-              ))),
+          child: new Text("content")),
     );
   }
 }

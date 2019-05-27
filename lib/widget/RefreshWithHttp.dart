@@ -11,7 +11,6 @@ class RefreshWithHttp extends StatefulWidget {
 
 class RefreshWithHttpState extends State<RefreshWithHttp>
     with TickerProviderStateMixin {
-  RefreshController _controller;
   int indexPage = 1;
   List<String> data = [];
 
@@ -28,24 +27,9 @@ class RefreshWithHttpState extends State<RefreshWithHttp>
         data.add(item["image_url"]);
       }
       setState(() {});
-      _controller.sendBack(false, RefreshStatus.idle);
       indexPage++;
     }).catchError(() {
-      _controller.sendBack(false, RefreshStatus.failed);
     });
-  }
-
-  void _onRefresh(bool up) {
-    if (up)
-      new Future.delayed(const Duration(milliseconds: 300)).then((val) {
-        _fetch();
-      });
-    else {
-      print("sd");
-      new Future.delayed(const Duration(milliseconds: 300)).then((val) {
-        _controller.sendBack(true, RefreshStatus.completed);
-      });
-    }
   }
 
   Widget buildImage(context, index) {
@@ -54,50 +38,15 @@ class RefreshWithHttpState extends State<RefreshWithHttp>
     );
   }
 
-  void _onOffsetCallback(bool isUp, double offset) {
-    // if you want change some widgets state ,you should rewrite the callback
-    if (isUp) {
-    } else {}
-  }
-
   @override
   void initState() {
     super.initState();
-    _controller = new RefreshController();
     _fetch();
-  }
-
-  Widget _headerCreate(BuildContext context, int mode) {
-    return new ClassicIndicator(mode: mode);
-  }
-
-  Widget _footerCreate(BuildContext context, int mode) {
-    return new ClassicIndicator(
-      mode: mode,
-      refreshingText: 'loading...',
-      idleIcon: const Icon(Icons.arrow_upward),
-      idleText: 'Loadmore...',
-    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return new SmartRefresher(
-      enablePullDown: true,
-      enablePullUp: true,
-      controller: _controller,
-      onRefresh: _onRefresh,
-      headerBuilder: _headerCreate,
-      footerBuilder: _footerCreate,
-      footerConfig: new RefreshConfig(),
-      onOffsetChange: _onOffsetCallback,
-      child: new GridView.builder(
-        gridDelegate:
-            new SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-        itemCount: data.length,
-        itemBuilder: buildImage,
-      ),
-    );
+    return Text("content");
   }
 }
 

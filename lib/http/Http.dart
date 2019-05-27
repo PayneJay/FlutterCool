@@ -3,10 +3,9 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 
 var dio = new Dio(new BaseOptions(
-  baseUrl: "http://www.api.tuicool.com",
+  baseUrl: "http://api.tuicool.com",
   connectTimeout: 10000,
   receiveTimeout: 30000,
-  // 5s
   headers: _getHeaders(),
   contentType: ContentType.json,
   // Transform the response data to a String encoded with UTF8.

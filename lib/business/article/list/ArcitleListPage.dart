@@ -2,28 +2,30 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:transparent_image/transparent_image.dart';
-import 'package:myapp/business/article/detail/ArticleDetail.dart';
+import 'package:myapp/business/article/detail/ArticleDetailPage.dart';
 import 'package:myapp/http/Http.dart';
 import 'dart:convert';
-import 'package:myapp/models/ArticleList.dart';
+import 'package:myapp/models/articleList.dart';
+import 'package:myapp/models/articles.dart';
 import 'package:myapp/widget/EmptyPage.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
+import 'package:myapp/http/InterfaceService.dart';
 
-class HomeArticle extends StatefulWidget {
-  final HomeArticleState _homeArticleState = new HomeArticleState();
+class ArticleListPage extends StatefulWidget {
+  final ArticleListPageState _homeArticleState = new ArticleListPageState();
 
   @override
   createState() => _homeArticleState;
 }
 
-class HomeArticleState extends State<HomeArticle> {
+class ArticleListPageState extends State<ArticleListPage> {
   GlobalKey<EasyRefreshState> _easyRefreshKey =
       new GlobalKey<EasyRefreshState>();
   GlobalKey<RefreshHeaderState> _headerKey =
       new GlobalKey<RefreshHeaderState>();
   GlobalKey<RefreshFooterState> _footerKey =
       new GlobalKey<RefreshFooterState>();
-  List<Article> _articleList = new List();
+  List<Articles> _articleList = new List();
 
   int _currentPage;
   String _lastId = "";
@@ -100,7 +102,6 @@ class HomeArticleState extends State<HomeArticle> {
         child: new ListView.builder(
             itemCount: _articleList.length,
             itemBuilder: (context, i) {
-              if (i.isOdd) return new Divider(color: Colors.grey);
               return _buildRow(i);
             }),
         onRefresh: _onRefresh,
@@ -114,53 +115,62 @@ class HomeArticleState extends State<HomeArticle> {
   //  创建列表条目
   Widget _buildRow(int i) {
     return new GestureDetector(
-      child: new Container(
-        padding: const EdgeInsets.all(10.0),
-        child: new Row(
-          children: <Widget>[
-            new Expanded(
-              child: new Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  new Container(
-                    padding: const EdgeInsets.fromLTRB(0, 0, 5, 5),
-                    child: new Text(_articleList[i].title,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        softWrap: true,
-                        style: new TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 16)),
-                  ),
-                  new Text(
-                      _articleList[i].feed_title +
-                          "  " +
-                          _articleList[i].rectime,
-                      style: new TextStyle(
-                        color: Colors.grey[500],
-                      ))
-                ],
+      child: new Material(
+        elevation: 10,
+        child: new Container(
+          height: 90,
+          padding: const EdgeInsets.all(10.0),
+          child: new Row(
+            children: <Widget>[
+              new Expanded(
+                child: new Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    new Container(
+                      padding: const EdgeInsets.fromLTRB(0, 0, 5, 5),
+                      child: new Text(_articleList[i].title,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          softWrap: true,
+                          style: new TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 16)),
+                    ),
+                    new Container(
+                      child: new Text(
+                          _articleList[i].feed_title +
+                              "  " +
+                              _articleList[i].rectime,
+                          style: new TextStyle(
+                            color: Colors.grey[500],
+                          )),
+                    )
+                  ],
+                ),
               ),
-            ),
-            new Container(
-              width: 120,
-              height: 80,
-              child: Stack(
-                children: <Widget>[
-                  //图片加载loading
-//                  Center(child: CircularProgressIndicator()),
-                  Center(
-                      child: _articleList[i].img.isNotEmpty
-                          ? FadeInImage.memoryNetwork(
-                              image: _articleList[i].img,
-                              placeholder: kTransparentImage /* 透明图片 */,
-                            )
-                          : Image(
-                              image: AssetImage('images/img_default.jpg'),
-                            )),
-                ],
-              ),
-            )
-          ],
+              new Container(
+                width: 120,
+                height: 80,
+                child: Stack(
+                  children: <Widget>[
+                    Center(
+                        child: _articleList[i].img.isNotEmpty
+                            ? new Material(
+                                child: FadeInImage.memoryNetwork(
+                                  image: _articleList[i].img,
+                                  placeholder: kTransparentImage /* 透明图片 */,
+                                ),
+                                borderRadius:
+                                    BorderRadius.all(new Radius.circular(5)),
+                              )
+                            : Image(
+                                image: AssetImage('images/img_default.jpg'),
+                              )),
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
       onTap: () {
@@ -171,19 +181,18 @@ class HomeArticleState extends State<HomeArticle> {
 
   void _viewDetail(int position) {
     Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
-      return new DetailPage(_articleList[position].id);
+      return new ArticleDetailPage(_articleList[position].id);
     }));
   }
 
   Future _getArticles() async {
-    await dio.get("https://api.tuicool.com/api/articles/hot.json?",
-        queryParameters: {
-          "cid": _currentCid,
-          "lang": 1,
-          "size": 30,
-          "pn": _currentPage,
-          "last_id": _lastId
-        }).then((response) {
+    await dio.get(articleListUrl, queryParameters: {
+      "cid": _currentCid,
+      "lang": 1,
+      "size": 30,
+      "pn": _currentPage,
+      "last_id": _lastId
+    }).then((response) {
       setState(() {
         ArticleList articleList =
             new ArticleList.fromJson(json.decode(response.toString()));
@@ -208,7 +217,6 @@ class HomeArticleState extends State<HomeArticle> {
       print('---------_loadMore--------');
       return _getArticles();
     }
-
     return null;
   }
 }
