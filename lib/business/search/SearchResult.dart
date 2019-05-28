@@ -13,16 +13,17 @@ class SearchResultState extends State<SearchResult> {
       length: choices.length,
       child: new Scaffold(
         appBar: new AppBar(
-          title: const Text('Tabbed AppBar'),
           backgroundColor: Colors.white,
-          bottom: new TabBar(
-            isScrollable: true,
-            unselectedLabelColor: Colors.black54,
-            labelColor: Colors.blueAccent,
-            tabs: choices.map((String tab) {
-              return new Tab(text: tab);
-            }).toList(),
-          ),
+          bottom: new PreferredSize(
+              child: new TabBar(
+                isScrollable: true,
+                unselectedLabelColor: Colors.black54,
+                labelColor: Colors.blueAccent,
+                tabs: choices.map((String tab) {
+                  return new Tab(text: tab);
+                }).toList(),
+              ),
+              preferredSize: Size.fromHeight(-8)),
         ),
         body: new TabBarView(
           children: choices.map((String tab) {

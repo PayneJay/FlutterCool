@@ -72,8 +72,8 @@ class ArticleListPageState extends State<ArticleListPage> {
 
   @override
   void initState() {
-    _onRefresh();
     super.initState();
+    _onRefresh();
   }
 
   Widget _buildSuggestions() {
@@ -115,62 +115,63 @@ class ArticleListPageState extends State<ArticleListPage> {
   //  创建列表条目
   Widget _buildRow(int i) {
     return new GestureDetector(
-      child: new Material(
-        elevation: 10,
-        child: new Container(
-          height: 90,
-          padding: const EdgeInsets.all(10.0),
-          child: new Row(
-            children: <Widget>[
-              new Expanded(
-                child: new Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    new Container(
-                      padding: const EdgeInsets.fromLTRB(0, 0, 5, 5),
-                      child: new Text(_articleList[i].title,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          softWrap: true,
-                          style: new TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 16)),
-                    ),
-                    new Container(
-                      child: new Text(
-                          _articleList[i].feed_title +
-                              "  " +
-                              _articleList[i].rectime,
-                          style: new TextStyle(
-                            color: Colors.grey[500],
-                          )),
-                    )
-                  ],
-                ),
-              ),
-              new Container(
-                width: 120,
-                height: 80,
-                child: Stack(
-                  children: <Widget>[
-                    Center(
-                        child: _articleList[i].img.isNotEmpty
-                            ? new Material(
-                                child: FadeInImage.memoryNetwork(
-                                  image: _articleList[i].img,
-                                  placeholder: kTransparentImage /* 透明图片 */,
-                                ),
-                                borderRadius:
-                                    BorderRadius.all(new Radius.circular(5)),
-                              )
-                            : Image(
-                                image: AssetImage('images/img_default.jpg'),
+      child: new Container(
+        margin: const EdgeInsets.fromLTRB(10, 3, 10, 5),
+        child: Card(
+          elevation: 3,
+          child: Container(
+              padding: const EdgeInsets.all(10),
+              child: new Row(
+                children: <Widget>[
+                  new Expanded(
+                    child: new Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        new Container(
+                          padding: const EdgeInsets.fromLTRB(0, 0, 5, 5),
+                          child: new Text(_articleList[i].title,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              softWrap: true,
+                              style: new TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 16)),
+                        ),
+                        new Container(
+                          child: new Text(
+                              _articleList[i].feed_title +
+                                  "  " +
+                                  _articleList[i].rectime,
+                              style: new TextStyle(
+                                color: Colors.grey[500],
                               )),
-                  ],
-                ),
-              )
-            ],
-          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  new Container(
+                    width: 120,
+                    height: 80,
+                    child: Stack(
+                      children: <Widget>[
+                        Center(
+                            child: _articleList[i].img.isNotEmpty
+                                ? new Material(
+                                    child: FadeInImage.memoryNetwork(
+                                      image: _articleList[i].img,
+                                      placeholder: kTransparentImage /* 透明图片 */,
+                                    ),
+                                    borderRadius: BorderRadius.all(
+                                        new Radius.circular(5)),
+                                  )
+                                : Image(
+                                    image: AssetImage('images/img_default.jpg'),
+                                  )),
+                      ],
+                    ),
+                  )
+                ],
+              )),
         ),
       ),
       onTap: () {
@@ -222,19 +223,20 @@ class ArticleListPageState extends State<ArticleListPage> {
 }
 
 class Choice {
-  const Choice({this.title, this.icon});
+  const Choice({this.title, this.icon, this.cid});
 
   final String title;
   final IconData icon;
+  final String cid;
 }
 
 const List<Choice> choices = const <Choice>[
-  const Choice(title: '热门', icon: Icons.directions_boat),
-  const Choice(title: '推荐', icon: Icons.directions_car),
-  const Choice(title: '科技', icon: Icons.directions_bike),
-  const Choice(title: '创投', icon: Icons.directions_railway),
-  const Choice(title: '数码', icon: Icons.directions_walk),
-  const Choice(title: '技术', icon: Icons.directions_bus),
-  const Choice(title: '设计', icon: Icons.directions_subway),
-  const Choice(title: '营销', icon: Icons.directions_run),
+  const Choice(title: '热门', icon: Icons.directions_boat, cid: '0'),
+  const Choice(title: '推荐', icon: Icons.directions_car, cid: '0'),
+  const Choice(title: '科技', icon: Icons.directions_bike, cid: '101000000'),
+  const Choice(title: '创投', icon: Icons.directions_railway, cid: '101040000'),
+  const Choice(title: '数码', icon: Icons.directions_walk, cid: '101050000'),
+  const Choice(title: '技术', icon: Icons.directions_bus, cid: '20'),
+  const Choice(title: '设计', icon: Icons.directions_subway, cid: '108000000'),
+  const Choice(title: '营销', icon: Icons.directions_run, cid: '114000000'),
 ];

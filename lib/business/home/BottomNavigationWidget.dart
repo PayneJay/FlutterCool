@@ -4,7 +4,7 @@ import 'package:myapp/business/profile/ProfileScreen.dart';
 import 'package:myapp/business/theme/ThemeScreen.dart';
 import 'package:myapp/business/site/SiteScreen.dart';
 import 'package:myapp/business/discover/DiscoverScreen.dart';
-import 'package:myapp/search/SearchPage.dart';
+import 'package:myapp/business/search/SearchPage.dart';
 
 class BottomNavigationWidget extends StatefulWidget {
   @override

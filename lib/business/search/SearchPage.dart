@@ -25,14 +25,6 @@ class SearchPageState extends State<SearchPage> {
           margin: EdgeInsets.all(5),
           child: _buildTextField(_controller),
         ),
-        actions: <Widget>[
-          new IconButton(
-              icon: Icon(
-                Icons.more_horiz,
-                color: Colors.blueAccent,
-              ),
-              onPressed: null)
-        ],
       ),
       body: new SearchResult(),
     );

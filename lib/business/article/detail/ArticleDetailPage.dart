@@ -27,7 +27,6 @@ class ArticleDetailPageState extends State<ArticleDetailPage> {
   @override
   Widget build(BuildContext context) {
     _context = context;
-    _screenWidth = MediaQuery.of(context).size.width;
     return new Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -40,10 +39,11 @@ class ArticleDetailPageState extends State<ArticleDetailPage> {
             icon: Icon(Icons.comment, color: Colors.white),
             onPressed: _comment,
           ),
-          new IconButton(
-            icon: Icon(Icons.more_vert, color: Colors.white),
-            onPressed: _more,
-          )
+//          new IconButton(
+//            icon: Icon(Icons.more_vert, color: Colors.white),
+//            onPressed: _simplePopup,
+//          )
+          _more()
         ],
       ),
       body: _buildDetail(),
@@ -67,7 +67,7 @@ class ArticleDetailPageState extends State<ArticleDetailPage> {
         _title = article.title;
         _time = article.time;
         _feedTitle = article.feed_title;
-        _url = article.url;
+//        _url = article.url;
         _htmlContent = parse(article.content).outerHtml;
       });
     });
@@ -75,12 +75,12 @@ class ArticleDetailPageState extends State<ArticleDetailPage> {
 }
 
 BuildContext _context;
-double _screenWidth = 0;
-String _title;
-String _time;
-String _feedTitle;
-String _url;
-String _htmlContent;
+String _title = '';
+String _time = '';
+String _feedTitle = '';
+//String _url;
+String _htmlContent = '';
+OverlayEntry overlayEntry;
 
 //分享
 _share() {
@@ -95,8 +95,32 @@ void _comment() {
 }
 
 //更多菜单
-void _more() {
-  toast(_context, 'more');
+Widget _more() {
+  return new PopupMenuButton<MenuItem>(
+    //这是点击弹出菜单的操作，点击对应菜单后，改变屏幕中间文本状态，将点击的菜单值赋予屏幕中间文本
+    onSelected: (MenuItem value) {
+      print('*****' + value.title);
+    },
+    offset: new Offset(0, kToolbarHeight),
+    //这是弹出菜单的建立
+    itemBuilder: (context) => [
+          getPopupMenuItem(menus[0]),
+          getPopupMenuItem(menus[1]),
+          getPopupMenuItem(menus[2]),
+          getPopupMenuItem(menus[3]),
+          getPopupMenuItem(menus[4]),
+          getPopupMenuItem(menus[5]),
+          getPopupMenuItem(menus[6]),
+          getPopupMenuItem(menus[7]),
+        ],
+  );
+}
+
+PopupMenuItem<MenuItem> getPopupMenuItem(MenuItem item) {
+  return PopupMenuItem(
+    value: item,
+    child: Text(item.title),
+  );
 }
 
 //url跳转
@@ -109,8 +133,7 @@ _launchURL(String url) async {
 }
 
 Widget _buildDetail() {
-  return Scrollbar(
-      child: SingleChildScrollView(
+  return SingleChildScrollView(
     child: new Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -119,7 +142,7 @@ Widget _buildDetail() {
           Container(
             color: Colors.blueAccent,
             padding: const EdgeInsets.all(15),
-            width: _screenWidth,
+            width: MediaQuery.of(_context).size.width,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               verticalDirection: VerticalDirection.down,
@@ -158,5 +181,23 @@ Widget _buildDetail() {
         ],
       ),
     ),
-  ));
+  );
 }
+
+class MenuItem {
+  const MenuItem({this.title, this.id});
+
+  final String title;
+  final int id;
+}
+
+const List<MenuItem> menus = const <MenuItem>[
+  const MenuItem(title: '添加待读', id: 0),
+  const MenuItem(title: '添加收藏', id: 1),
+  const MenuItem(title: '调整字号', id: 2),
+  const MenuItem(title: '背景设置', id: 3),
+  const MenuItem(title: '打开翻页', id: 4),
+  const MenuItem(title: '文章纠错', id: 5),
+  const MenuItem(title: '查看原文', id: 6),
+  const MenuItem(title: '复制链接', id: 7),
+];
