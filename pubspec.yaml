@@ -43,6 +43,8 @@ dev_dependencies:
   flutter_html: ^0.10.1
 #  Toast
   overlay_support: ^0.3.0
+#  图片选择库
+  image_picker: ^0.6.0+8
 
 
 # For information on the generic Dart part of this file, see the
