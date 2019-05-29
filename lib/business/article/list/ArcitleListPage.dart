@@ -165,7 +165,8 @@ class ArticleListPageState extends State<ArticleListPage> {
                                         new Radius.circular(5)),
                                   )
                                 : Image(
-                                    image: AssetImage('images/img_default.jpg'),
+                                    image: AssetImage(
+                                        'images/img_banner_default.png'),
                                   )),
                       ],
                     ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/widget/EmptyPage.dart';
+import 'package:myapp/business/site/SitePage.dart';
 
 class SiteScreen extends StatefulWidget {
   @override
@@ -10,7 +10,7 @@ class SiteScreenState extends State<SiteScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: new EmptyPage(),
+      body: new SitePage(),
     );
   }
 }
