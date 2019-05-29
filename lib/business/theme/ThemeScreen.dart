@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/business/theme/ThemePage.dart';
+import 'package:myapp/business/theme/ThemeWidget.dart';
 
 class ThemeScreen extends StatefulWidget {
   @override
@@ -10,7 +10,7 @@ class ThemeScreenState extends State<ThemeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: new ThemePage(),
+      body: new ThemeWidget(),
     );
   }
 }

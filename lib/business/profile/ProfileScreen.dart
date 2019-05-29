@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:myapp/widget/RatingPage.dart';
+import 'package:myapp/widget/TopicDetailWidget.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -86,9 +86,7 @@ class ProfileScreenState extends State<ProfileScreen> {
   }
 
   _onItemClick(int id) {
-    Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
-      return new RatingPage();
-    }));
+    print('go---------$id');
   }
 
   void _selectAvatar() {

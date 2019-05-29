@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class EmptyPage extends StatefulWidget {
+class EmptyWidget extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return new EmptyPageState();
+    return new EmptyWidgetState();
   }
 }
 
-class EmptyPageState extends State<EmptyPage> {
+class EmptyWidgetState extends State<EmptyWidget> {
   @override
   Widget build(BuildContext context) {
     return _createEmptyPage();

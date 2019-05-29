@@ -1,0 +1,6 @@
+{
+  "success": true,
+  "articles": "$[]articles",
+  "site": "$site",
+  "has_next": true
+}

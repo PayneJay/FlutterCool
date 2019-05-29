@@ -8,21 +8,21 @@ import 'package:html/parser.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:overlay_support/overlay_support.dart';
 
-class ArticleDetailPage extends StatefulWidget {
+class ArticleDetailScreen extends StatefulWidget {
   final String _id;
 
-  ArticleDetailPage(this._id);
+  ArticleDetailScreen(this._id);
 
   @override
   State<StatefulWidget> createState() {
-    return ArticleDetailPageState(_id);
+    return ArticleDetailScreenState(_id);
   }
 }
 
-class ArticleDetailPageState extends State<ArticleDetailPage> {
+class ArticleDetailScreenState extends State<ArticleDetailScreen> {
   final String _articleId;
 
-  ArticleDetailPageState(this._articleId);
+  ArticleDetailScreenState(this._articleId);
 
   @override
   Widget build(BuildContext context) {

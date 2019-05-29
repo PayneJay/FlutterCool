@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class SearchResult extends StatefulWidget {
+class SearchResultWidget extends StatefulWidget {
   @override
-  SearchResultState createState() => new SearchResultState();
+  SearchResultWidgetState createState() => new SearchResultWidgetState();
 }
 
-class SearchResultState extends State<SearchResult> {
+class SearchResultWidgetState extends State<SearchResultWidget> {
   @override
   Widget build(BuildContext context) {
     final choices = ['文章', '主题', '站点'];

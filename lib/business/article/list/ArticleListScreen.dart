@@ -1,24 +1,23 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:transparent_image/transparent_image.dart';
-import 'package:myapp/business/article/detail/ArticleDetailPage.dart';
 import 'package:myapp/http/Http.dart';
 import 'dart:convert';
 import 'package:myapp/models/articleList.dart';
 import 'package:myapp/models/articles.dart';
-import 'package:myapp/widget/EmptyPage.dart';
+import 'package:myapp/widget/EmptyWidget.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:myapp/http/InterfaceService.dart';
+import 'package:myapp/widget/ArticleItemWidget.dart';
 
-class ArticleListPage extends StatefulWidget {
-  final ArticleListPageState _homeArticleState = new ArticleListPageState();
+class ArticleListScreen extends StatefulWidget {
+  final ArticleListScreenState _homeArticleState = new ArticleListScreenState();
 
   @override
   createState() => _homeArticleState;
 }
 
-class ArticleListPageState extends State<ArticleListPage> {
+class ArticleListScreenState extends State<ArticleListScreen> {
   GlobalKey<EasyRefreshState> _easyRefreshKey =
       new GlobalKey<EasyRefreshState>();
   GlobalKey<RefreshHeaderState> _headerKey =
@@ -78,7 +77,7 @@ class ArticleListPageState extends State<ArticleListPage> {
 
   Widget _buildSuggestions() {
     if (_articleList == null) {
-      return new EmptyPage();
+      return new EmptyWidget();
     }
 
     return new Center(
@@ -114,77 +113,7 @@ class ArticleListPageState extends State<ArticleListPage> {
 
   //  创建列表条目
   Widget _buildRow(int i) {
-    return new GestureDetector(
-      child: new Container(
-        margin: const EdgeInsets.fromLTRB(10, 3, 10, 5),
-        child: Card(
-          elevation: 3,
-          child: Container(
-              padding: const EdgeInsets.all(10),
-              child: new Row(
-                children: <Widget>[
-                  new Expanded(
-                    child: new Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        new Container(
-                          padding: const EdgeInsets.fromLTRB(0, 0, 5, 5),
-                          child: new Text(_articleList[i].title,
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              softWrap: true,
-                              style: new TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 16)),
-                        ),
-                        new Container(
-                          child: new Text(
-                              _articleList[i].feed_title +
-                                  "  " +
-                                  _articleList[i].rectime,
-                              style: new TextStyle(
-                                color: Colors.grey[500],
-                              )),
-                        )
-                      ],
-                    ),
-                  ),
-                  new Container(
-                    width: 120,
-                    height: 80,
-                    child: Stack(
-                      children: <Widget>[
-                        Center(
-                            child: _articleList[i].img.isNotEmpty
-                                ? new Material(
-                                    child: FadeInImage.memoryNetwork(
-                                      image: _articleList[i].img,
-                                      placeholder: kTransparentImage /* 透明图片 */,
-                                    ),
-                                    borderRadius: BorderRadius.all(
-                                        new Radius.circular(5)),
-                                  )
-                                : Image(
-                                    image: AssetImage(
-                                        'images/img_banner_default.png'),
-                                  )),
-                      ],
-                    ),
-                  )
-                ],
-              )),
-        ),
-      ),
-      onTap: () {
-        _viewDetail(i);
-      },
-    );
-  }
-
-  void _viewDetail(int position) {
-    Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
-      return new ArticleDetailPage(_articleList[position].id);
-    }));
+    return new ArticleItemWidget(context, _articleList[i]);
   }
 
   Future _getArticles() async {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/business/article/list/ArcitleListPage.dart';
+import 'package:myapp/business/article/list/ArticleListScreen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -7,7 +7,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class HomeScreenState extends State<HomeScreen> {
-  ArticleListPage _article = new ArticleListPage();
+  ArticleListScreen _article = new ArticleListScreen();
 
   @override
   Widget build(BuildContext context) {

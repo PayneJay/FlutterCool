@@ -1,64 +1,64 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:myapp/business/site/SiteDetailScreen.dart';
 import 'package:myapp/http/Http.dart';
 import 'package:myapp/http/InterfaceService.dart';
-import 'package:myapp/models/topicDirs.dart';
-import 'package:myapp/models/topicGroup.dart';
-import 'package:myapp/models/topicChild.dart';
+import 'package:myapp/models/siteDirs.dart';
+import 'package:myapp/models/siteGroup.dart';
+import 'package:myapp/models/siteChild.dart';
 import 'package:transparent_image/transparent_image.dart';
 
-class ThemePage extends StatefulWidget {
+class SiteListWidget extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => ThemePageState();
+  State<StatefulWidget> createState() => SiteListWidgetState();
 }
 
-class ThemePageState extends State<ThemePage> {
-  List<TopicGroup> _topicGroup = List();
+class SiteListWidgetState extends State<SiteListWidget> {
+  List<SiteGroup> _siteGroup = List();
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return new ListView.builder(
       itemBuilder: (BuildContext context, int index) =>
-          new GroupItem(_topicGroup[index]),
-      itemCount: _topicGroup.length,
+          new GroupItem(_siteGroup[index], context),
+      itemCount: _siteGroup.length,
     );
   }
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    _getTopicDirs();
+    _getSiteDirs();
   }
 
-  void _getTopicDirs() async {
-    await dio.get(topicDirUrl).then((response) {
+  void _getSiteDirs() async {
+    await dio.get(siteDirUrl).then((response) {
       setState(() {
-        TopicDirs topicDirs =
-            new TopicDirs.fromJson(json.decode(response.toString()));
-        _topicGroup = topicDirs.items;
+        SiteDirs siteDirs =
+            new SiteDirs.fromJson(json.decode(response.toString()));
+        _siteGroup = siteDirs.items;
       });
     });
   }
 }
 
 class GroupItem extends StatelessWidget {
-  const GroupItem(this.group);
+  const GroupItem(this.group, this._context);
 
-  final TopicGroup group;
+  final BuildContext _context;
+  final SiteGroup group;
 
-  Widget _buildGroupTiles(TopicGroup group) {
+  Widget _buildGroupTiles(SiteGroup group) {
     if (group.items.isEmpty) return new ListTile(title: new Text(group.name));
     return new ExpansionTile(
-      key: new PageStorageKey<TopicGroup>(group),
+      key: new PageStorageKey<SiteGroup>(group),
       title: new Text(group.name),
       children: group.items.map(_buildChildTiles).toList(),
     );
   }
 
-  Widget _buildChildTiles(TopicChild child) {
+  Widget _buildChildTiles(SiteChild child) {
     if (child == null) return new ListTile(title: new Text('must not be null'));
     return new Padding(
       padding: const EdgeInsets.only(left: 10),
@@ -80,6 +80,9 @@ class GroupItem extends StatelessWidget {
             )
           ],
         ),
+        onTap: () {
+          _goSiteDetail(child);
+        },
       ),
     );
   }
@@ -87,5 +90,11 @@ class GroupItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return _buildGroupTiles(group);
+  }
+
+  void _goSiteDetail(SiteChild child) {
+    Navigator.of(_context).push(new MaterialPageRoute(builder: (context) {
+      return new SiteDetailScreen(child.id);
+    }));
   }
 }

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'SearchResult.dart';
+import 'SearchResultWidget.dart';
 
-class SearchPage extends StatefulWidget {
+class SearchScreen extends StatefulWidget {
   @override
-  SearchPageState createState() => new SearchPageState();
+  SearchScreenState createState() => new SearchScreenState();
 }
 
-class SearchPageState extends State<SearchPage> {
+class SearchScreenState extends State<SearchScreen> {
   String _inputText = "";
   bool _hasDeleteIcon = false;
 
@@ -26,7 +26,7 @@ class SearchPageState extends State<SearchPage> {
           child: _buildTextField(_controller),
         ),
       ),
-      body: new SearchResult(),
+      body: new SearchResultWidget(),
     );
   }
 
