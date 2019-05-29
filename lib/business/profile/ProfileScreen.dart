@@ -1,6 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:myapp/widget/RatingPage.dart';
-import 'package:myapp/business/profile/UserEditPage.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -8,6 +10,8 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class ProfileScreenState extends State<ProfileScreen> {
+  File _image;
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -18,11 +22,19 @@ class ProfileScreenState extends State<ProfileScreen> {
             child: Row(
               children: <Widget>[
                 new GestureDetector(
-                  child: new CircleAvatar(
-                    backgroundImage: new NetworkImage(
-                      "https://p1.ssl.qhimgs1.com/bdr/576__/t0192dd8448f034a631.jpg",
-                    ),
-                  ),
+                  child: Container(
+                      width: 60,
+                      height: 60,
+                      decoration: BoxDecoration(
+                          border:
+                              Border.all(width: 2, color: Colors.pinkAccent),
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                              image: _image == null
+                                  ? NetworkImage(
+                                      'https://pic2.zhimg.com/v2-639b49f2f6578eabddc458b84eb3c6a1.jpg')
+                                  : FileImage(_image),
+                              fit: BoxFit.cover))),
                   onTap: () {
                     _selectAvatar();
                   },
@@ -80,11 +92,56 @@ class ProfileScreenState extends State<ProfileScreen> {
   }
 
   void _selectAvatar() {
-    Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
-      return new UserEditPage();
-    }));
+    _asyncConfirmDialog(context);
+  }
+
+  Future<ConfirmAction> _asyncConfirmDialog(BuildContext context) async {
+    return showDialog<ConfirmAction>(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('设置头像'),
+          actions: <Widget>[
+            FlatButton(
+              child: const Text('相册'),
+              onPressed: () {
+                Navigator.of(context).pop(ConfirmAction.GALLERY);
+                _openGallery();
+              },
+            ),
+            FlatButton(
+              child: const Text('拍照'),
+              onPressed: () {
+                Navigator.of(context).pop(ConfirmAction.CAMERA);
+                _takePhoto();
+              },
+            )
+          ],
+        );
+      },
+    );
+  }
+
+  /*拍照*/
+  Future _takePhoto() async {
+    var image = await ImagePicker.pickImage(source: ImageSource.camera);
+
+    setState(() {
+      _image = image;
+    });
+  }
+
+  /*相册*/
+  _openGallery() async {
+    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      _image = image;
+    });
   }
 }
+
+enum ConfirmAction { GALLERY, CAMERA }
 
 class ListItem {
   const ListItem({this.title, this.id});
