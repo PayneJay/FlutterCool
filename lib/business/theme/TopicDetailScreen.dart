@@ -3,7 +3,6 @@ import 'package:myapp/widget/TopicDetailWidget.dart';
 import 'package:myapp/http/Http.dart';
 import 'package:myapp/models/topicDetail.dart';
 import 'dart:convert';
-import 'package:myapp/business/profile/UserEditScreen.dart';
 
 class TopicDetailScreen extends StatefulWidget {
   final num _id;

@@ -39,10 +39,6 @@ class ArticleDetailScreenState extends State<ArticleDetailScreen> {
             icon: Icon(Icons.comment, color: Colors.white),
             onPressed: _comment,
           ),
-//          new IconButton(
-//            icon: Icon(Icons.more_vert, color: Colors.white),
-//            onPressed: _simplePopup,
-//          )
           _more()
         ],
       ),
@@ -165,8 +161,8 @@ Widget _buildDetail() {
           ),
           Container(
             child: Html(
-              data: _htmlContent,
-              defaultTextStyle: TextStyle(fontSize: 16),
+              data: _htmlContent.trim(),
+              defaultTextStyle: TextStyle(fontSize: 18, height: 1.4),
               padding: const EdgeInsets.only(left: 15, right: 15, bottom: 15),
               linkStyle: const TextStyle(
                 color: Colors.blueAccent,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/widget/EmptyWidget.dart';
 
 class SearchResultWidget extends StatefulWidget {
   @override
@@ -13,12 +14,15 @@ class SearchResultWidgetState extends State<SearchResultWidget> {
       length: choices.length,
       child: new Scaffold(
         appBar: new AppBar(
-          backgroundColor: Colors.white,
+          backgroundColor: Colors.blueAccent,
           bottom: new PreferredSize(
               child: new TabBar(
                 isScrollable: true,
-                unselectedLabelColor: Colors.black54,
-                labelColor: Colors.blueAccent,
+                unselectedLabelColor: Colors.white54,
+                labelColor: Colors.white,
+                labelStyle: new TextStyle(fontSize: 16.0),
+                indicatorColor: Colors.white,
+                indicatorWeight: 2,
                 tabs: choices.map((String tab) {
                   return new Tab(text: tab);
                 }).toList(),
@@ -39,5 +43,5 @@ class SearchResultWidgetState extends State<SearchResultWidget> {
 }
 
 Widget _buildList() {
-  return new Center();
+  return new EmptyWidget();
 }

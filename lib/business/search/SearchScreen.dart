@@ -21,8 +21,11 @@ class SearchScreenState extends State<SearchScreen> {
 
     return Scaffold(
       appBar: AppBar(
+        titleSpacing: 0,
+        elevation: 0,
+        centerTitle: true,
         title: new Container(
-          margin: EdgeInsets.all(5),
+          margin: EdgeInsets.only(top: 5, bottom: 5),
           child: _buildTextField(_controller),
         ),
       ),
@@ -30,33 +33,35 @@ class SearchScreenState extends State<SearchScreen> {
     );
   }
 
-  TextField _buildTextField(TextEditingController _controller) {
-    return new TextField(
-      controller: _controller,
-      autofocus: true,
-      decoration: new InputDecoration(
-          hintText: '请输入文章标题片段',
-          fillColor: Colors.white,
-          filled: true,
-          border: new OutlineInputBorder(
-            //添加边框
-            gapPadding: 10.0,
-            borderRadius: BorderRadius.circular(10.0),
-          ),
-          prefixIcon: new Icon(Icons.search),
-          suffixIcon: _hasDeleteIcon
-              ? new IconButton(
-                  icon: Icon(
-                    Icons.cancel,
-                    color: Colors.grey,
-                  ),
-                  padding: EdgeInsets.all(5),
-                  onPressed: _clearContent)
-              : null,
-          contentPadding: const EdgeInsets.only(right: 0)),
-      keyboardType: TextInputType.text,
-      onChanged: _onInputChanged,
-    );
+  Widget _buildTextField(TextEditingController _controller) {
+    return Container(
+        child: new TextField(
+          controller: _controller,
+          autofocus: true,
+          decoration: new InputDecoration(
+              hintText: '请输入文章标题片段',
+              fillColor: Colors.white,
+              filled: true,
+              border: new OutlineInputBorder(
+                //添加边框
+                gapPadding: 10.0,
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              prefixIcon: new Icon(Icons.search),
+              suffixIcon: _hasDeleteIcon
+                  ? new IconButton(
+                      icon: Icon(
+                        Icons.cancel,
+                        color: Colors.grey,
+                      ),
+                      padding: EdgeInsets.all(5),
+                      onPressed: _clearContent)
+                  : null,
+              contentPadding: const EdgeInsets.only(right: 0)),
+          keyboardType: TextInputType.text,
+          onChanged: _onInputChanged,
+        ),
+        margin: const EdgeInsets.only(right: 40));
   }
 
   void _clearContent() {

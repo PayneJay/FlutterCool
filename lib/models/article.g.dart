@@ -23,7 +23,7 @@ Article _$ArticleFromJson(Map<String, dynamic> json) {
     ..img = json['img'] as String
     ..topics = (json['topics'] as List)
         ?.map((e) =>
-            e == null ? null : Topics.fromJson(e as Map<String, dynamic>))
+            e == null ? null : TopicChild.fromJson(e as Map<String, dynamic>))
         ?.toList();
 }
 

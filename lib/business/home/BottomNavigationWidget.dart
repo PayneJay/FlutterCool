@@ -19,7 +19,7 @@ class BottomNavigationWidgetState extends State<BottomNavigationWidget> {
     Icons.home,
     Icons.cast_connected,
     Icons.assessment,
-    Icons.new_releases,
+    Icons.find_in_page,
     Icons.account_box
   ];
 
@@ -41,23 +41,7 @@ class BottomNavigationWidgetState extends State<BottomNavigationWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        title: Text(titles[_currentIndex]),
-        centerTitle: true,
-        actions: <Widget>[_showPopupMenu()],
-        leading: Builder(
-          builder: (BuildContext context) {
-            return IconButton(
-              icon: const Icon(Icons.search),
-              onPressed: () {
-                _goSearch();
-              },
-              tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
-            );
-          },
-        ), // 左侧返回按钮，可以有按钮，可以有文字
-      ),
+      appBar: buildAppBar(),
       body: IndexedStack(
         index: _currentIndex,
         children: pages,
@@ -78,6 +62,41 @@ class BottomNavigationWidgetState extends State<BottomNavigationWidget> {
         },
       ),
     );
+  }
+
+  AppBar buildAppBar() {
+    switch (_currentIndex) {
+      case 0:
+      case 1:
+      case 2:
+        return AppBar(
+            elevation: _currentIndex == 0 ? 0 : 5,
+            title: Text(titles[_currentIndex]),
+            actions: <Widget>[
+              IconButton(
+                icon: const Icon(Icons.search),
+                onPressed: () {
+                  _goSearch();
+                },
+              ),
+              _showPopupMenu()
+            ]);
+      case 3:
+        return null;
+      case 4:
+        return AppBar(
+            elevation: 5,
+            title: Text(titles[_currentIndex]),
+            actions: <Widget>[
+              IconButton(
+                icon: const Icon(Icons.settings),
+                onPressed: () {
+                  _goSearch();
+                },
+              )
+            ]);
+    }
+    return AppBar();
   }
 
   void _goSearch() {

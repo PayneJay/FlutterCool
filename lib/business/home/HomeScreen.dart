@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/business/article/list/ArticleListScreen.dart';
+import 'package:myapp/business/article/list/ArticleTabBarWidget.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -7,12 +7,11 @@ class HomeScreen extends StatefulWidget {
 }
 
 class HomeScreenState extends State<HomeScreen> {
-  ArticleListScreen _article = new ArticleListScreen();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _article,
+      body: new ArticleTabBarWidget(),
     );
   }
 }

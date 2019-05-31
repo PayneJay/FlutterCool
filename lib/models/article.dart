@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import "images.dart";
-import "topics.dart";
+import "topicChild.dart";
 part 'article.g.dart';
 
 @JsonSerializable()
@@ -17,7 +17,7 @@ class Article {
     num cmt;
     num lang;
     String img;
-    List<Topics> topics;
+    List<TopicChild> topics;
     
     factory Article.fromJson(Map<String,dynamic> json) => _$ArticleFromJson(json);
     Map<String, dynamic> toJson() => _$ArticleToJson(this);
