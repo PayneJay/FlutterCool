@@ -58,20 +58,27 @@ class MagazineWidgetState extends State<MagazineWidget> {
     if (group == null) return new ListTile(title: new Text('must not be null'));
     return Column(
       children: <Widget>[
-        ListTile(
-          title: Text(group.name,
-              style: TextStyle(fontSize: 16, color: Colors.blueAccent)),
+        GestureDetector(
+          child: Container(
+              width: MediaQuery.of(context).size.width,
+              padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
+              color: Color(0x11000000),
+              child: Text(group.name,
+                  style: TextStyle(fontSize: 16, color: Colors.blueAccent))),
           onTap: () {
             _goPeriodList(group);
           },
         ),
-        ListView.builder(
-            itemCount: group.items.length,
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemBuilder: (context, i) {
-              return PeriodItemWidget(group.items[i]);
-            })
+        Container(
+          child: ListView.builder(
+              itemCount: group.items.length,
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemBuilder: (context, i) {
+                return PeriodItemWidget(group.items[i]);
+              }),
+          margin: const EdgeInsets.only(top: 10),
+        )
       ],
     );
   }

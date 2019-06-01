@@ -11,7 +11,7 @@ class PeriodItemWidget extends StatelessWidget {
     return Column(
       children: <Widget>[
         Padding(
-            padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
+            padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
             child: Row(
               children: <Widget>[
                 Text(

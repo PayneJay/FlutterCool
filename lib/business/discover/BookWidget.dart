@@ -58,9 +58,14 @@ class BookWidgetState extends State<BookWidget> {
     if (group == null) return new ListTile(title: new Text('must not be null'));
     return Column(
       children: <Widget>[
-        ListTile(
-          title: Text(group.tagName,
-              style: TextStyle(fontSize: 16, color: Colors.blueAccent)),
+        GestureDetector(
+          child: Container(
+            child: Text(group.tagName,
+                style: TextStyle(fontSize: 16, color: Colors.blueAccent)),
+            padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
+            color: Color(0x11000000),
+            width: MediaQuery.of(context).size.width,
+          ),
           onTap: () {
             _goBookList(group);
           },
