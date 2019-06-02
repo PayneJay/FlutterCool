@@ -65,7 +65,7 @@ class PeriodListScreenState extends State<PeriodListScreen> {
     return ListView.builder(
         itemCount: periodList.length,
         itemBuilder: (context, i) {
-          return PeriodItemWidget(periodList[i]);
+          return PeriodItemWidget(periodList[i], context);
         });
   }
 

@@ -7,7 +7,8 @@ import 'package:myapp/http/InterfaceService.dart';
 import 'dart:convert';
 import 'package:myapp/models/bookDirs.dart';
 import 'package:myapp/models/bookGroup.dart';
-import 'package:myapp/business/discover/BookTagScreen.dart';
+import 'package:myapp/business/discover/book/BookTagScreen.dart';
+import 'package:myapp/widget/BookItemWidget.dart';
 
 class BookWidget extends StatefulWidget {
   @override
@@ -35,7 +36,7 @@ class BookWidgetState extends State<BookWidget> {
           itemBuilder: (context, i) {
             return _bookGroup.length == 0
                 ? EmptyWidget()
-                : _buildChildTiles(_bookGroup[i]);
+                : _buildExpandTiles(_bookGroup[i]);
           }),
       onRefresh: _getBookDir,
       autoLoad: true,
@@ -54,21 +55,28 @@ class BookWidgetState extends State<BookWidget> {
     });
   }
 
-  Widget _buildChildTiles(BookGroup group) {
+  Widget _buildExpandTiles(BookGroup group) {
     if (group == null) return new ListTile(title: new Text('must not be null'));
     return Column(
       children: <Widget>[
-        GestureDetector(
-          child: Container(
-            child: Text(group.tagName,
-                style: TextStyle(fontSize: 16, color: Colors.blueAccent)),
-            padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
-            color: Color(0x11000000),
-            width: MediaQuery.of(context).size.width,
+        Container(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Text(group.tagName,
+                  style: TextStyle(fontSize: 16, color: Colors.blueAccent)),
+              GestureDetector(
+                child: Text('更多',
+                    style: TextStyle(fontSize: 16, color: Colors.black45)),
+                onTap: () {
+                  _goBookList(group);
+                },
+              )
+            ],
           ),
-          onTap: () {
-            _goBookList(group);
-          },
+          padding: const EdgeInsets.fromLTRB(15, 10, 10, 10),
+          color: Color(0x11000000),
+          width: MediaQuery.of(context).size.width,
         ),
         GridView.builder(
             shrinkWrap: true,
@@ -79,27 +87,11 @@ class BookWidgetState extends State<BookWidget> {
             ),
             itemCount: group.books.length,
             itemBuilder: (context, index) {
-              return GestureDetector(
-                  child: Column(
-                    children: <Widget>[
-                      Image(image: NetworkImage(group.books[index].thumb)),
-                      Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: Text(group.books[index].title,
-                              style: TextStyle(fontSize: 16),
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis))
-                    ],
-                  ),
-                  onTap: () {
-                    _goBookSale();
-                  });
+              return BookItemWidget(group.books[index], context);
             })
       ],
     );
   }
-
-  void _goBookSale() {}
 
   void _goBookList(BookGroup group) {
     Navigator.of(context).push(new MaterialPageRoute(builder: (context) {

@@ -26,46 +26,42 @@ class ArticleItemWidget extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         new Container(
-                          padding: const EdgeInsets.fromLTRB(0, 0, 5, 5),
-                          child: new Text(_articles.title,
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              softWrap: true,
-                              style: new TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 16)),
-                        ),
+                            padding: const EdgeInsets.fromLTRB(0, 0, 5, 5),
+                            child: new Text(_articles.title,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                softWrap: true,
+                                style: new TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16))),
                         new Container(
-                          child: new Text(
-                              _articles.feed_title + "  " + _articles.rectime,
-                              style: new TextStyle(
-                                color: Colors.grey[500],
-                              )),
-                        )
+                            child: new Text(
+                                _articles.feed_title + "  " + _articles.rectime,
+                                style: new TextStyle(color: Colors.grey[500])))
                       ],
                     ),
                   ),
                   new Container(
-                    width: 120,
-                    height: 80,
-                    child: Stack(
-                      children: <Widget>[
-                        Center(
-                            child: _articles.img.isNotEmpty
-                                ? new Material(
-                                    child: FadeInImage.memoryNetwork(
-                                      image: _articles.img,
-                                      placeholder: kTransparentImage /* 透明图片 */,
-                                    ),
-                                    borderRadius: BorderRadius.all(
-                                        new Radius.circular(5)),
-                                  )
-                                : Image(
-                                    image: AssetImage(
-                                        'images/img_banner_default.png'),
-                                  )),
-                      ],
-                    ),
-                  )
+                      width: 120,
+                      height: 80,
+                      child: Stack(
+                        children: <Widget>[
+                          Center(
+                              child: _articles.img.isNotEmpty
+                                  ? new Material(
+                                      child: FadeInImage.memoryNetwork(
+                                        image: _articles.img,
+                                        placeholder:
+                                            kTransparentImage /* 透明图片 */,
+                                      ),
+                                      borderRadius: BorderRadius.all(
+                                          new Radius.circular(5)))
+                                  : Image(
+                                      image: AssetImage(
+                                          'images/img_banner_default.png'),
+                                    ))
+                        ],
+                      ))
                 ],
               )),
         ),

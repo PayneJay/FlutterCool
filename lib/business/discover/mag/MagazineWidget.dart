@@ -7,7 +7,7 @@ import 'package:myapp/http/InterfaceService.dart';
 import 'dart:convert';
 import 'package:myapp/models/magDirs.dart';
 import 'package:myapp/models/magGroup.dart';
-import 'package:myapp/business/discover/PeriodListScreen.dart';
+import 'package:myapp/business/discover/mag/PeriodListScreen.dart';
 import 'package:myapp/widget/PeriodItemWidget.dart';
 
 class MagazineWidget extends StatefulWidget {
@@ -36,7 +36,7 @@ class MagazineWidgetState extends State<MagazineWidget> {
           itemBuilder: (context, i) {
             return _magGroup.length == 0
                 ? EmptyWidget()
-                : _buildChildTiles(_magGroup[i]);
+                : _buildExpandTiles(_magGroup[i]);
           }),
       onRefresh: _getMagDir,
       autoLoad: true,
@@ -54,28 +54,35 @@ class MagazineWidgetState extends State<MagazineWidget> {
     });
   }
 
-  Widget _buildChildTiles(MagGroup group) {
+  Widget _buildExpandTiles(MagGroup group) {
     if (group == null) return new ListTile(title: new Text('must not be null'));
     return Column(
       children: <Widget>[
-        GestureDetector(
-          child: Container(
-              width: MediaQuery.of(context).size.width,
-              padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
-              color: Color(0x11000000),
-              child: Text(group.name,
-                  style: TextStyle(fontSize: 16, color: Colors.blueAccent))),
-          onTap: () {
-            _goPeriodList(group);
-          },
-        ),
+        Container(
+            width: MediaQuery.of(context).size.width,
+            padding: const EdgeInsets.fromLTRB(15, 10, 10, 10),
+            color: Color(0x11000000),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(group.name,
+                    style: TextStyle(fontSize: 16, color: Colors.blueAccent)),
+                GestureDetector(
+                  child: Text('更多',
+                      style: TextStyle(fontSize: 16, color: Colors.black45)),
+                  onTap: () {
+                    _goPeriodList(group);
+                  },
+                )
+              ],
+            )),
         Container(
           child: ListView.builder(
               itemCount: group.items.length,
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
               itemBuilder: (context, i) {
-                return PeriodItemWidget(group.items[i]);
+                return PeriodItemWidget(group.items[i], context);
               }),
           margin: const EdgeInsets.only(top: 10),
         )

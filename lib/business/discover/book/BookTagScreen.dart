@@ -8,6 +8,7 @@ import 'dart:convert';
 import 'package:myapp/models/bookList.dart';
 import 'package:myapp/models/bookGroup.dart';
 import 'package:myapp/models/bookChild.dart';
+import 'package:myapp/widget/BookItemWidget.dart';
 
 class BookTagScreen extends StatefulWidget {
   final BookGroup _bookGroup;
@@ -90,25 +91,9 @@ class BookTagScreenState extends State<BookTagScreen> {
             ),
             itemCount: list.length,
             itemBuilder: (context, index) {
-              return GestureDetector(
-                  child: Column(
-                    children: <Widget>[
-                      Image(image: NetworkImage(list[index].thumb)),
-                      Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: Text(list[index].title,
-                              style: TextStyle(fontSize: 16),
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis))
-                    ],
-                  ),
-                  onTap: () {
-                    _goBookSale();
-                  });
+              return BookItemWidget(list[index], context);
             }));
   }
-
-  void _goBookSale() {}
 
   Future<void> _onRefresh() {
     _currentPage = 0;

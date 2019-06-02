@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/business/discover/MagazineWidget.dart';
-import 'package:myapp/business/discover/BookWidget.dart';
+import 'package:myapp/business/discover/mag/MagazineWidget.dart';
+import 'package:myapp/business/discover/book/BookWidget.dart';
 import 'package:myapp/business/search/SearchScreen.dart';
 
 class DiscoverScreen extends StatefulWidget {

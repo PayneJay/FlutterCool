@@ -6,3 +6,4 @@ final magazineUrl = "/api/mag/home.json";
 final bookUrl = "/api/books.json";
 final bookTagUrl = "/api/books/tag.json";
 final periodListUrl = "/api/mag/period_list.json";
+final magDetailUrl = "/api/mag/detail.json";
