@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'SearchResultWidget.dart';
 import 'package:myapp/event/EventBus.dart';
 import 'package:myapp/event/SearchEvent.dart';
+import 'package:myapp/event/SearchChangeEvent.dart';
 
 class SearchScreen extends StatefulWidget {
   @override
@@ -11,6 +14,9 @@ class SearchScreen extends StatefulWidget {
 class SearchScreenState extends State<SearchScreen> {
   String _inputText = "";
   bool _hasDeleteIcon = false;
+
+  String _hintText = '请输入文章标题片段';
+  StreamSubscription<SearchChangeEvent> subscription;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +47,7 @@ class SearchScreenState extends State<SearchScreen> {
           controller: _controller,
           autofocus: true,
           decoration: new InputDecoration(
-              hintText: '请输入文章标题片段',
+              hintText: _hintText,
               fillColor: Colors.white,
               filled: true,
               border: new OutlineInputBorder(
@@ -91,5 +97,22 @@ class SearchScreenState extends State<SearchScreen> {
 
   void _goBack() {
     Navigator.pop(context);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    subscription = eventBus.on<SearchChangeEvent>().listen((event) {
+      String tabText = event.tabText ?? '文章';
+      setState(() {
+        _hintText = '请输入$tabText标题片段';
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    subscription.cancel();
   }
 }

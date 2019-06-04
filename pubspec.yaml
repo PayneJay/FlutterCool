@@ -35,11 +35,11 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-#json序列化
+#  json序列化
   json_serializable: ^2.0.2
   build_runner: ^1.0.0
   json_model: ^0.0.2
-#html解析
+#  html解析
   flutter_html: ^0.10.1
 #  Toast
   overlay_support: ^0.3.0

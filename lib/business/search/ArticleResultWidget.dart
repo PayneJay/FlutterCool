@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -34,19 +35,14 @@ class ArticleResultWidgetState extends State<ArticleResultWidget> {
 
   var _hasNext;
 
+  StreamSubscription<SearchEvent> subscription;
+
   String _keyWord;
 
   ArticleResultWidgetState(this._keyWord);
 
   @override
   Widget build(BuildContext context) {
-//    eventBus.on<SearchEvent>().listen((event) {
-//      print('eventBus**********' + event.keyWord);
-//      setState(() {
-//        _keyWord = event.keyWord;
-//      });
-//    });
-
     return EasyRefresh(
         key: _easyRefreshKey,
         behavior: ScrollOverBehavior(),
@@ -100,5 +96,22 @@ class ArticleResultWidgetState extends State<ArticleResultWidget> {
     if (_hasNext) {
       return _searchArticles();
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    subscription = eventBus.on<SearchEvent>().listen((event) {
+      setState(() {
+        _keyWord = event.keyWord;
+        _onRefresh();
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    subscription.cancel();
   }
 }

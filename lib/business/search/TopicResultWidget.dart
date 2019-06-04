@@ -1,8 +1,11 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:myapp/business/theme/TopicDetailScreen.dart';
+import 'package:myapp/event/EventBus.dart';
+import 'package:myapp/event/SearchEvent.dart';
 import 'package:myapp/http/Http.dart';
 import 'package:myapp/http/InterfaceService.dart';
 import 'package:myapp/models/topicSearch.dart';
@@ -16,7 +19,7 @@ class TopicResultWidget extends StatefulWidget {
   TopicResultWidget(this._inputText);
 
   @override
-  State<StatefulWidget> createState() => TopicResultWidgetState();
+  State<StatefulWidget> createState() => TopicResultWidgetState(_inputText);
 }
 
 class TopicResultWidgetState extends State<TopicResultWidget> {
@@ -27,6 +30,12 @@ class TopicResultWidgetState extends State<TopicResultWidget> {
   GlobalKey<RefreshFooterState> _footerKey =
       new GlobalKey<RefreshFooterState>();
   var _topics = new List<TopicChild>();
+
+  StreamSubscription<SearchEvent> subscription;
+
+  String _keyWord;
+
+  TopicResultWidgetState(this._keyWord);
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +57,7 @@ class TopicResultWidgetState extends State<TopicResultWidget> {
           showMore: true,
         ),
         child: _buildListView(),
-        onRefresh: _searchTopics,
+        onRefresh: _onRefresh,
         autoLoad: true,
         firstRefresh: true,
         emptyWidget: new EmptyWidget());
@@ -93,8 +102,8 @@ class TopicResultWidgetState extends State<TopicResultWidget> {
   }
 
   Future _searchTopics() async {
-    await dio.get(topicSearchUrl,
-        queryParameters: {"kw": widget._inputText}).then((response) {
+    await dio.get(topicSearchUrl, queryParameters: {"kw": _keyWord}).then(
+        (response) {
       setState(() {
         TopicSearch result =
             new TopicSearch.fromJson(json.decode(response.toString()));
@@ -106,12 +115,28 @@ class TopicResultWidgetState extends State<TopicResultWidget> {
   @override
   void initState() {
     super.initState();
-    _searchTopics();
+    subscription = eventBus.on<SearchEvent>().listen((event) {
+      setState(() {
+        _keyWord = event.keyWord;
+        _searchTopics();
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    subscription.cancel();
   }
 
   void _onItemClick(TopicChild topic) {
     Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
       return new TopicDetailScreen(topic.id);
     }));
+  }
+
+  Future<void> _onRefresh() async {
+    _topics.clear();
+    return _searchTopics();
   }
 }

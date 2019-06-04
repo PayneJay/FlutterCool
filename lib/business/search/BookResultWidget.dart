@@ -1,7 +1,10 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
+import 'package:myapp/event/EventBus.dart';
+import 'package:myapp/event/SearchEvent.dart';
 import 'package:myapp/http/Http.dart';
 import 'package:myapp/http/InterfaceService.dart';
 import 'package:myapp/models/bookSearch.dart';
@@ -16,7 +19,7 @@ class BookResultWidget extends StatefulWidget {
   BookResultWidget(this._inputText);
 
   @override
-  State<StatefulWidget> createState() => BookResultWidgetState();
+  State<StatefulWidget> createState() => BookResultWidgetState(_inputText);
 }
 
 class BookResultWidgetState extends State<BookResultWidget> {
@@ -32,6 +35,12 @@ class BookResultWidgetState extends State<BookResultWidget> {
   var _currentPage;
 
   bool _hasNext;
+
+  String _keyWord;
+
+  StreamSubscription<SearchEvent> subscription;
+
+  BookResultWidgetState(this._keyWord);
 
   @override
   Widget build(BuildContext context) {
@@ -120,10 +129,8 @@ class BookResultWidgetState extends State<BookResultWidget> {
   }
 
   Future _searchBooks() async {
-    await dio.get(bookSearchUrl, queryParameters: {
-      "kw": widget._inputText,
-      "pn": _currentPage
-    }).then((response) {
+    await dio.get(bookSearchUrl,
+        queryParameters: {"kw": _keyWord, "pn": _currentPage}).then((response) {
       setState(() {
         BookSearch result =
             new BookSearch.fromJson(json.decode(response.toString()));
@@ -136,7 +143,18 @@ class BookResultWidgetState extends State<BookResultWidget> {
   @override
   void initState() {
     super.initState();
-    _searchBooks();
+    subscription = eventBus.on<SearchEvent>().listen((event) {
+      setState(() {
+        _keyWord = event.keyWord;
+        _onRefresh();
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    subscription.cancel();
   }
 
   Future<void> _onRefresh() async {
@@ -147,6 +165,7 @@ class BookResultWidgetState extends State<BookResultWidget> {
 
   Future<void> _loadMore() async {
     if (_hasNext) {
+      _currentPage++;
       return _searchBooks();
     }
     return null;

@@ -1,8 +1,11 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:myapp/business/site/SiteDetailScreen.dart';
+import 'package:myapp/event/EventBus.dart';
+import 'package:myapp/event/SearchEvent.dart';
 import 'package:myapp/http/Http.dart';
 import 'package:myapp/http/InterfaceService.dart';
 import 'package:myapp/models/siteSearch.dart';
@@ -16,7 +19,7 @@ class SiteResultWidget extends StatefulWidget {
   SiteResultWidget(this._inputText);
 
   @override
-  State<StatefulWidget> createState() => SiteResultWidgetState();
+  State<StatefulWidget> createState() => SiteResultWidgetState(_inputText);
 }
 
 class SiteResultWidgetState extends State<SiteResultWidget> {
@@ -27,6 +30,12 @@ class SiteResultWidgetState extends State<SiteResultWidget> {
   GlobalKey<RefreshFooterState> _footerKey =
       new GlobalKey<RefreshFooterState>();
   var _sites = new List<Site>();
+
+  StreamSubscription<SearchEvent> subscription;
+
+  String _keyWord;
+
+  SiteResultWidgetState(this._keyWord);
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +57,7 @@ class SiteResultWidgetState extends State<SiteResultWidget> {
           showMore: true,
         ),
         child: _buildListView(),
-        onRefresh: _searchSites,
+        onRefresh: _onRefresh,
         autoLoad: true,
         firstRefresh: true,
         emptyWidget: new EmptyWidget());
@@ -94,8 +103,8 @@ class SiteResultWidgetState extends State<SiteResultWidget> {
   }
 
   Future _searchSites() async {
-    await dio.get(siteSearchUrl,
-        queryParameters: {"kw": widget._inputText}).then((response) {
+    await dio
+        .get(siteSearchUrl, queryParameters: {"kw": _keyWord}).then((response) {
       setState(() {
         SiteSearch result =
             new SiteSearch.fromJson(json.decode(response.toString()));
@@ -107,7 +116,18 @@ class SiteResultWidgetState extends State<SiteResultWidget> {
   @override
   void initState() {
     super.initState();
-    _searchSites();
+    subscription = eventBus.on<SearchEvent>().listen((event) {
+      setState(() {
+        _keyWord = event.keyWord;
+        _onRefresh();
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    subscription.cancel();
   }
 
   _onButtonClick(Site sit) {}
@@ -116,5 +136,10 @@ class SiteResultWidgetState extends State<SiteResultWidget> {
     Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
       return new SiteDetailScreen(sit.id);
     }));
+  }
+
+  Future<void> _onRefresh() async {
+    _sites.clear();
+    return _searchSites();
   }
 }
