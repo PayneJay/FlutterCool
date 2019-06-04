@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'SearchResultWidget.dart';
+import 'package:myapp/event/EventBus.dart';
+import 'package:myapp/event/SearchEvent.dart';
 
 class SearchScreen extends StatefulWidget {
   @override
@@ -21,7 +23,7 @@ class SearchScreenState extends State<SearchScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        titleSpacing: 0,
+        automaticallyImplyLeading: false,
         elevation: 0,
         centerTitle: true,
         title: new Container(
@@ -29,7 +31,7 @@ class SearchScreenState extends State<SearchScreen> {
           child: _buildTextField(_controller),
         ),
       ),
-      body: new SearchResultWidget(),
+      body: new SearchResultWidget(_inputText),
     );
   }
 
@@ -45,9 +47,10 @@ class SearchScreenState extends State<SearchScreen> {
               border: new OutlineInputBorder(
                 //添加边框
                 gapPadding: 10.0,
-                borderRadius: BorderRadius.circular(10.0),
+                borderRadius: BorderRadius.circular(30.0),
               ),
-              prefixIcon: new Icon(Icons.search),
+              prefixIcon:
+                  IconButton(icon: Icon(Icons.arrow_back), onPressed: _goBack),
               suffixIcon: _hasDeleteIcon
                   ? new IconButton(
                       icon: Icon(
@@ -60,12 +63,12 @@ class SearchScreenState extends State<SearchScreen> {
               contentPadding: const EdgeInsets.only(right: 0)),
           keyboardType: TextInputType.text,
           onChanged: _onInputChanged,
+          onSubmitted: _doSearch,
         ),
-        margin: const EdgeInsets.only(right: 40));
+        margin: const EdgeInsets.only(right: 0));
   }
 
   void _clearContent() {
-    print('清空输入框');
     setState(() {
       _inputText = "";
       _hasDeleteIcon = (_inputText.isNotEmpty);
@@ -73,10 +76,20 @@ class SearchScreenState extends State<SearchScreen> {
   }
 
   void _onInputChanged(String value) {
-    print("输入内容: $value");
     setState(() {
       _inputText = value;
       _hasDeleteIcon = (_inputText.isNotEmpty);
     });
+  }
+
+  void _doSearch(String value) {
+    setState(() {
+      _inputText = value;
+      eventBus.fire(new SearchEvent(value));
+    });
+  }
+
+  void _goBack() {
+    Navigator.pop(context);
   }
 }

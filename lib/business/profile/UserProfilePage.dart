@@ -1,14 +1,15 @@
+import 'package:myapp/widget/ListItem.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyrefresh/easy_refresh.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class UserEditScreen extends StatefulWidget {
+/// 个人中心页面
+class UserProfilePage extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() {
-    return new UserEditScreenState();
-  }
+  _UserProfilePageState createState() => _UserProfilePageState();
 }
 
-class UserEditScreenState extends State<UserEditScreen>
-    with TickerProviderStateMixin {
+class _UserProfilePageState extends State<UserProfilePage> with TickerProviderStateMixin {
   final List<ListItem> listData = [];
 
   @override
@@ -35,18 +36,20 @@ class UserEditScreenState extends State<UserEditScreen>
                     fit: BoxFit.fill,
                   )),
             ),
+
             SliverPersistentHeader(
                 delegate: _SliverAppBarDelegate(
-              TabBar(
-                controller: new TabController(length: 2, vsync: this),
-                labelColor: Colors.black87,
-                unselectedLabelColor: Colors.grey,
-                tabs: [
-                  Tab(icon: Icon(Icons.security), text: "security"),
-                  Tab(icon: Icon(Icons.cake), text: "cake"),
-                ],
-              ),
-            ))
+                  TabBar(
+
+                    controller: new TabController(length: 2, vsync: this),
+                    labelColor: Colors.black87,
+                    unselectedLabelColor: Colors.grey,
+                    tabs: [
+                      Tab(icon: Icon(Icons.security), text: "security"),
+                      Tab(icon: Icon(Icons.cake), text: "cake"),
+                    ],
+                  ),
+                ))
           ];
         },
         body: Center(

@@ -10,12 +10,15 @@ class EmptyWidget extends StatefulWidget {
 class EmptyWidgetState extends State<EmptyWidget> {
   @override
   Widget build(BuildContext context) {
-    return _createEmptyPage();
+    return _createEmptyPage(context);
   }
 }
 
-Widget _createEmptyPage() {
+Widget _createEmptyPage(BuildContext context) {
   return new Container(
+    height: MediaQuery.of(context).size.height -
+        kToolbarHeight -
+        kBottomNavigationBarHeight,
     padding: new EdgeInsets.all(32.0),
     child: new Center(
       child: new Column(

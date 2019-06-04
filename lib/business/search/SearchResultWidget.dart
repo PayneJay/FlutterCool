@@ -1,15 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/widget/EmptyWidget.dart';
+import 'package:myapp/business/search/ArticleResultWidget.dart';
+import 'package:myapp/business/search/TopicResultWidget.dart';
+import 'package:myapp/business/search/SiteResultWidget.dart';
+import 'package:myapp/business/search/BookResultWidget.dart';
 
 class SearchResultWidget extends StatefulWidget {
+  final String _inputText;
+
+  SearchResultWidget(this._inputText);
+
   @override
   SearchResultWidgetState createState() => new SearchResultWidgetState();
 }
 
 class SearchResultWidgetState extends State<SearchResultWidget> {
+  final choices = ['文章', '主题', '站点', '图书'];
+
   @override
   Widget build(BuildContext context) {
-    final choices = ['文章', '主题', '站点'];
     return new DefaultTabController(
       length: choices.length,
       child: new Scaffold(
@@ -33,15 +42,25 @@ class SearchResultWidgetState extends State<SearchResultWidget> {
           children: choices.map((String tab) {
             return new Padding(
               padding: const EdgeInsets.all(0.0),
-              child: _buildList(),
+              child: buildResultList(tab),
             );
           }).toList(),
         ),
       ),
     );
   }
-}
 
-Widget _buildList() {
-  return new EmptyWidget();
+  Widget buildResultList(String tab) {
+    switch (choices.indexOf(tab)) {
+      case 0:
+        return ArticleResultWidget(widget._inputText);
+      case 1:
+        return TopicResultWidget(widget._inputText);
+      case 2:
+        return SiteResultWidget(widget._inputText);
+      case 3:
+        return BookResultWidget(widget._inputText);
+    }
+    return EmptyWidget();
+  }
 }

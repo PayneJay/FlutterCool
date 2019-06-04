@@ -7,3 +7,7 @@ final bookUrl = "/api/books.json";
 final bookTagUrl = "/api/books/tag.json";
 final periodListUrl = "/api/mag/period_list.json";
 final magDetailUrl = "/api/mag/detail.json";
+final articleSearchUrl = "/api/articles/search.json";
+final topicSearchUrl = "/api/topics/search.json";
+final siteSearchUrl = "/api/sites/search.json";
+final bookSearchUrl = "/api/search/book.json";

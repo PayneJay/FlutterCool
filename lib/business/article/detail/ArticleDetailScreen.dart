@@ -128,7 +128,14 @@ _launchURL(String url) async {
   }
 }
 
+Widget _getProgressDialog() {
+  return new Center(child: new CircularProgressIndicator());
+}
+
 Widget _buildDetail() {
+  if (_title.isEmpty) {
+    return _getProgressDialog();
+  }
   return SingleChildScrollView(
     child: new Container(
       child: Column(

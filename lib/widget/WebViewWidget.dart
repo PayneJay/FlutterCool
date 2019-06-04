@@ -4,19 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 
 class WebViewWidget extends StatefulWidget {
-  final String newsUrl;
-  final String title;
+  final String _newsUrl;
+  final String _title;
 
-  WebViewWidget(this.newsUrl, this.title);
+  WebViewWidget(this._newsUrl, this._title);
 
   @override
-  State<StatefulWidget> createState() => new WebViewWidgetState(newsUrl, title);
+  State<StatefulWidget> createState() => new WebViewWidgetState();
 }
 
 class WebViewWidgetState extends State<WebViewWidget> {
-  String newsUrl;
-  String title;
-
   // 标记是否是加载中
   bool loading = true;
 
@@ -32,8 +29,6 @@ class WebViewWidgetState extends State<WebViewWidget> {
 
   // 插件提供的对象，该对象用于WebView的各种操作
   FlutterWebviewPlugin flutterWebViewPlugin = new FlutterWebviewPlugin();
-
-  WebViewWidgetState(this.newsUrl, this.title);
 
   @override
   void initState() {
@@ -66,6 +61,17 @@ class WebViewWidgetState extends State<WebViewWidget> {
           break;
       }
     });
+
+    onUrlChanged = flutterWebViewPlugin.onUrlChanged.listen((String url) {
+      if (mounted) {
+        setState(() {
+          //这里拦截url变化，可以实现点击号码拨号
+          if (url.startsWith('tel:')) {
+            print(url);
+          }
+        });
+      }
+    });
   }
 
   // 解析WebView中的数据
@@ -80,11 +86,12 @@ class WebViewWidgetState extends State<WebViewWidget> {
   Widget build(BuildContext context) {
     // WebviewScaffold是插件提供的组件，用于在页面上显示一个WebView并加载URL
     return new WebviewScaffold(
-      key: scaffoldKey,
-      url: newsUrl,
+//      key: scaffoldKey,
+      url: widget._newsUrl,
       // 登录的URL
       appBar: new AppBar(
-        title: new Text(title,
+        titleSpacing: 0,
+        title: new Text(widget._title,
             maxLines: 1,
             textAlign: TextAlign.end,
             style: new TextStyle(color: Colors.white)),

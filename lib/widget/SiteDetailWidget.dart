@@ -19,8 +19,7 @@ class SiteDetailWidget extends StatelessWidget {
             pinned: true,
             expandedHeight: 200.0,
             flexibleSpace: FlexibleSpaceBar(
-              title:
-                  Text(_siteDetail == null ? 'Flutter' : _siteDetail.site.name),
+              title: Text(_siteDetail == null ? '' : _siteDetail.site.name),
               centerTitle: true,
               background: Image.asset(
                 "./images/img_default.jpg",
@@ -43,6 +42,4 @@ class SiteDetailWidget extends StatelessWidget {
       ),
     );
   }
-
-  void _subscribe() {}
 }

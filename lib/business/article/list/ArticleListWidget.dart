@@ -63,6 +63,7 @@ class ArticleListWidgetState extends State<ArticleListWidget> {
           showMore: true,
         ),
         child: new ListView.builder(
+            itemExtent: 120,
             itemCount: _articleList.length,
             itemBuilder: (context, i) {
               return _buildRow(i);

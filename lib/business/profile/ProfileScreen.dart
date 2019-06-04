@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:myapp/business/profile/UserProfilePage.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -85,7 +86,9 @@ class ProfileScreenState extends State<ProfileScreen> {
   }
 
   _onItemClick(int id) {
-    print('go---------$id');
+    Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
+      return new UserProfilePage();
+    }));
   }
 
   void _selectAvatar() {

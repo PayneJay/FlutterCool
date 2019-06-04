@@ -17,7 +17,7 @@ class ArticleItemWidget extends StatelessWidget {
         child: Card(
           elevation: 3,
           child: Container(
-              padding: const EdgeInsets.all(10),
+              padding: const EdgeInsets.all(15),
               child: new Row(
                 children: <Widget>[
                   new Expanded(
@@ -37,6 +37,8 @@ class ArticleItemWidget extends StatelessWidget {
                         new Container(
                             child: new Text(
                                 _articles.feed_title + "  " + _articles.rectime,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
                                 style: new TextStyle(color: Colors.grey[500])))
                       ],
                     ),
@@ -57,9 +59,9 @@ class ArticleItemWidget extends StatelessWidget {
                                       borderRadius: BorderRadius.all(
                                           new Radius.circular(5)))
                                   : Image(
-                                      image: AssetImage(
-                                          'images/img_banner_default.png'),
-                                    ))
+                                      image:
+                                          AssetImage('images/img_default.jpg'),
+                                      fit: BoxFit.cover))
                         ],
                       ))
                 ],
