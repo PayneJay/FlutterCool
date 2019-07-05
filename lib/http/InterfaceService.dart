@@ -1,5 +1,4 @@
 final articleListUrl = "/api/articles/hot.json";
-final articleDetailUrl = "/api/articles/${0}.json";
 final siteDirUrl = "/api/sites/my_with_dirs.json";
 final topicDirUrl = "/api/topics/my_with_dirs.json";
 final magazineUrl = "/api/mag/home.json";
@@ -11,3 +10,7 @@ final articleSearchUrl = "/api/articles/search.json";
 final topicSearchUrl = "/api/topics/search.json";
 final siteSearchUrl = "/api/sites/search.json";
 final bookSearchUrl = "/api/search/book.json";
+
+String getArticleDetailUrl(String id) {
+  return "/api/articles/$id.json";
+}

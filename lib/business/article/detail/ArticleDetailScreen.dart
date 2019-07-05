@@ -7,6 +7,7 @@ import 'dart:convert';
 import 'package:html/parser.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:overlay_support/overlay_support.dart';
+import 'package:myapp/http/InterfaceService.dart';
 
 class ArticleDetailScreen extends StatefulWidget {
   final String _id;
@@ -52,9 +53,8 @@ class ArticleDetailScreenState extends State<ArticleDetailScreen> {
     super.initState();
   }
 
-//"https://api.tuicool.com/api/articles/$_articleId.json?is_pad=1&need_image_meta=1"
   void _getArticleDetail() async {
-    await dio.get("/api/articles/$_articleId.json",
+    await dio.get(getArticleDetailUrl(_articleId),
         queryParameters: {"is_pad": 1, "need_image_meta": 1}).then((response) {
       setState(() {
         ArticleDetail articleDetail =
