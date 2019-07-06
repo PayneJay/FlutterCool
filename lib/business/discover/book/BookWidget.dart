@@ -83,11 +83,13 @@ class BookWidgetState extends State<BookWidget> {
             physics: NeverScrollableScrollPhysics(),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3, //每行三列
-              childAspectRatio: 0.674,
+              childAspectRatio: 0.6,
             ),
             itemCount: group.books.length,
             itemBuilder: (context, index) {
-              return BookItemWidget(group.books[index], context);
+              return Padding(
+                  padding: const EdgeInsets.only(top: 15),
+                  child: BookItemWidget(group.books[index], context));
             })
       ],
     );

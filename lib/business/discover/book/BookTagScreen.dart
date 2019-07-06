@@ -87,11 +87,13 @@ class BookTagScreenState extends State<BookTagScreen> {
             physics: NeverScrollableScrollPhysics(),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3, //每行三列
-              childAspectRatio: 0.647,
+              childAspectRatio: 0.6,
             ),
             itemCount: list.length,
             itemBuilder: (context, index) {
-              return BookItemWidget(list[index], context);
+              return Padding(
+                  padding: const EdgeInsets.only(top: 15),
+                  child: BookItemWidget(list[index], context));
             }));
   }
 
