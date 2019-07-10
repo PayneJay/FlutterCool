@@ -53,6 +53,9 @@ dev_dependencies:
   event_bus: ^1.1.0
 #  微信分享
   fluwx: ^1.0.3
+#  字体
+  font_awesome_flutter: ^8.4.0
+
 
 
 
@@ -77,6 +80,20 @@ flutter:
     - images/icon_socialize_sina.png
     - images/icon_socialize_wechat.png
     - images/icon_socialize_wxcircle.png
+    - images/login_logo.png
+
+  fonts:
+      - family: WorkSansSemiBold
+        fonts:
+          - asset: fonts/Work_Sans/WorkSans-SemiBold.ttf
+
+      - family: WorkSansBold
+        fonts:
+          - asset: fonts/Work_Sans/WorkSans-Bold.ttf
+
+      - family: WorkSansMedium
+        fonts:
+          - asset: fonts/Work_Sans/WorkSans-Medium.ttf
 
 
   # To add assets to your application, add an assets section, like this:

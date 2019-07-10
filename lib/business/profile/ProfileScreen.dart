@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:myapp/business/login/LoginPage.dart';
 import 'package:myapp/business/profile/ExamplePage.dart';
 
 import 'UserProfilePage.dart';
@@ -93,7 +94,7 @@ class ProfileScreenState extends State<ProfileScreen> {
 
   _goUserProfile() {
     Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
-      return new UserProfilePage();
+      return new LoginPage();
     }));
   }
 }
