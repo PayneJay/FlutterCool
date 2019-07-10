@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/share/SharePanel.dart';
+import 'package:myapp/widget/LoadingDialog.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:myapp/share/ShareApp.dart';
 import 'package:myapp/http/Http.dart';
 import 'package:myapp/models/articleDetail.dart';
 import 'dart:convert';
@@ -63,7 +64,8 @@ class ArticleDetailScreenState extends State<ArticleDetailScreen> {
         _title = article.title;
         _time = article.time;
         _feedTitle = article.feed_title;
-//        _url = article.url;
+        _url = article.url;
+//        _imageUrl = article.images[0].src;
         _htmlContent = parse(article.content).outerHtml;
       });
     });
@@ -74,15 +76,18 @@ BuildContext _context;
 String _title = '';
 String _time = '';
 String _feedTitle = '';
-//String _url;
+String _url;
+String _imageUrl = 'https://yijiangaitu.com/static/20190709/20190709142225.61e38b0a10740205cbc09474c0ee5806.png';
 String _htmlContent = '';
 OverlayEntry overlayEntry;
 
 //分享
 _share() {
-  Navigator.of(_context).push(new MaterialPageRoute(builder: (context) {
-    return new ShareApp();
-  }));
+  showModalBottomSheet(
+      context: _context,
+      builder: (BuildContext context) {
+        return SharePanel(_url, _title, _feedTitle, _imageUrl);
+      });
 }
 
 //评论
@@ -129,7 +134,10 @@ _launchURL(String url) async {
 }
 
 Widget _getProgressDialog() {
-  return new Center(child: new CircularProgressIndicator());
+  return new LoadingDialog(
+    //调用对话框
+    text: '正在获取详情...',
+  );
 }
 
 Widget _buildDetail() {

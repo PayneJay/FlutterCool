@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluwx/fluwx.dart' as fluwx;
 import 'package:myapp/business/home/BottomNavigationWidget.dart';
 
 void main() => runApp(new MaterialApp(
@@ -15,7 +16,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    // final wordPair = new WordPair.random();  // 删除此行
+    _register();
     return new MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Welcome to Flutter',
@@ -35,5 +36,10 @@ class _MyAppState extends State<MyApp> {
       });
       return new Future.value(false);
     }
+  }
+
+  _register() async {
+//  注册
+    fluwx.register(appId: "wx974682567cca6ff8");
   }
 }

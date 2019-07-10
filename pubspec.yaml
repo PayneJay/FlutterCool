@@ -22,13 +22,15 @@ dependencies:
   english_words: ^3.1.0
   #  链接跳转
   url_launcher: ^5.0.2
-  sy_flutter_wechat: ^0.2.2
+#  sy_flutter_wechat: ^0.2.2
   pull_to_refresh: ^1.1.6
 #  网络库
   dio: ^2.0.10
   json_annotation: ^2.1.1
   transparent_image: ^0.1.0
+#  下拉刷新
   flutter_easyrefresh: ^1.2.7
+
 
 
 dev_dependencies:
@@ -49,6 +51,8 @@ dev_dependencies:
   flutter_webview_plugin: ^0.3.5
 #  EventBus消息通知
   event_bus: ^1.1.0
+#  微信分享
+  fluwx: ^1.0.3
 
 
 
@@ -67,6 +71,12 @@ flutter:
     - images/icon_empty.png
     - images/img_banner_default.png
     - images/img_default.jpg
+    - images/icon_socialize_fav.png
+    - images/icon_socialize_qq.png
+    - images/icon_socialize_qzone.png
+    - images/icon_socialize_sina.png
+    - images/icon_socialize_wechat.png
+    - images/icon_socialize_wxcircle.png
 
 
   # To add assets to your application, add an assets section, like this:
