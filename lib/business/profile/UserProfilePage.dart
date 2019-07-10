@@ -1,115 +1,181 @@
-import 'package:myapp/widget/ListItem.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_easyrefresh/easy_refresh.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'dart:io';
 
-/// 个人中心页面
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+
 class UserProfilePage extends StatefulWidget {
   @override
-  _UserProfilePageState createState() => _UserProfilePageState();
+  State<StatefulWidget> createState() => new UserProfileState();
 }
 
-class _UserProfilePageState extends State<UserProfilePage> with TickerProviderStateMixin {
-  final List<ListItem> listData = [];
+class UserProfileState extends State<UserProfilePage> {
+  File _image;
 
   @override
   Widget build(BuildContext context) {
-    for (int i = 0; i < 20; i++) {
-      listData.add(new ListItem("我是测试标题$i", Icons.cake));
-    }
-    return Scaffold(
-      body: NestedScrollView(
-        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-          return <Widget>[
-            SliverAppBar(
-              expandedHeight: 200.0,
-              pinned: true,
-              flexibleSpace: FlexibleSpaceBar(
-                  centerTitle: true,
-                  title: Text("我是一个帅气的标题",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16.0,
-                      )),
-                  background: Image.network(
-                    "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1531798262708&di=53d278a8427f482c5b836fa0e057f4ea&imgtype=0&src=http%3A%2F%2Fh.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F342ac65c103853434cc02dda9f13b07eca80883a.jpg",
-                    fit: BoxFit.fill,
-                  )),
-            ),
-
-            SliverPersistentHeader(
-                delegate: _SliverAppBarDelegate(
-                  TabBar(
-
-                    controller: new TabController(length: 2, vsync: this),
-                    labelColor: Colors.black87,
-                    unselectedLabelColor: Colors.grey,
-                    tabs: [
-                      Tab(icon: Icon(Icons.security), text: "security"),
-                      Tab(icon: Icon(Icons.cake), text: "cake"),
-                    ],
-                  ),
-                ))
-          ];
-        },
-        body: Center(
-          child: new ListView.builder(
-            itemBuilder: (BuildContext context, int index) {
-              return new ListItemWidget(listData[index]);
-            },
-            itemCount: listData.length,
+    return new Scaffold(
+      appBar: AppBar(title: Text('编辑信息'), actions: <Widget>[
+        IconButton(icon: Icon(Icons.power_settings_new), onPressed: _logOut)
+      ]),
+      body: SingleChildScrollView(
+        padding: EdgeInsets.only(top: 16.0),
+        child: Center(
+          child: Column(
+            //动态创建一个List<Widget>
+            children: items.map((item) => getItemWidget(item)).toList(),
           ),
         ),
       ),
     );
   }
-}
 
-class ListItem {
-  final String title;
-  final IconData iconData;
+  Widget getItemWidget(ProfileItem item) {
+    if (item.key == 0) {
+      return Column(
+        children: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              new Padding(
+                padding: const EdgeInsets.only(left: 15),
+                child: new Text(
+                  item.label,
+                  style: new TextStyle(fontSize: 18, color: Colors.black),
+                ),
+              ),
+              GestureDetector(
+                child: Container(
+                    width: 60,
+                    height: 60,
+                    margin: const EdgeInsets.only(right: 15),
+                    decoration: BoxDecoration(
+                        border: Border.all(width: 2, color: Colors.pinkAccent),
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                            image: _image == null
+                                ? NetworkImage(item.value)
+                                : FileImage(_image),
+                            fit: BoxFit.cover))),
+                onTap: () {
+                  _selectAvatar();
+                },
+              )
+            ],
+          ),
+          Divider(
+            color: Colors.black12,
+          )
+        ],
+      );
+    }
 
-  ListItem(this.title, this.iconData);
-}
-
-class ListItemWidget extends StatelessWidget {
-  final ListItem listItem;
-
-  ListItemWidget(this.listItem);
-
-  @override
-  Widget build(BuildContext context) {
-    return new InkWell(
-      child: new ListTile(
-        leading: new Icon(listItem.iconData),
-        title: new Text(listItem.title),
-      ),
-      onTap: () {},
+    return Column(
+      children: <Widget>[
+        Padding(
+            padding: const EdgeInsets.fromLTRB(15, 5, 10, 5),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(
+                  item.label,
+                  style: TextStyle(fontSize: 16),
+                ),
+                GestureDetector(
+                    child: Text(
+                      item.value,
+                      style: TextStyle(fontSize: 16, color: Colors.black45),
+                    ),
+                    onTap: () {
+                      _onItemClick(item);
+                    })
+              ],
+            )),
+        Divider(
+          color: Colors.black12,
+        )
+      ],
     );
   }
-}
 
-class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
-  _SliverAppBarDelegate(this._tabBar);
+  void _onItemClick(ProfileItem item) {
+    switch (item.key) {
+      case 0:
+        _selectAvatar();
+        break;
+    }
+  }
 
-  final TabBar _tabBar;
+  void _selectAvatar() {
+    _asyncConfirmDialog(context);
+  }
 
-  @override
-  double get minExtent => _tabBar.preferredSize.height;
-
-  @override
-  double get maxExtent => _tabBar.preferredSize.height;
-
-  @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return new Container(
-      child: _tabBar,
+  Future<ConfirmAction> _asyncConfirmDialog(BuildContext context) async {
+    return showDialog<ConfirmAction>(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('设置头像'),
+          actions: <Widget>[
+            FlatButton(
+              child: const Text('相册'),
+              onPressed: () {
+                Navigator.of(context).pop(ConfirmAction.GALLERY);
+                _openGallery();
+              },
+            ),
+            FlatButton(
+              child: const Text('拍照'),
+              onPressed: () {
+                Navigator.of(context).pop(ConfirmAction.CAMERA);
+                _takePhoto();
+              },
+            )
+          ],
+        );
+      },
     );
   }
 
-  @override
-  bool shouldRebuild(_SliverAppBarDelegate oldDelegate) {
-    return false;
+  /*拍照*/
+  Future _takePhoto() async {
+    var image = await ImagePicker.pickImage(source: ImageSource.camera);
+
+    setState(() {
+      _image = image;
+    });
+  }
+
+  /*相册*/
+  _openGallery() async {
+    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      _image = image;
+    });
   }
 }
+
+void _logOut() {}
+
+enum ConfirmAction { GALLERY, CAMERA }
+
+class ProfileItem {
+  const ProfileItem({this.label, this.value, this.key});
+
+  final String label;
+  final String value;
+  final int key;
+}
+
+const List<ProfileItem> items = const <ProfileItem>[
+  const ProfileItem(
+      label: '头像',
+      value: 'https://pic2.zhimg.com/v2-639b49f2f6578eabddc458b84eb3c6a1.jpg',
+      key: 0),
+  const ProfileItem(label: '用户名', value: 'Flutter', key: 1),
+  const ProfileItem(label: '登录邮箱', value: 'developerBoy@163.com', key: 2),
+  const ProfileItem(label: '密码', value: '', key: 3),
+  const ProfileItem(label: '微博', value: '', key: 4),
+  const ProfileItem(label: 'QQ', value: '', key: 5),
+  const ProfileItem(label: '微信', value: '', key: 6)
+];

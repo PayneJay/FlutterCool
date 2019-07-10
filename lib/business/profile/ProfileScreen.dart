@@ -1,8 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:myapp/business/profile/UserProfilePage.dart';
+import 'package:myapp/business/profile/ExamplePage.dart';
+
+import 'UserProfilePage.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -17,38 +18,37 @@ class ProfileScreenState extends State<ProfileScreen> {
     return SingleChildScrollView(
       child: Column(
         children: <Widget>[
-          Container(
-            padding: const EdgeInsets.all(15),
-            child: Row(
-              children: <Widget>[
-                new GestureDetector(
-                  child: Container(
-                      width: 60,
-                      height: 60,
-                      decoration: BoxDecoration(
-                          border:
-                              Border.all(width: 2, color: Colors.pinkAccent),
-                          shape: BoxShape.circle,
-                          image: DecorationImage(
-                              image: _image == null
-                                  ? NetworkImage(
-                                      'https://pic2.zhimg.com/v2-639b49f2f6578eabddc458b84eb3c6a1.jpg')
-                                  : FileImage(_image),
-                              fit: BoxFit.cover))),
-                  onTap: () {
-                    _selectAvatar();
-                  },
-                ),
-                new Padding(
-                  padding: const EdgeInsets.only(left: 10),
-                  child: new Text(
-                    'FlutterCool',
-                    style: new TextStyle(fontSize: 18, color: Colors.black),
-                  ),
-                )
-              ],
-            ),
-          ),
+          GestureDetector(
+              child: Container(
+                  padding: const EdgeInsets.all(15),
+                  child: Row(
+                    children: <Widget>[
+                      Container(
+                          width: 60,
+                          height: 60,
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                  width: 2, color: Colors.pinkAccent),
+                              shape: BoxShape.circle,
+                              image: DecorationImage(
+                                  image: _image == null
+                                      ? NetworkImage(
+                                          'https://pic2.zhimg.com/v2-639b49f2f6578eabddc458b84eb3c6a1.jpg')
+                                      : FileImage(_image),
+                                  fit: BoxFit.cover))),
+                      new Padding(
+                        padding: const EdgeInsets.only(left: 10),
+                        child: new Text(
+                          'FlutterCool',
+                          style:
+                              new TextStyle(fontSize: 18, color: Colors.black),
+                        ),
+                      )
+                    ],
+                  )),
+              onTap: () {
+                _goUserProfile();
+              }),
           Column(
             children: items
                 .map((item) => Column(
@@ -87,61 +87,16 @@ class ProfileScreenState extends State<ProfileScreen> {
 
   _onItemClick(int id) {
     Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
-      return new UserProfilePage();
+      return new ExamplePage();
     }));
   }
 
-  void _selectAvatar() {
-    _asyncConfirmDialog(context);
-  }
-
-  Future<ConfirmAction> _asyncConfirmDialog(BuildContext context) async {
-    return showDialog<ConfirmAction>(
-      context: context,
-      barrierDismissible: true,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('设置头像'),
-          actions: <Widget>[
-            FlatButton(
-              child: const Text('相册'),
-              onPressed: () {
-                Navigator.of(context).pop(ConfirmAction.GALLERY);
-                _openGallery();
-              },
-            ),
-            FlatButton(
-              child: const Text('拍照'),
-              onPressed: () {
-                Navigator.of(context).pop(ConfirmAction.CAMERA);
-                _takePhoto();
-              },
-            )
-          ],
-        );
-      },
-    );
-  }
-
-  /*拍照*/
-  Future _takePhoto() async {
-    var image = await ImagePicker.pickImage(source: ImageSource.camera);
-
-    setState(() {
-      _image = image;
-    });
-  }
-
-  /*相册*/
-  _openGallery() async {
-    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
-    setState(() {
-      _image = image;
-    });
+  _goUserProfile() {
+    Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
+      return new UserProfilePage();
+    }));
   }
 }
-
-enum ConfirmAction { GALLERY, CAMERA }
 
 class ListItem {
   const ListItem({this.title, this.id});
