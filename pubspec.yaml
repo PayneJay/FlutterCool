@@ -32,6 +32,9 @@ dependencies:
   common_utils: ^1.1.3
 
   shared_preferences: ^0.5.3+4
+#  图片加载缩放
+  flutter_drag_scale:
+      git: https://github.com/LiuC520/flutter_drag_scale.git
 
 
 

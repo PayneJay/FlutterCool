@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/business/settings/SettingScreen.dart';
 import 'HomeScreen.dart';
 import 'package:myapp/business/profile/ProfileScreen.dart';
 import 'package:myapp/business/theme/ThemeScreen.dart';
@@ -12,17 +13,6 @@ class BottomNavigationWidget extends StatefulWidget {
 }
 
 class BottomNavigationWidgetState extends State<BottomNavigationWidget> {
-  final _bottomNavigationColor = Colors.blueAccent;
-  final titles = ["文章", "站点", "主题", "发现", "我的"];
-  final menuNames = ["仅中文", "仅英文", "中英混合", "推荐设置", "一周拾遗"];
-  final navIcons = [
-    Icons.home,
-    Icons.cast_connected,
-    Icons.assessment,
-    Icons.find_in_page,
-    Icons.account_box
-  ];
-
   int _currentIndex = 0;
   List<Widget> pages = List<Widget>();
   OverlayEntry menuOverlayEntry;
@@ -75,9 +65,7 @@ class BottomNavigationWidgetState extends State<BottomNavigationWidget> {
             actions: <Widget>[
               IconButton(
                 icon: const Icon(Icons.search),
-                onPressed: () {
-                  _goSearch();
-                },
+                onPressed: () => _goSearch(),
               ),
               _showPopupMenu()
             ]);
@@ -90,9 +78,7 @@ class BottomNavigationWidgetState extends State<BottomNavigationWidget> {
             actions: <Widget>[
               IconButton(
                 icon: const Icon(Icons.settings),
-                onPressed: () {
-                  _goSearch();
-                },
+                onPressed: () => _goSetting(),
               )
             ]);
     }
@@ -102,6 +88,12 @@ class BottomNavigationWidgetState extends State<BottomNavigationWidget> {
   void _goSearch() {
     Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
       return new SearchScreen();
+    }));
+  }
+
+  void _goSetting() {
+    Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
+      return new SettingScreen();
     }));
   }
 
@@ -144,3 +136,14 @@ class BottomNavigationWidgetState extends State<BottomNavigationWidget> {
     );
   }
 }
+
+const _bottomNavigationColor = Colors.blueAccent;
+const titles = ["文章", "站点", "主题", "发现", "我的"];
+const menuNames = ["仅中文", "仅英文", "中英混合", "推荐设置", "一周拾遗"];
+const navIcons = [
+  Icons.home,
+  Icons.cast_connected,
+  Icons.assessment,
+  Icons.find_in_page,
+  Icons.account_box
+];

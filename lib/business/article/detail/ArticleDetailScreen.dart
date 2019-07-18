@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:myapp/business/comment/CommentScreen.dart';
 import 'package:myapp/share/SharePanel.dart';
 import 'package:myapp/widget/LoadingDialog.dart';
+import 'package:myapp/widget/PictureWidget.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:myapp/http/Http.dart';
 import 'package:myapp/models/articleDetail.dart';
@@ -65,7 +66,6 @@ class ArticleDetailScreenState extends State<ArticleDetailScreen> {
         _time = article.time;
         _feedTitle = article.feed_title;
         _url = article.url;
-//        _imageUrl = article.images[0].src;
         _htmlContent = parse(article.content).outerHtml;
       });
     });
@@ -136,6 +136,12 @@ _launchURL(String url) async {
   }
 }
 
+_onImageTap(String source) {
+  Navigator.of(_context).push(new MaterialPageRoute(builder: (context) {
+    return new PictureWidget(source);
+  }));
+}
+
 Widget _getProgressDialog() {
   return new LoadingDialog(
     //调用对话框
@@ -189,6 +195,9 @@ Widget _buildDetail() {
               ),
               onLinkTap: (url) {
                 _launchURL(url);
+              },
+              onImageTap: (source) {
+                _onImageTap(source);
               },
             ),
           )
