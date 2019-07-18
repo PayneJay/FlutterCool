@@ -112,7 +112,7 @@ class SearchScreenState extends State<SearchScreen> {
 
   @override
   void dispose() {
+    subscription?.cancel();
     super.dispose();
-    subscription.cancel();
   }
 }

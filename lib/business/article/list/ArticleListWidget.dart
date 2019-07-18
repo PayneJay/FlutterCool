@@ -101,14 +101,14 @@ class ArticleListWidgetState extends State<ArticleListWidget> {
     });
   }
 
-  Future _onRefresh() {
+  Future _onRefresh() async {
     _currentPage = 0;
     _lastId = "";
     _articleList.clear();
     return _getArticles();
   }
 
-  Future _loadMore() {
+  Future _loadMore() async {
     if (_hasNext) {
       return _getArticles();
     }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/business/comment/CommentScreen.dart';
 import 'package:myapp/share/SharePanel.dart';
 import 'package:myapp/widget/LoadingDialog.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -7,7 +8,6 @@ import 'package:myapp/models/articleDetail.dart';
 import 'dart:convert';
 import 'package:html/parser.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:overlay_support/overlay_support.dart';
 import 'package:myapp/http/InterfaceService.dart';
 
 class ArticleDetailScreen extends StatefulWidget {
@@ -77,7 +77,8 @@ String _title = '';
 String _time = '';
 String _feedTitle = '';
 String _url;
-String _imageUrl = 'https://yijiangaitu.com/static/20190709/20190709142225.61e38b0a10740205cbc09474c0ee5806.png';
+String _imageUrl =
+    'https://yijiangaitu.com/static/20190709/20190709142225.61e38b0a10740205cbc09474c0ee5806.png';
 String _htmlContent = '';
 OverlayEntry overlayEntry;
 
@@ -92,7 +93,9 @@ _share() {
 
 //评论
 void _comment() {
-  toast(_context, 'comment');
+  Navigator.of(_context).push(new MaterialPageRoute(builder: (context) {
+    return new CommentScreen();
+  }));
 }
 
 //更多菜单
@@ -105,15 +108,15 @@ Widget _more() {
     offset: new Offset(0, kToolbarHeight),
     //这是弹出菜单的建立
     itemBuilder: (context) => [
-          getPopupMenuItem(menus[0]),
-          getPopupMenuItem(menus[1]),
-          getPopupMenuItem(menus[2]),
-          getPopupMenuItem(menus[3]),
-          getPopupMenuItem(menus[4]),
-          getPopupMenuItem(menus[5]),
-          getPopupMenuItem(menus[6]),
-          getPopupMenuItem(menus[7]),
-        ],
+      getPopupMenuItem(menus[0]),
+      getPopupMenuItem(menus[1]),
+      getPopupMenuItem(menus[2]),
+      getPopupMenuItem(menus[3]),
+      getPopupMenuItem(menus[4]),
+      getPopupMenuItem(menus[5]),
+      getPopupMenuItem(menus[6]),
+      getPopupMenuItem(menus[7]),
+    ],
   );
 }
 

@@ -1,7 +1,15 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:myapp/business/login/style/Theme.dart' as Theme;
+import 'package:myapp/http/Http.dart';
+import 'package:myapp/http/InterfaceService.dart';
 import 'package:overlay_support/overlay_support.dart';
+import 'package:common_utils/common_utils.dart';
+import 'package:myapp/models/userInfo.dart';
+import 'package:myapp/utils/Constants.dart';
+import 'package:myapp/utils/CommonUtil.dart';
 
 class SignInWidget extends StatefulWidget {
   @override
@@ -18,6 +26,9 @@ class SignInWidgetState extends State<SignInWidget> {
   bool _obscureTextLogin = true;
 
   BuildContext _context;
+
+  String _email;
+  String _password;
 
   @override
   Widget build(BuildContext context) {
@@ -63,6 +74,7 @@ class SignInWidgetState extends State<SignInWidget> {
                             hintStyle: TextStyle(
                                 fontFamily: "WorkSansSemiBold", fontSize: 17.0),
                           ),
+                          onChanged: _onEmailChanged,
                         ),
                       ),
                       Container(
@@ -102,6 +114,7 @@ class SignInWidgetState extends State<SignInWidget> {
                               ),
                             ),
                           ),
+                          onChanged: _onPasswordChanged,
                         ),
                       ),
                     ],
@@ -146,7 +159,7 @@ class SignInWidgetState extends State<SignInWidget> {
                             fontFamily: "WorkSansBold"),
                       ),
                     ),
-                    onPressed: () => loginByEmail("Login button pressed")),
+                    onPressed: () => loginByEmail()),
               ),
             ],
           ),
@@ -268,8 +281,43 @@ class SignInWidgetState extends State<SignInWidget> {
     });
   }
 
-  loginByEmail(String text) {
-    toast(_context, text);
+  void _onEmailChanged(String value) {
+    setState(() {
+      _email = value;
+    });
+  }
+
+  void _onPasswordChanged(String value) {
+    setState(() {
+      _password = value;
+    });
+  }
+
+  loginByEmail() async {
+    if (!RegexUtil.isEmail(_email)) {
+      toast(_context, '来个正经邮箱吧');
+      return;
+    }
+
+    if (_password == null) {
+      toast(_context, '请输入密码');
+      return;
+    }
+    await dio.post(loginUrl,
+        data: {"email": _email, "password": _password}).then((response) {
+      setState(() {
+        print(response.toString());
+        UserInfo userInfo =
+            new UserInfo.fromJson(json.decode(response.toString()));
+        if (userInfo.error != null) {
+          toast(_context, userInfo.error);
+        } else {
+          saveString(USER_INFO_KEY, json.encode(userInfo.user));
+          saveBool(USER_LOGIN_STATUS_KEY, true);
+          Navigator.pop(_context);
+        }
+      });
+    });
   }
 
   loginByWeChat(String text) {

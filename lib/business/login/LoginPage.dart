@@ -29,6 +29,7 @@ class _LoginPageState extends State<LoginPage>
       body: NotificationListener<OverscrollIndicatorNotification>(
         onNotification: (overScroll) {
           overScroll.disallowGlow();
+          return true;
         },
         child: SingleChildScrollView(
           child: Container(

@@ -153,8 +153,8 @@ class BookResultWidgetState extends State<BookResultWidget> {
 
   @override
   void dispose() {
+    subscription?.cancel();
     super.dispose();
-    subscription.cancel();
   }
 
   Future<void> _onRefresh() async {

@@ -10,6 +10,7 @@ final articleSearchUrl = "/api/articles/search.json";
 final topicSearchUrl = "/api/topics/search.json";
 final siteSearchUrl = "/api/sites/search.json";
 final bookSearchUrl = "/api/search/book.json";
+final loginUrl = "/api/login.json";
 
 String getArticleDetailUrl(String id) {
   return "/api/articles/$id.json";

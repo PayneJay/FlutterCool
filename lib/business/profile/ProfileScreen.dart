@@ -1,9 +1,12 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:myapp/business/login/LoginPage.dart';
 import 'package:myapp/business/profile/ExamplePage.dart';
-
+import 'package:myapp/models/user.dart';
+import 'package:myapp/utils/Constants.dart';
+import 'package:myapp/utils/CommonUtil.dart';
 import 'UserProfilePage.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -13,6 +16,28 @@ class ProfileScreen extends StatefulWidget {
 
 class ProfileScreenState extends State<ProfileScreen> {
   File _image;
+  String _nickName = 'Flutter';
+  String _imgUrl =
+      'https://pic2.zhimg.com/v2-639b49f2f6578eabddc458b84eb3c6a1.jpg';
+
+  @override
+  void initState() {
+    getBool(USER_LOGIN_STATUS_KEY).then((value) {
+      if (value != null && value) {
+        getString(USER_INFO_KEY).then((value) {
+          setState(() {
+            if (value.isNotEmpty) {
+              User user = User.fromJson(json.decode(value));
+              _nickName = user.name;
+              _imgUrl = user.profile;
+            }
+          });
+        });
+      }
+    });
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,18 +54,17 @@ class ProfileScreenState extends State<ProfileScreen> {
                           height: 60,
                           decoration: BoxDecoration(
                               border: Border.all(
-                                  width: 2, color: Colors.pinkAccent),
+                                  width: 1, color: Colors.pinkAccent),
                               shape: BoxShape.circle,
                               image: DecorationImage(
                                   image: _image == null
-                                      ? NetworkImage(
-                                          'https://pic2.zhimg.com/v2-639b49f2f6578eabddc458b84eb3c6a1.jpg')
+                                      ? NetworkImage(_imgUrl)
                                       : FileImage(_image),
                                   fit: BoxFit.cover))),
                       new Padding(
                         padding: const EdgeInsets.only(left: 10),
                         child: new Text(
-                          'FlutterCool',
+                          _nickName,
                           style:
                               new TextStyle(fontSize: 18, color: Colors.black),
                         ),
@@ -92,10 +116,15 @@ class ProfileScreenState extends State<ProfileScreen> {
     }));
   }
 
-  _goUserProfile() {
-    Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
-      return new LoginPage();
-    }));
+  _goUserProfile() async {
+    getBool(USER_LOGIN_STATUS_KEY).then((value) {
+      Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
+        if (value != null && value) {
+          return new UserProfilePage();
+        }
+        return new LoginPage();
+      }));
+    });
   }
 }
 

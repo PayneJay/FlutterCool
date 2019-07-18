@@ -38,7 +38,7 @@ class ArticleTabBarWidgetState extends State<ArticleTabBarWidget>
         controller: _controller,
         children: choices.map((Choice choice) {
           return new Padding(
-            padding: const EdgeInsets.all(0.0),
+            padding: const EdgeInsets.only(top: 10.0),
             child: new ArticleListWidget(choice),
           );
         }).toList(),
@@ -54,8 +54,9 @@ class ArticleTabBarWidgetState extends State<ArticleTabBarWidget>
 
   @override
   void dispose() {
+    //先调用controller.dispose释放了动画资源，再调用super
+    _controller?.dispose();
     super.dispose();
-    _controller.dispose();
   }
 }
 

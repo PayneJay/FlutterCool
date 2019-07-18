@@ -1,15 +1,80 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:myapp/models/user.dart';
+import 'package:myapp/utils/CommonUtil.dart';
+import 'package:myapp/utils/Constants.dart';
+import 'package:myapp/utils/DialogUtil.dart';
+import 'package:myapp/callback/DialogCallback.dart';
 
 class UserProfilePage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => new UserProfileState();
 }
 
-class UserProfileState extends State<UserProfilePage> {
+class UserProfileState extends State<UserProfilePage>
+    implements DialogCallback {
   File _image;
+  List<ProfileItem> items = <ProfileItem>[
+    ProfileItem(
+        label: '头像',
+        value: 'https://pic2.zhimg.com/v2-639b49f2f6578eabddc458b84eb3c6a1.jpg',
+        key: 0),
+    ProfileItem(label: '用户名', value: 'Flutter', key: 1),
+    ProfileItem(label: '登录邮箱', value: 'developerBoy@163.com', key: 2),
+    ProfileItem(label: '密码', value: '', key: 3),
+    ProfileItem(label: '微博', value: '', key: 4),
+    ProfileItem(label: 'QQ', value: '', key: 5),
+    ProfileItem(label: '微信', value: '', key: 6)
+  ];
+
+  @override
+  void initState() {
+    getBool(USER_LOGIN_STATUS_KEY).then((value) {
+      if (value != null && value) {
+        getString(USER_INFO_KEY).then((value) {
+          if (value.isNotEmpty) {
+            User user = User.fromJson(json.decode(value));
+            setUserInfo(user);
+          }
+        });
+      }
+    });
+
+    super.initState();
+  }
+
+  setUserInfo(User user) {
+    setState(() {
+      for (ProfileItem item in items) {
+        switch (item.key) {
+          case 0:
+            item.value = user.profile;
+            break;
+          case 1:
+            item.value = user.name;
+            break;
+          case 2:
+            item.value = user.email;
+            break;
+          case 3:
+            item.value = '修改密码';
+            break;
+          case 4:
+            item.value = user.weibo_name;
+            break;
+          case 5:
+            item.value = user.qq_name;
+            break;
+          case 6:
+            item.value = user.weixin_name;
+            break;
+        }
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +114,7 @@ class UserProfileState extends State<UserProfilePage> {
                     height: 60,
                     margin: const EdgeInsets.only(right: 15),
                     decoration: BoxDecoration(
-                        border: Border.all(width: 2, color: Colors.pinkAccent),
+                        border: Border.all(width: 1, color: Colors.pinkAccent),
                         shape: BoxShape.circle,
                         image: DecorationImage(
                             image: _image == null
@@ -72,7 +137,7 @@ class UserProfileState extends State<UserProfilePage> {
     return Column(
       children: <Widget>[
         Padding(
-            padding: const EdgeInsets.fromLTRB(15, 5, 10, 5),
+            padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -140,7 +205,6 @@ class UserProfileState extends State<UserProfilePage> {
   /*拍照*/
   Future _takePhoto() async {
     var image = await ImagePicker.pickImage(source: ImageSource.camera);
-
     setState(() {
       _image = image;
     });
@@ -153,29 +217,30 @@ class UserProfileState extends State<UserProfilePage> {
       _image = image;
     });
   }
-}
 
-void _logOut() {}
+  void _logOut() {
+    showConfirmDialog(context, '确认退出？', '', this);
+  }
+
+  @override
+  void cancel() {
+    // TODO: implement cancel
+  }
+
+  @override
+  void confirm() {
+    saveString(USER_INFO_KEY, json.encode(''));
+    saveBool(USER_LOGIN_STATUS_KEY, false);
+    Navigator.pop(context);
+  }
+}
 
 enum ConfirmAction { GALLERY, CAMERA }
 
 class ProfileItem {
-  const ProfileItem({this.label, this.value, this.key});
+  ProfileItem({this.label, this.value, this.key});
 
-  final String label;
-  final String value;
-  final int key;
+  String label;
+  String value;
+  int key;
 }
-
-const List<ProfileItem> items = const <ProfileItem>[
-  const ProfileItem(
-      label: '头像',
-      value: 'https://pic2.zhimg.com/v2-639b49f2f6578eabddc458b84eb3c6a1.jpg',
-      key: 0),
-  const ProfileItem(label: '用户名', value: 'Flutter', key: 1),
-  const ProfileItem(label: '登录邮箱', value: 'developerBoy@163.com', key: 2),
-  const ProfileItem(label: '密码', value: '', key: 3),
-  const ProfileItem(label: '微博', value: '', key: 4),
-  const ProfileItem(label: 'QQ', value: '', key: 5),
-  const ProfileItem(label: '微信', value: '', key: 6)
-];
