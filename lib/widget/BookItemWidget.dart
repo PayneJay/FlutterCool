@@ -29,8 +29,8 @@ class BookItemWidget extends StatelessWidget {
   }
 
   void _goBookSale() {
-    Navigator.of(_context).push(new MaterialPageRoute(builder: (context) {
-      return new WebViewWidget(_bookChild.link, _bookChild.title);
+    Navigator.of(_context).push(MaterialPageRoute(builder: (context) {
+      return WebViewWidget(_bookChild.link, _bookChild.title);
     }));
   }
 }

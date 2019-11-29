@@ -3,14 +3,14 @@ import 'package:myapp/widget/EmptyWidget.dart';
 
 class CommentScreen extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => new CommentScreenState();
+  State<StatefulWidget> createState() => CommentScreenState();
 }
 
 class CommentScreenState extends State<CommentScreen> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return new Scaffold(
+    return Scaffold(
         appBar: AppBar(title: Text('评论')),
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.insert_comment),
@@ -18,6 +18,6 @@ class CommentScreenState extends State<CommentScreen> {
             print('FloatingActionButton');
           },
         ),
-        body: new EmptyWidget());
+        body: EmptyWidget());
   }
 }

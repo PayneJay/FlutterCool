@@ -23,13 +23,10 @@ class SiteResultWidget extends StatefulWidget {
 }
 
 class SiteResultWidgetState extends State<SiteResultWidget> {
-  GlobalKey<EasyRefreshState> _easyRefreshKey =
-      new GlobalKey<EasyRefreshState>();
-  GlobalKey<RefreshHeaderState> _headerKey =
-      new GlobalKey<RefreshHeaderState>();
-  GlobalKey<RefreshFooterState> _footerKey =
-      new GlobalKey<RefreshFooterState>();
-  var _sites = new List<Site>();
+  GlobalKey<EasyRefreshState> _easyRefreshKey = GlobalKey<EasyRefreshState>();
+  GlobalKey<RefreshHeaderState> _headerKey = GlobalKey<RefreshHeaderState>();
+  GlobalKey<RefreshFooterState> _footerKey = GlobalKey<RefreshFooterState>();
+  var _sites = List<Site>();
 
   StreamSubscription<SearchEvent> subscription;
 
@@ -60,7 +57,7 @@ class SiteResultWidgetState extends State<SiteResultWidget> {
         onRefresh: _onRefresh,
         autoLoad: true,
         firstRefresh: true,
-        emptyWidget: new EmptyWidget());
+        emptyWidget: EmptyWidget());
   }
 
   Widget _buildListView() {
@@ -107,7 +104,7 @@ class SiteResultWidgetState extends State<SiteResultWidget> {
         .get(siteSearchUrl, queryParameters: {"kw": _keyWord}).then((response) {
       setState(() {
         SiteSearch result =
-            new SiteSearch.fromJson(json.decode(response.toString()));
+            SiteSearch.fromJson(json.decode(response.toString()));
         _sites.addAll(result.items);
       });
     });
@@ -133,8 +130,8 @@ class SiteResultWidgetState extends State<SiteResultWidget> {
   _onButtonClick(Site sit) {}
 
   void _onItemClick(Site sit) {
-    Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
-      return new SiteDetailScreen(sit.id);
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+      return SiteDetailScreen(sit.id);
     }));
   }
 

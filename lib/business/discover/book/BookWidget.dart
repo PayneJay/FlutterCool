@@ -12,25 +12,23 @@ import 'package:myapp/widget/BookItemWidget.dart';
 
 class BookWidget extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => new BookWidgetState();
+  State<StatefulWidget> createState() => BookWidgetState();
 }
 
 class BookWidgetState extends State<BookWidget> {
-  GlobalKey<EasyRefreshState> _easyRefreshKey =
-      new GlobalKey<EasyRefreshState>();
-  GlobalKey<RefreshHeaderState> _headerKey =
-      new GlobalKey<RefreshHeaderState>();
+  GlobalKey<EasyRefreshState> _easyRefreshKey = GlobalKey<EasyRefreshState>();
+  GlobalKey<RefreshHeaderState> _headerKey = GlobalKey<RefreshHeaderState>();
   List<BookGroup> _bookGroup = List();
 
   @override
   Widget build(BuildContext context) {
-    return new EasyRefresh(
+    return EasyRefresh(
       key: _easyRefreshKey,
       behavior: ScrollOverBehavior(),
       refreshHeader: PhoenixHeader(
         key: _headerKey,
       ),
-      child: new ListView.builder(
+      child: ListView.builder(
           shrinkWrap: true,
           itemCount: _bookGroup.length,
           itemBuilder: (context, i) {
@@ -41,22 +39,21 @@ class BookWidgetState extends State<BookWidget> {
       onRefresh: _getBookDir,
       autoLoad: true,
       firstRefresh: true,
-      emptyWidget: new EmptyWidget(),
+      emptyWidget: EmptyWidget(),
     );
   }
 
   Future<void> _getBookDir() async {
     await dio.get(bookUrl).then((response) {
       setState(() {
-        BookDirs bookDirs =
-            new BookDirs.fromJson(jsonDecode(response.toString()));
+        BookDirs bookDirs = BookDirs.fromJson(jsonDecode(response.toString()));
         _bookGroup = bookDirs.items;
       });
     });
   }
 
   Widget _buildExpandTiles(BookGroup group) {
-    if (group == null) return new ListTile(title: new Text('must not be null'));
+    if (group == null) return ListTile(title: Text('must not be null'));
     return Column(
       children: <Widget>[
         Container(
@@ -96,8 +93,8 @@ class BookWidgetState extends State<BookWidget> {
   }
 
   void _goBookList(BookGroup group) {
-    Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
-      return new BookTagScreen(group);
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+      return BookTagScreen(group);
     }));
   }
 }

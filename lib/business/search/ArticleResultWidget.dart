@@ -22,14 +22,11 @@ class ArticleResultWidget extends StatefulWidget {
 }
 
 class ArticleResultWidgetState extends State<ArticleResultWidget> {
-  GlobalKey<EasyRefreshState> _easyRefreshKey =
-      new GlobalKey<EasyRefreshState>();
-  GlobalKey<RefreshHeaderState> _headerKey =
-      new GlobalKey<RefreshHeaderState>();
-  GlobalKey<RefreshFooterState> _footerKey =
-      new GlobalKey<RefreshFooterState>();
+  GlobalKey<EasyRefreshState> _easyRefreshKey = GlobalKey<EasyRefreshState>();
+  GlobalKey<RefreshHeaderState> _headerKey = GlobalKey<RefreshHeaderState>();
+  GlobalKey<RefreshFooterState> _footerKey = GlobalKey<RefreshFooterState>();
 
-  var _articles = new List<Articles>();
+  var _articles = List<Articles>();
 
   var _currentPage;
 
@@ -70,7 +67,7 @@ class ArticleResultWidgetState extends State<ArticleResultWidget> {
         loadMore: _loadMore,
         autoLoad: true,
         firstRefresh: true,
-        emptyWidget: new EmptyWidget());
+        emptyWidget: EmptyWidget());
   }
 
   Future _searchArticles() async {
@@ -78,7 +75,7 @@ class ArticleResultWidgetState extends State<ArticleResultWidget> {
         queryParameters: {"pn": _currentPage, "kw": _keyWord}).then((response) {
       setState(() {
         ArticleSearch result =
-            new ArticleSearch.fromJson(json.decode(response.toString()));
+            ArticleSearch.fromJson(json.decode(response.toString()));
         _hasNext = result.has_next;
         _currentPage = result.pn;
         _articles.addAll(result.articles);

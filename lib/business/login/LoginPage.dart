@@ -10,12 +10,12 @@ class LoginPage extends StatefulWidget {
   LoginPage({Key key}) : super(key: key);
 
   @override
-  _LoginPageState createState() => new _LoginPageState();
+  _LoginPageState createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage>
     with SingleTickerProviderStateMixin {
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   PageController _pageController;
 
@@ -24,7 +24,7 @@ class _LoginPageState extends State<LoginPage>
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
+    return Scaffold(
       key: _scaffoldKey,
       body: NotificationListener<OverscrollIndicatorNotification>(
         onNotification: (overScroll) {
@@ -37,8 +37,8 @@ class _LoginPageState extends State<LoginPage>
             height: MediaQuery.of(context).size.height >= 775.0
                 ? MediaQuery.of(context).size.height
                 : 775.0,
-            decoration: new BoxDecoration(
-              gradient: new LinearGradient(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
                   colors: [
                     Theme.Colors.loginGradientStart,
                     Theme.Colors.loginGradientEnd
@@ -53,11 +53,11 @@ class _LoginPageState extends State<LoginPage>
               children: <Widget>[
                 Padding(
                   padding: EdgeInsets.only(top: 75.0),
-                  child: new Image(
+                  child: Image(
                       width: 250.0,
                       height: 191.0,
                       fit: BoxFit.fill,
-                      image: new AssetImage('images/login_logo.png')),
+                      image: AssetImage('images/login_logo.png')),
                 ),
                 Padding(
                   padding: EdgeInsets.only(top: 20.0),
@@ -81,13 +81,13 @@ class _LoginPageState extends State<LoginPage>
                       }
                     },
                     children: <Widget>[
-                      new ConstrainedBox(
+                      ConstrainedBox(
                         constraints: const BoxConstraints.expand(),
-                        child: new SignInWidget(),
+                        child: SignInWidget(),
                       ),
-                      new ConstrainedBox(
+                      ConstrainedBox(
                         constraints: const BoxConstraints.expand(),
-                        child: new SignUpWidget(),
+                        child: SignUpWidget(),
                       ),
                     ],
                   ),
@@ -119,10 +119,10 @@ class _LoginPageState extends State<LoginPage>
   }
 
   void showInSnackBar(String value) {
-    FocusScope.of(context).requestFocus(new FocusNode());
+    FocusScope.of(context).requestFocus(FocusNode());
     _scaffoldKey.currentState?.removeCurrentSnackBar();
-    _scaffoldKey.currentState.showSnackBar(new SnackBar(
-      content: new Text(
+    _scaffoldKey.currentState.showSnackBar(SnackBar(
+      content: Text(
         value,
         textAlign: TextAlign.center,
         style: TextStyle(

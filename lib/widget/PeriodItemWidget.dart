@@ -41,14 +41,14 @@ class PeriodItemWidget extends StatelessWidget {
   }
 
   void _onPeriodItemClick() {
-    Navigator.of(_context).push(new MaterialPageRoute(builder: (context) {
-      return new PeriodDetailScreen(_magChild);
+    Navigator.of(_context).push(MaterialPageRoute(builder: (context) {
+      return PeriodDetailScreen(_magChild);
     }));
   }
 
   String _formatDate(num time) {
-    var dateTime = new DateTime.fromMillisecondsSinceEpoch(time);
-    if (dateTime.difference(new DateTime.now()).inDays == 0) {
+    var dateTime = DateTime.fromMillisecondsSinceEpoch(time);
+    if (dateTime.difference(DateTime.now()).inDays == 0) {
       return '今日更新';
     }
     var month = dateTime.month;

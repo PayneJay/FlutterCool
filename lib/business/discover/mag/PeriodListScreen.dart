@@ -16,14 +16,12 @@ class PeriodListScreen extends StatefulWidget {
   PeriodListScreen(this._child);
 
   @override
-  State<StatefulWidget> createState() => new PeriodListScreenState(_child);
+  State<StatefulWidget> createState() => PeriodListScreenState(_child);
 }
 
 class PeriodListScreenState extends State<PeriodListScreen> {
-  GlobalKey<EasyRefreshState> _easyRefreshKey =
-      new GlobalKey<EasyRefreshState>();
-  GlobalKey<RefreshHeaderState> _headerKey =
-      new GlobalKey<RefreshHeaderState>();
+  GlobalKey<EasyRefreshState> _easyRefreshKey = GlobalKey<EasyRefreshState>();
+  GlobalKey<RefreshHeaderState> _headerKey = GlobalKey<RefreshHeaderState>();
 
   final MagGroup _magGroup;
   var _type;
@@ -34,9 +32,9 @@ class PeriodListScreenState extends State<PeriodListScreen> {
   @override
   Widget build(BuildContext context) {
     _type = _magGroup.type;
-    return new Scaffold(
+    return Scaffold(
         appBar: AppBar(title: Text(_magGroup == null ? '' : _magGroup.name)),
-        body: new EasyRefresh(
+        body: EasyRefresh(
           key: _easyRefreshKey,
           behavior: ScrollOverBehavior(),
           refreshHeader: PhoenixHeader(key: _headerKey),
@@ -46,7 +44,7 @@ class PeriodListScreenState extends State<PeriodListScreen> {
           onRefresh: _onRefresh,
           autoLoad: true,
           firstRefresh: true,
-          emptyWidget: new EmptyWidget(),
+          emptyWidget: EmptyWidget(),
         ));
   }
 
@@ -55,7 +53,7 @@ class PeriodListScreenState extends State<PeriodListScreen> {
         .get(periodListUrl, queryParameters: {'type': _type}).then((response) {
       setState(() {
         PeriodList periodList =
-            new PeriodList.fromJson(jsonDecode(response.toString()));
+            PeriodList.fromJson(jsonDecode(response.toString()));
         _periodList.addAll(periodList.items);
       });
     });

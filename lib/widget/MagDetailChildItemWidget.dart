@@ -33,8 +33,8 @@ class MagDetailChildItemWidget extends StatelessWidget {
   }
 
   void _onPeriodItemClick() {
-    Navigator.of(_context).push(new MaterialPageRoute(builder: (context) {
-      return new ArticleDetailScreen(_magChild.url);
+    Navigator.of(_context).push(MaterialPageRoute(builder: (context) {
+      return ArticleDetailScreen(_magChild.url);
     }));
   }
 }

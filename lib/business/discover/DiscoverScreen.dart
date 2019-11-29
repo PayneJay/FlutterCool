@@ -12,10 +12,10 @@ class DiscoverScreenState extends State<DiscoverScreen> {
   @override
   Widget build(BuildContext context) {
     final choices = ["专栏", "图书"];
-    return new DefaultTabController(
+    return DefaultTabController(
       length: choices.length,
-      child: new Scaffold(
-        appBar: new AppBar(
+      child: Scaffold(
+        appBar: AppBar(
           elevation: 5,
           backgroundColor: Colors.blueAccent,
           actions: <Widget>[
@@ -26,18 +26,18 @@ class DiscoverScreenState extends State<DiscoverScreen> {
               },
             )
           ],
-          title: new TabBar(
+          title: TabBar(
               isScrollable: true,
               unselectedLabelColor: Colors.white54,
               labelColor: Colors.white,
-              labelStyle: new TextStyle(fontSize: 18.0),
+              labelStyle: TextStyle(fontSize: 18.0),
               indicatorColor: Colors.white,
               indicatorWeight: 2,
               tabs: choices.map((String tab) {
-                return new Tab(text: tab);
+                return Tab(text: tab);
               }).toList()),
         ),
-        body: new TabBarView(
+        body: TabBarView(
           children: <Widget>[MagazineWidget(), BookWidget()],
         ),
       ),
@@ -45,8 +45,8 @@ class DiscoverScreenState extends State<DiscoverScreen> {
   }
 
   void _goSearch() {
-    Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
-      return new SearchScreen();
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+      return SearchScreen();
     }));
   }
 }

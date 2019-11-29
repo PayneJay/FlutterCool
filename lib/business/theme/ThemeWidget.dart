@@ -19,9 +19,9 @@ class ThemeWidgetState extends State<ThemeWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return new ListView.builder(
+    return ListView.builder(
       itemBuilder: (BuildContext context, int index) =>
-          new GroupItem(_topicGroup[index], context),
+          GroupItem(_topicGroup[index], context),
       itemCount: _topicGroup.length,
     );
   }
@@ -36,7 +36,7 @@ class ThemeWidgetState extends State<ThemeWidget> {
     await dio.get(topicDirUrl).then((response) {
       setState(() {
         TopicDirs topicDirs =
-            new TopicDirs.fromJson(json.decode(response.toString()));
+            TopicDirs.fromJson(json.decode(response.toString()));
         _topicGroup = topicDirs.items;
       });
     });
@@ -50,20 +50,20 @@ class GroupItem extends StatelessWidget {
   final BuildContext _context;
 
   Widget _buildGroupTiles(TopicGroup group) {
-    if (group.items.isEmpty) return new ListTile(title: new Text(group.name));
-    return new ExpansionTile(
-      key: new PageStorageKey<TopicGroup>(group),
-      title: new Text(group.name),
+    if (group.items.isEmpty) return ListTile(title: Text(group.name));
+    return ExpansionTile(
+      key: PageStorageKey<TopicGroup>(group),
+      title: Text(group.name),
       children: group.items.map(_buildChildTiles).toList(),
     );
   }
 
   Widget _buildChildTiles(TopicChild child) {
-    if (child == null) return new ListTile(title: new Text('must not be null'));
-    return new Padding(
+    if (child == null) return ListTile(title: Text('must not be null'));
+    return Padding(
       padding: const EdgeInsets.only(left: 10),
       child: ListTile(
-        title: new Row(
+        title: Row(
           children: <Widget>[
             ClipOval(
               child: FadeInImage.memoryNetwork(
@@ -93,9 +93,8 @@ class GroupItem extends StatelessWidget {
   }
 
   void _goTopicDetail(TopicChild child) {
-    Navigator.of(_context).push(new MaterialPageRoute(builder: (context) {
-      return new TopicDetailScreen(child.id);
+    Navigator.of(_context).push(MaterialPageRoute(builder: (context) {
+      return TopicDetailScreen(child.id);
     }));
   }
 }
-

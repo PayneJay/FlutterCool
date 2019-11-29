@@ -12,25 +12,23 @@ import 'package:myapp/widget/PeriodItemWidget.dart';
 
 class MagazineWidget extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => new MagazineWidgetState();
+  State<StatefulWidget> createState() => MagazineWidgetState();
 }
 
 class MagazineWidgetState extends State<MagazineWidget> {
-  GlobalKey<EasyRefreshState> _easyRefreshKey =
-      new GlobalKey<EasyRefreshState>();
-  GlobalKey<RefreshHeaderState> _headerKey =
-      new GlobalKey<RefreshHeaderState>();
+  GlobalKey<EasyRefreshState> _easyRefreshKey = GlobalKey<EasyRefreshState>();
+  GlobalKey<RefreshHeaderState> _headerKey = GlobalKey<RefreshHeaderState>();
   List<MagGroup> _magGroup = List();
 
   @override
   Widget build(BuildContext context) {
-    return new EasyRefresh(
+    return EasyRefresh(
       key: _easyRefreshKey,
       behavior: ScrollOverBehavior(),
       refreshHeader: PhoenixHeader(
         key: _headerKey,
       ),
-      child: new ListView.builder(
+      child: ListView.builder(
           itemCount: _magGroup.length,
           shrinkWrap: true,
           itemBuilder: (context, i) {
@@ -41,21 +39,21 @@ class MagazineWidgetState extends State<MagazineWidget> {
       onRefresh: _getMagDir,
       autoLoad: true,
       firstRefresh: true,
-      emptyWidget: new EmptyWidget(),
+      emptyWidget: EmptyWidget(),
     );
   }
 
   Future _getMagDir() async {
     await dio.get(magazineUrl).then((response) {
       setState(() {
-        MagDirs magDirs = new MagDirs.fromJson(jsonDecode(response.toString()));
+        MagDirs magDirs = MagDirs.fromJson(jsonDecode(response.toString()));
         _magGroup = magDirs.items;
       });
     });
   }
 
   Widget _buildExpandTiles(MagGroup group) {
-    if (group == null) return new ListTile(title: new Text('must not be null'));
+    if (group == null) return ListTile(title: Text('must not be null'));
     return Column(
       children: <Widget>[
         Container(
@@ -91,8 +89,8 @@ class MagazineWidgetState extends State<MagazineWidget> {
   }
 
   void _goPeriodList(MagGroup group) {
-    Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
-      return new PeriodListScreen(group);
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+      return PeriodListScreen(group);
     }));
   }
 }

@@ -15,17 +15,14 @@ class ArticleListWidget extends StatefulWidget {
   ArticleListWidget(this._choice);
 
   @override
-  State<StatefulWidget> createState() => new ArticleListWidgetState(_choice);
+  State<StatefulWidget> createState() => ArticleListWidgetState(_choice);
 }
 
 class ArticleListWidgetState extends State<ArticleListWidget> {
-  GlobalKey<EasyRefreshState> _easyRefreshKey =
-      new GlobalKey<EasyRefreshState>();
-  GlobalKey<RefreshHeaderState> _headerKey =
-      new GlobalKey<RefreshHeaderState>();
-  GlobalKey<RefreshFooterState> _footerKey =
-      new GlobalKey<RefreshFooterState>();
-  List<Articles> _articleList = new List();
+  GlobalKey<EasyRefreshState> _easyRefreshKey = GlobalKey<EasyRefreshState>();
+  GlobalKey<RefreshHeaderState> _headerKey = GlobalKey<RefreshHeaderState>();
+  GlobalKey<RefreshFooterState> _footerKey = GlobalKey<RefreshFooterState>();
+  List<Articles> _articleList = List();
 
   final Choice _choice;
   int _currentPage;
@@ -41,11 +38,11 @@ class ArticleListWidgetState extends State<ArticleListWidget> {
 
   Widget _buildSuggestions() {
     if (_choice.title == '推荐') {
-      return new EmptyWidget();
+      return EmptyWidget();
     }
 
-    return new Center(
-      child: new EasyRefresh(
+    return Center(
+      child: EasyRefresh(
         key: _easyRefreshKey,
         behavior: ScrollOverBehavior(),
         refreshHeader: ClassicsHeader(
@@ -62,8 +59,7 @@ class ArticleListWidgetState extends State<ArticleListWidget> {
           moreInfoColor: Colors.black54,
           showMore: true,
         ),
-        child: new ListView.builder(
-            itemExtent: 120,
+        child: ListView.builder(
             itemCount: _articleList.length,
             itemBuilder: (context, i) {
               return _buildRow(i);
@@ -72,14 +68,14 @@ class ArticleListWidgetState extends State<ArticleListWidget> {
         loadMore: _loadMore,
         autoLoad: true,
         firstRefresh: true,
-        emptyWidget: new EmptyWidget(),
+        emptyWidget: EmptyWidget(),
       ),
     );
   }
 
   //  创建列表条目
   Widget _buildRow(int i) {
-    return new ArticleItemWidget(context, _articleList[i]);
+    return ArticleItemWidget(context, _articleList[i]);
   }
 
   Future _getArticles() async {
@@ -92,7 +88,7 @@ class ArticleListWidgetState extends State<ArticleListWidget> {
     }).then((response) {
       setState(() {
         ArticleList articleList =
-            new ArticleList.fromJson(json.decode(response.toString()));
+            ArticleList.fromJson(json.decode(response.toString()));
         _hasNext = articleList.has_next;
         _currentPage = articleList.pn;
         _articleList.addAll(articleList.articles);

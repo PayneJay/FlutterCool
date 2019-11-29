@@ -8,7 +8,7 @@ import 'package:myapp/event/SearchChangeEvent.dart';
 
 class SearchScreen extends StatefulWidget {
   @override
-  SearchScreenState createState() => new SearchScreenState();
+  SearchScreenState createState() => SearchScreenState();
 }
 
 class SearchScreenState extends State<SearchScreen> {
@@ -20,10 +20,10 @@ class SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController _controller = new TextEditingController.fromValue(
+    TextEditingController _controller = TextEditingController.fromValue(
         TextEditingValue(
             text: _inputText,
-            selection: new TextSelection.fromPosition(TextPosition(
+            selection: TextSelection.fromPosition(TextPosition(
                 affinity: TextAffinity.downstream,
                 offset: _inputText.length))));
 
@@ -32,25 +32,25 @@ class SearchScreenState extends State<SearchScreen> {
         automaticallyImplyLeading: false,
         elevation: 0,
         centerTitle: true,
-        title: new Container(
+        title: Container(
           margin: EdgeInsets.only(top: 5, bottom: 5),
           child: _buildTextField(_controller),
         ),
       ),
-      body: new SearchResultWidget(_inputText),
+      body: SearchResultWidget(_inputText),
     );
   }
 
   Widget _buildTextField(TextEditingController _controller) {
     return Container(
-        child: new TextField(
+        child: TextField(
           controller: _controller,
           autofocus: true,
-          decoration: new InputDecoration(
+          decoration: InputDecoration(
               hintText: _hintText,
               fillColor: Colors.white,
               filled: true,
-              border: new OutlineInputBorder(
+              border: OutlineInputBorder(
                 //添加边框
                 gapPadding: 10.0,
                 borderRadius: BorderRadius.circular(30.0),
@@ -58,7 +58,7 @@ class SearchScreenState extends State<SearchScreen> {
               prefixIcon:
                   IconButton(icon: Icon(Icons.arrow_back), onPressed: _goBack),
               suffixIcon: _hasDeleteIcon
-                  ? new IconButton(
+                  ? IconButton(
                       icon: Icon(
                         Icons.cancel,
                         color: Colors.grey,
@@ -91,7 +91,7 @@ class SearchScreenState extends State<SearchScreen> {
   void _doSearch(String value) {
     setState(() {
       _inputText = value;
-      eventBus.fire(new SearchEvent(value));
+      eventBus.fire(SearchEvent(value));
     });
   }
 

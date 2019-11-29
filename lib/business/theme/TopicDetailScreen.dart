@@ -21,7 +21,7 @@ class TopicDetailState extends State<TopicDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return new TopicDetailWidget(_topicDetail);
+    return TopicDetailWidget(_topicDetail);
   }
 
   @override

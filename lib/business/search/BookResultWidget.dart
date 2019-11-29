@@ -23,14 +23,11 @@ class BookResultWidget extends StatefulWidget {
 }
 
 class BookResultWidgetState extends State<BookResultWidget> {
-  GlobalKey<EasyRefreshState> _easyRefreshKey =
-      new GlobalKey<EasyRefreshState>();
-  GlobalKey<RefreshHeaderState> _headerKey =
-      new GlobalKey<RefreshHeaderState>();
-  GlobalKey<RefreshFooterState> _footerKey =
-      new GlobalKey<RefreshFooterState>();
+  GlobalKey<EasyRefreshState> _easyRefreshKey = GlobalKey<EasyRefreshState>();
+  GlobalKey<RefreshHeaderState> _headerKey = GlobalKey<RefreshHeaderState>();
+  GlobalKey<RefreshFooterState> _footerKey = GlobalKey<RefreshFooterState>();
 
-  var _books = new List<BookChild>();
+  var _books = List<BookChild>();
 
   var _currentPage;
 
@@ -66,7 +63,7 @@ class BookResultWidgetState extends State<BookResultWidget> {
         loadMore: _loadMore,
         autoLoad: true,
         firstRefresh: true,
-        emptyWidget: new EmptyWidget());
+        emptyWidget: EmptyWidget());
   }
 
   Widget _buildListView() {
@@ -79,13 +76,13 @@ class BookResultWidgetState extends State<BookResultWidget> {
                       left: 10, top: 5, right: 10, bottom: 5),
                   child: Row(
                     children: <Widget>[
-                      new Container(
+                      Container(
                           margin: const EdgeInsets.only(right: 10),
                           child: Stack(
                             children: <Widget>[
                               Center(
                                   child: _books[index].thumb.isNotEmpty
-                                      ? new Material(
+                                      ? Material(
                                           child: FadeInImage.memoryNetwork(
                                             image: _books[index].thumb,
                                             fit: BoxFit.fill,
@@ -93,7 +90,7 @@ class BookResultWidgetState extends State<BookResultWidget> {
                                                 kTransparentImage /* 透明图片 */,
                                           ),
                                           borderRadius: BorderRadius.all(
-                                              new Radius.circular(5)))
+                                              Radius.circular(5)))
                                       : Image(
                                           image: AssetImage(
                                               'images/img_default.jpg'),
@@ -133,7 +130,7 @@ class BookResultWidgetState extends State<BookResultWidget> {
         queryParameters: {"kw": _keyWord, "pn": _currentPage}).then((response) {
       setState(() {
         BookSearch result =
-            new BookSearch.fromJson(json.decode(response.toString()));
+            BookSearch.fromJson(json.decode(response.toString()));
         _books.addAll(result.items);
         _hasNext = result.has_next;
       });
@@ -172,8 +169,8 @@ class BookResultWidgetState extends State<BookResultWidget> {
   }
 
   void _onItemClick(BookChild book) {
-    Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
-      return new WebViewWidget(book.link, book.title);
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+      return WebViewWidget(book.link, book.title);
     }));
   }
 }

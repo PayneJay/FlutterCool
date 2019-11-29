@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 
 class SettingScreen extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => new SettingScreenState();
+  State<StatefulWidget> createState() => SettingScreenState();
 }
 
 class SettingScreenState extends State<SettingScreen> {
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
+    return Scaffold(
       appBar: AppBar(title: Text('设置')),
       body: SingleChildScrollView(
         child: Column(

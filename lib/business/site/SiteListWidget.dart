@@ -19,9 +19,9 @@ class SiteListWidgetState extends State<SiteListWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return new ListView.builder(
+    return ListView.builder(
       itemBuilder: (BuildContext context, int index) =>
-          new GroupItem(_siteGroup[index], context),
+          GroupItem(_siteGroup[index], context),
       itemCount: _siteGroup.length,
     );
   }
@@ -35,8 +35,7 @@ class SiteListWidgetState extends State<SiteListWidget> {
   void _getSiteDirs() async {
     await dio.get(siteDirUrl).then((response) {
       setState(() {
-        SiteDirs siteDirs =
-            new SiteDirs.fromJson(json.decode(response.toString()));
+        SiteDirs siteDirs = SiteDirs.fromJson(json.decode(response.toString()));
         _siteGroup = siteDirs.items;
       });
     });
@@ -50,20 +49,20 @@ class GroupItem extends StatelessWidget {
   final SiteGroup group;
 
   Widget _buildGroupTiles(SiteGroup group) {
-    if (group.items.isEmpty) return new ListTile(title: new Text(group.name));
-    return new ExpansionTile(
-      key: new PageStorageKey<SiteGroup>(group),
-      title: new Text(group.name),
+    if (group.items.isEmpty) return ListTile(title: Text(group.name));
+    return ExpansionTile(
+      key: PageStorageKey<SiteGroup>(group),
+      title: Text(group.name),
       children: group.items.map(_buildChildTiles).toList(),
     );
   }
 
   Widget _buildChildTiles(SiteChild child) {
-    if (child == null) return new ListTile(title: new Text('must not be null'));
-    return new Padding(
+    if (child == null) return ListTile(title: Text('must not be null'));
+    return Padding(
       padding: const EdgeInsets.only(left: 10),
       child: ListTile(
-        title: new Row(
+        title: Row(
           children: <Widget>[
             ClipOval(
               child: FadeInImage.memoryNetwork(
@@ -93,8 +92,8 @@ class GroupItem extends StatelessWidget {
   }
 
   void _goSiteDetail(SiteChild child) {
-    Navigator.of(_context).push(new MaterialPageRoute(builder: (context) {
-      return new SiteDetailScreen(child.id);
+    Navigator.of(_context).push(MaterialPageRoute(builder: (context) {
+      return SiteDetailScreen(child.id);
     }));
   }
 }

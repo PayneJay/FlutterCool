@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class EmptyWidget extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return new EmptyWidgetState();
+    return EmptyWidgetState();
   }
 }
 
@@ -15,21 +15,21 @@ class EmptyWidgetState extends State<EmptyWidget> {
 }
 
 Widget _createEmptyPage(BuildContext context) {
-  return new Container(
+  return Container(
     height: MediaQuery.of(context).size.height -
         kToolbarHeight -
         kBottomNavigationBarHeight,
-    padding: new EdgeInsets.all(32.0),
-    child: new Center(
-      child: new Column(
+    padding: EdgeInsets.all(32.0),
+    child: Center(
+      child: Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Image.asset('images/icon_empty.png'),
-          new Container(
+          Container(
             margin: const EdgeInsets.only(top: 18.0),
-            child: new Text('暂时还没有内容哦',
-                style: new TextStyle(
+            child: Text('暂时还没有内容哦',
+                style: TextStyle(
                   fontSize: 16.0,
                   fontWeight: FontWeight.w400,
                   color: Colors.lightBlueAccent,

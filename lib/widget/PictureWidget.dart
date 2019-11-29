@@ -12,8 +12,8 @@ class PictureWidget extends StatelessWidget {
       child: Center(
         child: DragScaleContainer(
           doubleTapStillScale: true,
-          child: new Image(
-            image: new NetworkImage(source),
+          child: Image(
+            image: NetworkImage(source),
           ),
         ),
       ),

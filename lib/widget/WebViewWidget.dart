@@ -10,7 +10,7 @@ class WebViewWidget extends StatefulWidget {
   WebViewWidget(this._newsUrl, this._title);
 
   @override
-  State<StatefulWidget> createState() => new WebViewWidgetState();
+  State<StatefulWidget> createState() => WebViewWidgetState();
 }
 
 class WebViewWidgetState extends State<WebViewWidget> {
@@ -19,7 +19,7 @@ class WebViewWidgetState extends State<WebViewWidget> {
 
   // 标记当前页面是否是我们自定义的回调页面
   bool isLoadingCallbackPage = false;
-  GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey();
+  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
 
   // URL变化监听器
   StreamSubscription<String> onUrlChanged;
@@ -28,7 +28,7 @@ class WebViewWidgetState extends State<WebViewWidget> {
   StreamSubscription<WebViewStateChanged> onStateChanged;
 
   // 插件提供的对象，该对象用于WebView的各种操作
-  FlutterWebviewPlugin flutterWebViewPlugin = new FlutterWebviewPlugin();
+  FlutterWebviewPlugin flutterWebViewPlugin = FlutterWebviewPlugin();
 
   @override
   void initState() {
@@ -85,16 +85,16 @@ class WebViewWidgetState extends State<WebViewWidget> {
   @override
   Widget build(BuildContext context) {
     // WebviewScaffold是插件提供的组件，用于在页面上显示一个WebView并加载URL
-    return new WebviewScaffold(
+    return WebviewScaffold(
 //      key: scaffoldKey,
       url: widget._newsUrl,
       // 登录的URL
-      appBar: new AppBar(
+      appBar: AppBar(
         titleSpacing: 0,
-        title: new Text(widget._title,
+        title: Text(widget._title,
             maxLines: 1,
             textAlign: TextAlign.end,
-            style: new TextStyle(color: Colors.white)),
+            style: TextStyle(color: Colors.white)),
       ),
       withZoom: true,
       // 允许网页缩放

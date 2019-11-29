@@ -14,7 +14,7 @@ class PeriodDetailScreen extends StatefulWidget {
   const PeriodDetailScreen(this._magChild);
 
   @override
-  State<StatefulWidget> createState() => new PeriodDetailScreenState();
+  State<StatefulWidget> createState() => PeriodDetailScreenState();
 }
 
 class PeriodDetailScreenState extends State<PeriodDetailScreen>
@@ -44,7 +44,7 @@ class PeriodDetailScreenState extends State<PeriodDetailScreen>
             ),
           ];
         },
-        body: new ListView.builder(
+        body: ListView.builder(
             itemCount: _magGroup.length,
             itemBuilder: (context, i) {
               return _magGroup.length == 0
@@ -56,7 +56,7 @@ class PeriodDetailScreenState extends State<PeriodDetailScreen>
   }
 
   Widget _buildExpandTiles(MagDetailGroup group) {
-    if (group == null) return new ListTile(title: new Text('must not be null'));
+    if (group == null) return ListTile(title: Text('must not be null'));
     return Column(
       children: <Widget>[
         Container(
@@ -92,8 +92,7 @@ class PeriodDetailScreenState extends State<PeriodDetailScreen>
       'type': magChild == null ? 0 : magChild.type
     }).then((response) {
       setState(() {
-        MagDetail magDirs =
-            new MagDetail.fromJson(jsonDecode(response.toString()));
+        MagDetail magDirs = MagDetail.fromJson(jsonDecode(response.toString()));
         _magGroup = magDirs.items;
       });
     });

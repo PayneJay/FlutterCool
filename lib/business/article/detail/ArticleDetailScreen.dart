@@ -30,15 +30,15 @@ class ArticleDetailScreenState extends State<ArticleDetailScreen> {
   @override
   Widget build(BuildContext context) {
     _context = context;
-    return new Scaffold(
+    return Scaffold(
       appBar: AppBar(
         elevation: 0,
         actions: <Widget>[
-          new IconButton(
+          IconButton(
             icon: Icon(Icons.share, color: Colors.white),
             onPressed: _share,
           ),
-          new IconButton(
+          IconButton(
             icon: Icon(Icons.comment, color: Colors.white),
             onPressed: _comment,
           ),
@@ -60,7 +60,7 @@ class ArticleDetailScreenState extends State<ArticleDetailScreen> {
         queryParameters: {"is_pad": 1, "need_image_meta": 1}).then((response) {
       setState(() {
         ArticleDetail articleDetail =
-            new ArticleDetail.fromJson(json.decode(response.toString()));
+            ArticleDetail.fromJson(json.decode(response.toString()));
         var article = articleDetail.article;
         _title = article.title;
         _time = article.time;
@@ -93,19 +93,19 @@ _share() {
 
 //评论
 void _comment() {
-  Navigator.of(_context).push(new MaterialPageRoute(builder: (context) {
-    return new CommentScreen();
+  Navigator.of(_context).push(MaterialPageRoute(builder: (context) {
+    return CommentScreen();
   }));
 }
 
 //更多菜单
 Widget _more() {
-  return new PopupMenuButton<MenuItem>(
+  return PopupMenuButton<MenuItem>(
     //这是点击弹出菜单的操作，点击对应菜单后，改变屏幕中间文本状态，将点击的菜单值赋予屏幕中间文本
     onSelected: (MenuItem value) {
       print('*****' + value.title);
     },
-    offset: new Offset(0, kToolbarHeight),
+    offset: Offset(0, kToolbarHeight),
     //这是弹出菜单的建立
     itemBuilder: (context) => [
       getPopupMenuItem(menus[0]),
@@ -137,13 +137,13 @@ _launchURL(String url) async {
 }
 
 _onImageTap(String source) {
-  Navigator.of(_context).push(new MaterialPageRoute(builder: (context) {
-    return new PictureWidget(source);
+  Navigator.of(_context).push(MaterialPageRoute(builder: (context) {
+    return PictureWidget(source);
   }));
 }
 
 Widget _getProgressDialog() {
-  return new LoadingDialog(
+  return LoadingDialog(
     //调用对话框
     text: '正在获取详情...',
   );
@@ -154,7 +154,7 @@ Widget _buildDetail() {
     return _getProgressDialog();
   }
   return SingleChildScrollView(
-    child: new Container(
+    child: Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.max,
@@ -169,14 +169,14 @@ Widget _buildDetail() {
               children: <Widget>[
                 Text(
                   _title,
-                  style: new TextStyle(fontSize: 20, color: Colors.white),
+                  style: TextStyle(fontSize: 20, color: Colors.white),
                   maxLines: 2,
                 ),
                 Container(
                   margin: const EdgeInsets.only(top: 15),
                   child: Text(
                     _feedTitle + '  ' + _time,
-                    style: new TextStyle(fontSize: 13, color: Colors.white70),
+                    style: TextStyle(fontSize: 13, color: Colors.white70),
                     maxLines: 1,
                   ),
                 )

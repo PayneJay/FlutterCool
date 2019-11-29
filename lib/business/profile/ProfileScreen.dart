@@ -61,12 +61,11 @@ class ProfileScreenState extends State<ProfileScreen> {
                                       ? NetworkImage(_imgUrl)
                                       : FileImage(_image),
                                   fit: BoxFit.cover))),
-                      new Padding(
+                      Padding(
                         padding: const EdgeInsets.only(left: 10),
-                        child: new Text(
+                        child: Text(
                           _nickName,
-                          style:
-                              new TextStyle(fontSize: 18, color: Colors.black),
+                          style: TextStyle(fontSize: 18, color: Colors.black),
                         ),
                       )
                     ],
@@ -111,18 +110,18 @@ class ProfileScreenState extends State<ProfileScreen> {
   }
 
   _onItemClick(int id) {
-    Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
-      return new ExamplePage();
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+      return ExamplePage();
     }));
   }
 
   _goUserProfile() async {
     getBool(USER_LOGIN_STATUS_KEY).then((value) {
-      Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
+      Navigator.of(context).push(MaterialPageRoute(builder: (context) {
         if (value != null && value) {
-          return new UserProfilePage();
+          return UserProfilePage();
         }
-        return new LoginPage();
+        return LoginPage();
       }));
     });
   }

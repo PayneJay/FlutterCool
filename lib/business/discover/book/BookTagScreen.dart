@@ -16,16 +16,13 @@ class BookTagScreen extends StatefulWidget {
   const BookTagScreen(this._bookGroup);
 
   @override
-  State<StatefulWidget> createState() => new BookTagScreenState(_bookGroup);
+  State<StatefulWidget> createState() => BookTagScreenState(_bookGroup);
 }
 
 class BookTagScreenState extends State<BookTagScreen> {
-  GlobalKey<EasyRefreshState> _easyRefreshKey =
-      new GlobalKey<EasyRefreshState>();
-  GlobalKey<RefreshHeaderState> _headerKey =
-      new GlobalKey<RefreshHeaderState>();
-  GlobalKey<RefreshFooterState> _footerKey =
-      new GlobalKey<RefreshFooterState>();
+  GlobalKey<EasyRefreshState> _easyRefreshKey = GlobalKey<EasyRefreshState>();
+  GlobalKey<RefreshHeaderState> _headerKey = GlobalKey<RefreshHeaderState>();
+  GlobalKey<RefreshFooterState> _footerKey = GlobalKey<RefreshFooterState>();
 
   final BookGroup _bookGroup;
   var _tagId;
@@ -38,10 +35,10 @@ class BookTagScreenState extends State<BookTagScreen> {
   @override
   Widget build(BuildContext context) {
     _tagId = _bookGroup.tagId;
-    return new Scaffold(
+    return Scaffold(
         appBar:
             AppBar(title: Text(_bookGroup == null ? '' : _bookGroup.tagName)),
-        body: new EasyRefresh(
+        body: EasyRefresh(
           key: _easyRefreshKey,
           behavior: ScrollOverBehavior(),
           refreshHeader: PhoenixHeader(key: _headerKey),
@@ -59,7 +56,7 @@ class BookTagScreenState extends State<BookTagScreen> {
           loadMore: _loadMore,
           autoLoad: true,
           firstRefresh: true,
-          emptyWidget: new EmptyWidget(),
+          emptyWidget: EmptyWidget(),
         ));
   }
 
@@ -67,8 +64,7 @@ class BookTagScreenState extends State<BookTagScreen> {
     await dio.get(bookTagUrl,
         queryParameters: {'tag': _tagId, 'pn': _currentPage}).then((response) {
       setState(() {
-        BookList bookList =
-            new BookList.fromJson(jsonDecode(response.toString()));
+        BookList bookList = BookList.fromJson(jsonDecode(response.toString()));
         if (_currentPage == 0) {
           _bookList.clear();
         }
@@ -79,7 +75,7 @@ class BookTagScreenState extends State<BookTagScreen> {
   }
 
   Widget _buildChildTiles(List<BookChild> list) {
-    if (list == null) return new ListTile(title: new Text('must not be null'));
+    if (list == null) return ListTile(title: Text('must not be null'));
     return Padding(
         padding: const EdgeInsets.all(10),
         child: GridView.builder(

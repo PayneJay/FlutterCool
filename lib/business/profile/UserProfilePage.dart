@@ -11,7 +11,7 @@ import 'package:myapp/callback/DialogCallback.dart';
 
 class UserProfilePage extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => new UserProfileState();
+  State<StatefulWidget> createState() => UserProfileState();
 }
 
 class UserProfileState extends State<UserProfilePage>
@@ -78,7 +78,7 @@ class UserProfileState extends State<UserProfilePage>
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
+    return Scaffold(
       appBar: AppBar(title: Text('编辑信息'), actions: <Widget>[
         IconButton(icon: Icon(Icons.power_settings_new), onPressed: _logOut)
       ]),
@@ -101,11 +101,11 @@ class UserProfileState extends State<UserProfilePage>
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              new Padding(
+              Padding(
                 padding: const EdgeInsets.only(left: 15),
-                child: new Text(
+                child: Text(
                   item.label,
-                  style: new TextStyle(fontSize: 18, color: Colors.black),
+                  style: TextStyle(fontSize: 18, color: Colors.black),
                 ),
               ),
               GestureDetector(

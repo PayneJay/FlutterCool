@@ -23,13 +23,10 @@ class TopicResultWidget extends StatefulWidget {
 }
 
 class TopicResultWidgetState extends State<TopicResultWidget> {
-  GlobalKey<EasyRefreshState> _easyRefreshKey =
-      new GlobalKey<EasyRefreshState>();
-  GlobalKey<RefreshHeaderState> _headerKey =
-      new GlobalKey<RefreshHeaderState>();
-  GlobalKey<RefreshFooterState> _footerKey =
-      new GlobalKey<RefreshFooterState>();
-  var _topics = new List<TopicChild>();
+  GlobalKey<EasyRefreshState> _easyRefreshKey = GlobalKey<EasyRefreshState>();
+  GlobalKey<RefreshHeaderState> _headerKey = GlobalKey<RefreshHeaderState>();
+  GlobalKey<RefreshFooterState> _footerKey = GlobalKey<RefreshFooterState>();
+  var _topics = List<TopicChild>();
 
   StreamSubscription<SearchEvent> subscription;
 
@@ -60,7 +57,7 @@ class TopicResultWidgetState extends State<TopicResultWidget> {
         onRefresh: _onRefresh,
         autoLoad: true,
         firstRefresh: true,
-        emptyWidget: new EmptyWidget());
+        emptyWidget: EmptyWidget());
   }
 
   Widget _buildListView() {
@@ -106,7 +103,7 @@ class TopicResultWidgetState extends State<TopicResultWidget> {
         (response) {
       setState(() {
         TopicSearch result =
-            new TopicSearch.fromJson(json.decode(response.toString()));
+            TopicSearch.fromJson(json.decode(response.toString()));
         _topics.addAll(result.topics);
       });
     });
@@ -130,8 +127,8 @@ class TopicResultWidgetState extends State<TopicResultWidget> {
   }
 
   void _onItemClick(TopicChild topic) {
-    Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
-      return new TopicDetailScreen(topic.id);
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+      return TopicDetailScreen(topic.id);
     }));
   }
 

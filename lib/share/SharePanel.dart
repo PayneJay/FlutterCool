@@ -14,7 +14,7 @@ class SharePanel extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return new SharePanelState();
+    return SharePanelState();
   }
 }
 
@@ -65,7 +65,7 @@ class SharePanelState extends State<SharePanel> {
   }
 
   Widget getImageWidget(String imagePath, WeChatScene scene) {
-    return new GestureDetector(
+    return GestureDetector(
         child: IconButton(
           icon: Image.asset(imagePath, width: 40, height: 40),
           padding: EdgeInsets.all(3),

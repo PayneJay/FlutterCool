@@ -10,7 +10,7 @@ class ThemeScreenState extends State<ThemeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: new ThemeWidget(),
+      body: ThemeWidget(),
     );
   }
 }

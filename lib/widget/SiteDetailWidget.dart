@@ -27,13 +27,12 @@ class SiteDetailWidget extends StatelessWidget {
               ),
             ),
           ), //List
-          new SliverFixedExtentList(
+          SliverFixedExtentList(
             itemExtent: 120.0,
-            delegate: new SliverChildBuilderDelegate(
+            delegate: SliverChildBuilderDelegate(
                 (BuildContext context, int index) {
               //创建列表项
-              return new ArticleItemWidget(
-                  context, _siteDetail.articles[index]);
+              return ArticleItemWidget(context, _siteDetail.articles[index]);
             },
                 childCount:
                     _siteDetail == null ? 0 : _siteDetail.articles.length),

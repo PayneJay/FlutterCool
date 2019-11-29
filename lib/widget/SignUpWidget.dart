@@ -4,7 +4,7 @@ import 'package:overlay_support/overlay_support.dart';
 
 class SignUpWidget extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => new SignUpWidgetState();
+  State<StatefulWidget> createState() => SignUpWidgetState();
 }
 
 class SignUpWidgetState extends State<SignUpWidget> {
@@ -15,11 +15,11 @@ class SignUpWidgetState extends State<SignUpWidget> {
   bool _obscureTextSignup = true;
   bool _obscureTextSignupConfirm = true;
 
-  TextEditingController signupEmailController = new TextEditingController();
-  TextEditingController signupNameController = new TextEditingController();
-  TextEditingController signupPasswordController = new TextEditingController();
+  TextEditingController signupEmailController = TextEditingController();
+  TextEditingController signupNameController = TextEditingController();
+  TextEditingController signupPasswordController = TextEditingController();
   TextEditingController signupConfirmPasswordController =
-      new TextEditingController();
+      TextEditingController();
 
   BuildContext _context;
 
@@ -178,7 +178,7 @@ class SignUpWidgetState extends State<SignUpWidget> {
               ),
               Container(
                 margin: EdgeInsets.only(top: 340.0),
-                decoration: new BoxDecoration(
+                decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(5.0)),
                   boxShadow: <BoxShadow>[
                     BoxShadow(
@@ -192,7 +192,7 @@ class SignUpWidgetState extends State<SignUpWidget> {
                       blurRadius: 20.0,
                     ),
                   ],
-                  gradient: new LinearGradient(
+                  gradient: LinearGradient(
                       colors: [Colors.pinkAccent, Colors.pinkAccent],
                       begin: const FractionalOffset(0.2, 0.2),
                       end: const FractionalOffset(1.0, 1.0),

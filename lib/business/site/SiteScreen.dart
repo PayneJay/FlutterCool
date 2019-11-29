@@ -10,7 +10,7 @@ class SiteScreenState extends State<SiteScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: new SiteListWidget(),
+      body: SiteListWidget(),
     );
   }
 }

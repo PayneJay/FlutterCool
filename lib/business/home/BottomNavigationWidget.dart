@@ -86,14 +86,14 @@ class BottomNavigationWidgetState extends State<BottomNavigationWidget> {
   }
 
   void _goSearch() {
-    Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
-      return new SearchScreen();
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+      return SearchScreen();
     }));
   }
 
   void _goSetting() {
-    Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
-      return new SettingScreen();
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+      return SettingScreen();
     }));
   }
 
@@ -110,14 +110,14 @@ class BottomNavigationWidgetState extends State<BottomNavigationWidget> {
   }
 
   PopupMenuButton _showPopupMenu() {
-    return new PopupMenuButton<String>(
+    return PopupMenuButton<String>(
         //这是点击弹出菜单的操作，点击对应菜单后，改变屏幕中间文本状态，将点击的菜单值赋予屏幕中间文本
         onSelected: (String value) {
           setState(() {
             print('PopupMenuButton value : $value');
           });
         },
-        offset: new Offset(0, kToolbarHeight),
+        offset: Offset(0, kToolbarHeight),
         //这是弹出菜单的建立
         itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
               _getPopupMenuItem(0),
@@ -131,7 +131,7 @@ class BottomNavigationWidgetState extends State<BottomNavigationWidget> {
   PopupMenuItem<String> _getPopupMenuItem(int index) {
     var content = menuNames[index];
     return PopupMenuItem(
-      child: new Text(menuNames[index]),
+      child: Text(menuNames[index]),
       value: '这是 $content',
     );
   }

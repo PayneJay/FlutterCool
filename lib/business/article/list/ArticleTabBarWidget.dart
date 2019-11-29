@@ -3,7 +3,7 @@ import 'package:myapp/business/article/list/ArticleListWidget.dart';
 
 class ArticleTabBarWidget extends StatefulWidget {
   @override
-  createState() => new ArticleTabBarWidgetState();
+  createState() => ArticleTabBarWidgetState();
 }
 
 class ArticleTabBarWidgetState extends State<ArticleTabBarWidget>
@@ -12,34 +12,33 @@ class ArticleTabBarWidgetState extends State<ArticleTabBarWidget>
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
+    return Scaffold(
+      appBar: AppBar(
         backgroundColor: Colors.blueAccent,
-        bottom: new PreferredSize(
-            child: new TabBar(
+        bottom: PreferredSize(
+            child: TabBar(
                 controller: _controller,
                 isScrollable: true,
                 unselectedLabelColor: Colors.white54,
-                unselectedLabelStyle: new TextStyle(fontSize: 12.0),
+                unselectedLabelStyle: TextStyle(fontSize: 14.0),
                 labelColor: Colors.white,
-                labelStyle: new TextStyle(fontSize: 16.0),
+                labelStyle: TextStyle(fontSize: 16.0),
                 indicatorColor: Colors.white,
                 indicatorWeight: 2,
                 indicatorSize: TabBarIndicatorSize.label,
                 tabs: choices.map((Choice choice) {
-                  return new Tab(
+                  return Tab(
                     text: choice.title,
-                    icon: new Icon(choice.icon),
                   );
                 }).toList()),
-            preferredSize: Size.fromHeight(18)),
+            preferredSize: Size.fromHeight(-8)),
       ),
-      body: new TabBarView(
+      body: TabBarView(
         controller: _controller,
         children: choices.map((Choice choice) {
-          return new Padding(
-            padding: const EdgeInsets.only(top: 10.0),
-            child: new ArticleListWidget(choice),
+          return Padding(
+            padding: const EdgeInsets.only(top: 0.0),
+            child: ArticleListWidget(choice),
           );
         }).toList(),
       ),
@@ -49,7 +48,7 @@ class ArticleTabBarWidgetState extends State<ArticleTabBarWidget>
   @override
   void initState() {
     super.initState();
-    _controller = new TabController(length: choices.length, vsync: this);
+    _controller = TabController(length: choices.length, vsync: this);
   }
 
   @override

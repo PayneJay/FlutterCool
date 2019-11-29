@@ -7,11 +7,10 @@ class HomeScreen extends StatefulWidget {
 }
 
 class HomeScreenState extends State<HomeScreen> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: new ArticleTabBarWidget(),
+      body: ArticleTabBarWidget(),
     );
   }
 }

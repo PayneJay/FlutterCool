@@ -21,7 +21,7 @@ class SiteDetailState extends State<SiteDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return new SiteDetailWidget(_siteDetail);
+    return SiteDetailWidget(_siteDetail);
   }
 
   @override

@@ -13,15 +13,15 @@ import 'package:myapp/utils/CommonUtil.dart';
 
 class SignInWidget extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => new SignInWidgetState();
+  State<StatefulWidget> createState() => SignInWidgetState();
 }
 
 class SignInWidgetState extends State<SignInWidget> {
   final FocusNode myFocusNodeEmailLogin = FocusNode();
   final FocusNode myFocusNodePasswordLogin = FocusNode();
 
-  TextEditingController loginEmailController = new TextEditingController();
-  TextEditingController loginPasswordController = new TextEditingController();
+  TextEditingController loginEmailController = TextEditingController();
+  TextEditingController loginPasswordController = TextEditingController();
 
   bool _obscureTextLogin = true;
 
@@ -123,7 +123,7 @@ class SignInWidgetState extends State<SignInWidget> {
               ),
               Container(
                 margin: EdgeInsets.only(top: 170.0),
-                decoration: new BoxDecoration(
+                decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(5.0)),
                   boxShadow: <BoxShadow>[
                     BoxShadow(
@@ -137,7 +137,7 @@ class SignInWidgetState extends State<SignInWidget> {
                       blurRadius: 20.0,
                     ),
                   ],
-                  gradient: new LinearGradient(
+                  gradient: LinearGradient(
                       colors: [Colors.pinkAccent, Colors.pinkAccent],
                       begin: const FractionalOffset(0.2, 0.2),
                       end: const FractionalOffset(1.0, 1.0),
@@ -183,7 +183,7 @@ class SignInWidgetState extends State<SignInWidget> {
               children: <Widget>[
                 Container(
                   decoration: BoxDecoration(
-                    gradient: new LinearGradient(
+                    gradient: LinearGradient(
                         colors: [
                           Colors.white10,
                           Colors.white,
@@ -208,7 +208,7 @@ class SignInWidgetState extends State<SignInWidget> {
                 ),
                 Container(
                   decoration: BoxDecoration(
-                    gradient: new LinearGradient(
+                    gradient: LinearGradient(
                         colors: [
                           Colors.white,
                           Colors.white10,
@@ -233,11 +233,11 @@ class SignInWidgetState extends State<SignInWidget> {
                   onTap: () => loginByWeChat("WeChat button pressed"),
                   child: Container(
                     padding: const EdgeInsets.all(15.0),
-                    decoration: new BoxDecoration(
+                    decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: Colors.white,
                     ),
-                    child: new Icon(
+                    child: Icon(
                       FontAwesomeIcons.weixin,
                       color: Color(0xFF02DF82),
                     ),
@@ -250,11 +250,11 @@ class SignInWidgetState extends State<SignInWidget> {
                   onTap: () => loginByQQ("QQ button pressed"),
                   child: Container(
                     padding: const EdgeInsets.all(15.0),
-                    decoration: new BoxDecoration(
+                    decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: Colors.white,
                     ),
-                    child: new Icon(
+                    child: Icon(
                       FontAwesomeIcons.qq,
                       color: Colors.blueAccent,
                     ),
@@ -307,8 +307,7 @@ class SignInWidgetState extends State<SignInWidget> {
         data: {"email": _email, "password": _password}).then((response) {
       setState(() {
         print(response.toString());
-        UserInfo userInfo =
-            new UserInfo.fromJson(json.decode(response.toString()));
+        UserInfo userInfo = UserInfo.fromJson(json.decode(response.toString()));
         if (userInfo.error != null) {
           toast(_context, userInfo.error);
         } else {

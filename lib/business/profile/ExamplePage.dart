@@ -6,13 +6,14 @@ class ExamplePage extends StatefulWidget {
   _ExamplePageState createState() => _ExamplePageState();
 }
 
-class _ExamplePageState extends State<ExamplePage> with TickerProviderStateMixin {
+class _ExamplePageState extends State<ExamplePage>
+    with TickerProviderStateMixin {
   final List<ListItem> listData = [];
 
   @override
   Widget build(BuildContext context) {
     for (int i = 0; i < 20; i++) {
-      listData.add(new ListItem("我是测试标题$i", Icons.cake));
+      listData.add(ListItem("我是测试标题$i", Icons.cake));
     }
     return Scaffold(
       body: NestedScrollView(
@@ -33,26 +34,24 @@ class _ExamplePageState extends State<ExamplePage> with TickerProviderStateMixin
                     fit: BoxFit.fill,
                   )),
             ),
-
             SliverPersistentHeader(
                 delegate: _SliverAppBarDelegate(
-                  TabBar(
-
-                    controller: new TabController(length: 2, vsync: this),
-                    labelColor: Colors.black87,
-                    unselectedLabelColor: Colors.grey,
-                    tabs: [
-                      Tab(icon: Icon(Icons.security), text: "security"),
-                      Tab(icon: Icon(Icons.cake), text: "cake"),
-                    ],
-                  ),
-                ))
+              TabBar(
+                controller: TabController(length: 2, vsync: this),
+                labelColor: Colors.black87,
+                unselectedLabelColor: Colors.grey,
+                tabs: [
+                  Tab(icon: Icon(Icons.security), text: "security"),
+                  Tab(icon: Icon(Icons.cake), text: "cake"),
+                ],
+              ),
+            ))
           ];
         },
         body: Center(
-          child: new ListView.builder(
+          child: ListView.builder(
             itemBuilder: (BuildContext context, int index) {
-              return new ListItemWidget(listData[index]);
+              return ListItemWidget(listData[index]);
             },
             itemCount: listData.length,
           ),
@@ -76,10 +75,10 @@ class ListItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new InkWell(
-      child: new ListTile(
-        leading: new Icon(listItem.iconData),
-        title: new Text(listItem.title),
+    return InkWell(
+      child: ListTile(
+        leading: Icon(listItem.iconData),
+        title: Text(listItem.title),
       ),
       onTap: () {},
     );
@@ -100,7 +99,7 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return new Container(
+    return Container(
       child: _tabBar,
     );
   }
