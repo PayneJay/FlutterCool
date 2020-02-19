@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_cool/models/magChild.dart';
-import 'package:flutter_cool/business/discover/mag/PeriodDetailScreen.dart';
-import 'package:flutter_cool/business/discover/mag/PeriodDetailScreen.dart';
+import 'package:cool/models/magChild.dart';
+import 'package:cool/business/discover/mag/PeriodDetailScreen.dart';
+import 'package:cool/business/discover/mag/PeriodDetailScreen.dart';
 
 class PeriodItemWidget extends StatelessWidget {
   final MagChild _magChild;

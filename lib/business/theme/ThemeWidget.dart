@@ -1,13 +1,13 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_cool/http/Http.dart';
-import 'package:flutter_cool/http/InterfaceService.dart';
-import 'package:flutter_cool/models/topicDirs.dart';
-import 'package:flutter_cool/models/topicGroup.dart';
-import 'package:flutter_cool/models/topicChild.dart';
+import 'package:cool/http/Http.dart';
+import 'package:cool/http/InterfaceService.dart';
+import 'package:cool/models/topicDirs.dart';
+import 'package:cool/models/topicGroup.dart';
+import 'package:cool/models/topicChild.dart';
 import 'package:transparent_image/transparent_image.dart';
-import 'package:flutter_cool/business/theme/TopicDetailScreen.dart';
+import 'package:cool/business/theme/TopicDetailScreen.dart';
 
 class ThemeWidget extends StatefulWidget {
   @override

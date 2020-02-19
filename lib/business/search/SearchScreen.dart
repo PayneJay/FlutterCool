@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'SearchResultWidget.dart';
-import 'package:flutter_cool/event/EventBus.dart';
-import 'package:flutter_cool/event/SearchEvent.dart';
-import 'package:flutter_cool/event/SearchChangeEvent.dart';
+import 'package:cool/event/EventBus.dart';
+import 'package:cool/event/SearchEvent.dart';
+import 'package:cool/event/SearchChangeEvent.dart';
 
 class SearchScreen extends StatefulWidget {
   @override

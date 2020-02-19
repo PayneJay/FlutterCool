@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_cool/models/topicDetail.dart';
-import 'package:flutter_cool/widget/ArticleItemWidget.dart';
+import 'package:cool/models/topicDetail.dart';
+import 'package:cool/widget/ArticleItemWidget.dart';
 
 class TopicDetailWidget extends StatelessWidget {
   final TopicDetail _topicDetail;

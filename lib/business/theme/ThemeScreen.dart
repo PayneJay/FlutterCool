@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_cool/business/theme/ThemeWidget.dart';
+import 'package:cool/business/theme/ThemeWidget.dart';
 
 class ThemeScreen extends StatefulWidget {
   @override

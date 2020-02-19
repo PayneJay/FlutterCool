@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_cool/business/site/SiteListWidget.dart';
+import 'package:cool/business/site/SiteListWidget.dart';
 
 class SiteScreen extends StatefulWidget {
   @override

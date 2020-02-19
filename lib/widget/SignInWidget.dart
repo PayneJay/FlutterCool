@@ -2,14 +2,14 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:flutter_cool/business/login/style/Theme.dart' as Theme;
-import 'package:flutter_cool/http/Http.dart';
-import 'package:flutter_cool/http/InterfaceService.dart';
+import 'package:cool/business/login/style/Theme.dart' as Theme;
+import 'package:cool/http/Http.dart';
+import 'package:cool/http/InterfaceService.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:common_utils/common_utils.dart';
-import 'package:flutter_cool/models/userInfo.dart';
-import 'package:flutter_cool/utils/Constants.dart';
-import 'package:flutter_cool/utils/CommonUtil.dart';
+import 'package:cool/models/userInfo.dart';
+import 'package:cool/utils/Constants.dart';
+import 'package:cool/utils/CommonUtil.dart';
 
 class SignInWidget extends StatefulWidget {
   @override

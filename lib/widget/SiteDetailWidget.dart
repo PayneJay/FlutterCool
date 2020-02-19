@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_cool/models/siteDetail.dart';
-import 'package:flutter_cool/widget/ArticleItemWidget.dart';
+import 'package:cool/models/siteDetail.dart';
+import 'package:cool/widget/ArticleItemWidget.dart';
 
 class SiteDetailWidget extends StatelessWidget {
   final SiteDetail _siteDetail;

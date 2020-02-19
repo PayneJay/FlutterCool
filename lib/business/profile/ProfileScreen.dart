@@ -2,11 +2,11 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_cool/business/login/LoginPage.dart';
-import 'package:flutter_cool/business/profile/ExamplePage.dart';
-import 'package:flutter_cool/models/user.dart';
-import 'package:flutter_cool/utils/Constants.dart';
-import 'package:flutter_cool/utils/CommonUtil.dart';
+import 'package:cool/business/login/LoginPage.dart';
+import 'package:cool/business/profile/ExamplePage.dart';
+import 'package:cool/models/user.dart';
+import 'package:cool/utils/Constants.dart';
+import 'package:cool/utils/CommonUtil.dart';
 import 'UserProfilePage.dart';
 
 class ProfileScreen extends StatefulWidget {

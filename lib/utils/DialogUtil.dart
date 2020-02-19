@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_cool/widget/LoadingDialog.dart';
-import 'package:flutter_cool/callback/DialogCallback.dart';
+import 'package:cool/widget/LoadingDialog.dart';
+import 'package:cool/callback/DialogCallback.dart';
 
 void showConfirmDialog(BuildContext context, String title, String content,
     DialogCallback callback) {

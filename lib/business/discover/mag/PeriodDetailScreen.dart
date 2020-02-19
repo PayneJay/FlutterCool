@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_cool/models/magChild.dart';
-import 'package:flutter_cool/models/magDetail.dart';
-import 'package:flutter_cool/models/magDetailGroup.dart';
-import 'package:flutter_cool/widget/EmptyWidget.dart';
-import 'package:flutter_cool/widget/MagDetailChildItemWidget.dart';
-import 'package:flutter_cool/http/Http.dart';
-import 'package:flutter_cool/http/InterfaceService.dart';
+import 'package:cool/models/magChild.dart';
+import 'package:cool/models/magDetail.dart';
+import 'package:cool/models/magDetailGroup.dart';
+import 'package:cool/widget/EmptyWidget.dart';
+import 'package:cool/widget/MagDetailChildItemWidget.dart';
+import 'package:cool/http/Http.dart';
+import 'package:cool/http/InterfaceService.dart';
 import 'dart:convert';
 
 class PeriodDetailScreen extends StatefulWidget {

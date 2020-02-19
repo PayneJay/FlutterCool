@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_cool/models/bookChild.dart';
-import 'package:flutter_cool/widget/WebViewWidget.dart';
+import 'package:cool/models/bookChild.dart';
+import 'package:cool/widget/WebViewWidget.dart';
 
 class BookItemWidget extends StatelessWidget {
   final BookChild _bookChild;

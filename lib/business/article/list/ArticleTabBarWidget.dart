@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_cool/business/article/list/ArticleListWidget.dart';
+import 'package:cool/business/article/list/ArticleListWidget.dart';
 
 class ArticleTabBarWidget extends StatefulWidget {
   @override

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_cool/widget/SiteDetailWidget.dart';
-import 'package:flutter_cool/http/Http.dart';
-import 'package:flutter_cool/models/siteDetail.dart';
+import 'package:cool/widget/SiteDetailWidget.dart';
+import 'package:cool/http/Http.dart';
+import 'package:cool/models/siteDetail.dart';
 import 'dart:convert';
 
 class SiteDetailScreen extends StatefulWidget {

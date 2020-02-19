@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_cool/business/article/list/ArticleTabBarWidget.dart';
+import 'package:cool/business/article/list/ArticleTabBarWidget.dart';
 
 class HomeScreen extends StatefulWidget {
   @override

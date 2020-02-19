@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_cool/models/magDetailChild.dart';
-import 'package:flutter_cool/business/article/detail/ArticleDetailScreen.dart';
+import 'package:cool/models/magDetailChild.dart';
+import 'package:cool/business/article/detail/ArticleDetailScreen.dart';
 
 class MagDetailChildItemWidget extends StatelessWidget {
   final MagDetailChild _magChild;

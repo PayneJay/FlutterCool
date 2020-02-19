@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:flutter_cool/business/login/style/Theme.dart' as Theme;
-import 'package:flutter_cool/widget/SignInWidget.dart';
-import 'package:flutter_cool/widget/SignUpWidget.dart';
-import 'package:flutter_cool/widget/TabIndicationPainter.dart';
+import 'package:cool/business/login/style/Theme.dart' as Theme;
+import 'package:cool/widget/SignInWidget.dart';
+import 'package:cool/widget/SignUpWidget.dart';
+import 'package:cool/widget/TabIndicationPainter.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key key}) : super(key: key);

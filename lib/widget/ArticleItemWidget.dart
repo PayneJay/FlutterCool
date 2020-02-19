@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:transparent_image/transparent_image.dart';
-import 'package:flutter_cool/models/articles.dart';
-import 'package:flutter_cool/business/article/detail/ArticleDetailScreen.dart';
+import 'package:cool/models/articles.dart';
+import 'package:cool/business/article/detail/ArticleDetailScreen.dart';
 
 class ArticleItemWidget extends StatelessWidget {
   final Articles _articles;
