@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/http/Http.dart';
+import 'package:flutter_cool/http/Http.dart';
 import 'dart:convert';
-import 'package:myapp/models/articleList.dart';
-import 'package:myapp/models/articles.dart';
-import 'package:myapp/widget/EmptyWidget.dart';
+import 'package:flutter_cool/models/articleList.dart';
+import 'package:flutter_cool/models/articles.dart';
+import 'package:flutter_cool/widget/EmptyWidget.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
-import 'package:myapp/http/InterfaceService.dart';
-import 'package:myapp/widget/ArticleItemWidget.dart';
-import 'package:myapp/business/article/list/ArticleTabBarWidget.dart';
+import 'package:flutter_cool/http/InterfaceService.dart';
+import 'package:flutter_cool/widget/ArticleItemWidget.dart';
+import 'package:flutter_cool/business/article/list/ArticleTabBarWidget.dart';
 
 class ArticleListWidget extends StatefulWidget {
   final Choice _choice;

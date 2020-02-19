@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/business/comment/CommentScreen.dart';
-import 'package:myapp/share/SharePanel.dart';
-import 'package:myapp/widget/LoadingDialog.dart';
-import 'package:myapp/widget/PictureWidget.dart';
+import 'package:flutter_cool/business/comment/CommentScreen.dart';
+import 'package:flutter_cool/share/SharePanel.dart';
+import 'package:flutter_cool/widget/LoadingDialog.dart';
+import 'package:flutter_cool/widget/PictureWidget.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:myapp/http/Http.dart';
-import 'package:myapp/models/articleDetail.dart';
+import 'package:flutter_cool/http/Http.dart';
+import 'package:flutter_cool/models/articleDetail.dart';
 import 'dart:convert';
 import 'package:html/parser.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:myapp/http/InterfaceService.dart';
+import 'package:flutter_cool/http/InterfaceService.dart';
 
 class ArticleDetailScreen extends StatefulWidget {
   final String _id;

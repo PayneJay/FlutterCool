@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/widget/EmptyWidget.dart';
+import 'package:flutter_cool/widget/EmptyWidget.dart';
 
 class CommentScreen extends StatefulWidget {
   @override

@@ -3,14 +3,14 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
-import 'package:myapp/event/EventBus.dart';
-import 'package:myapp/event/SearchEvent.dart';
-import 'package:myapp/http/Http.dart';
-import 'package:myapp/http/InterfaceService.dart';
-import 'package:myapp/models/bookSearch.dart';
-import 'package:myapp/models/bookChild.dart';
-import 'package:myapp/widget/EmptyWidget.dart';
-import 'package:myapp/widget/WebViewWidget.dart';
+import 'package:flutter_cool/event/EventBus.dart';
+import 'package:flutter_cool/event/SearchEvent.dart';
+import 'package:flutter_cool/http/Http.dart';
+import 'package:flutter_cool/http/InterfaceService.dart';
+import 'package:flutter_cool/models/bookSearch.dart';
+import 'package:flutter_cool/models/bookChild.dart';
+import 'package:flutter_cool/widget/EmptyWidget.dart';
+import 'package:flutter_cool/widget/WebViewWidget.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class BookResultWidget extends StatefulWidget {

@@ -3,11 +3,11 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:myapp/models/user.dart';
-import 'package:myapp/utils/CommonUtil.dart';
-import 'package:myapp/utils/Constants.dart';
-import 'package:myapp/utils/DialogUtil.dart';
-import 'package:myapp/callback/DialogCallback.dart';
+import 'package:flutter_cool/models/user.dart';
+import 'package:flutter_cool/utils/CommonUtil.dart';
+import 'package:flutter_cool/utils/Constants.dart';
+import 'package:flutter_cool/utils/DialogUtil.dart';
+import 'package:flutter_cool/callback/DialogCallback.dart';
 
 class UserProfilePage extends StatefulWidget {
   @override

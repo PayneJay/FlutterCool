@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluwx/fluwx.dart' as fluwx;
-import 'package:myapp/business/home/BottomNavigationWidget.dart';
+import 'package:flutter_cool/business/home/BottomNavigationWidget.dart';
 
 void main() => runApp(
       MaterialApp(
@@ -15,8 +15,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-//  num _lastClickTime;
-
   @override
   void initState() {
     super.initState();
@@ -25,24 +23,32 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return BottomNavigationWidget();
-  }
+    Future<bool> _onWillPop() {
+      return showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: Text('Are you sure?'),
+              content: Text('Do you want to exit an App'),
+              actions: <Widget>[
+                FlatButton(
+                  onPressed: () => Navigator.of(context).pop(false),
+                  child: Text('No'),
+                ),
+                FlatButton(
+                  onPressed: () => Navigator.of(context).pop(true),
+                  child: Text('Yes'),
+                ),
+              ],
+            ),
+          ) ??
+          false;
+    }
 
-//  Future<bool> _doubleExit() {
-//    int nowTime = DateTime.now().microsecondsSinceEpoch;
-//    if (_lastClickTime != 0 && nowTime - _lastClickTime > 1500) {
-//      return Future.value(true);
-//    } else {
-//      _lastClickTime = DateTime.now().microsecondsSinceEpoch;
-//      Future.delayed(const Duration(milliseconds: 1500), () {
-//        _lastClickTime = 0;
-//      });
-//      return Future.value(false);
-//    }
-//  }
+    return WillPopScope(child: BottomNavigationWidget(), onWillPop: _onWillPop);
+  }
 
   _register() {
 //  注册
-    fluwx.register(appId: "wx974682567cca6ff8");
+    fluwx.registerWxApi(appId: "wx974682567cca6ff8");
   }
 }

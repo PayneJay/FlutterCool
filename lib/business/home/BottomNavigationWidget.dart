@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/business/settings/SettingScreen.dart';
+import 'package:flutter_cool/business/settings/SettingScreen.dart';
 import 'HomeScreen.dart';
-import 'package:myapp/business/profile/ProfileScreen.dart';
-import 'package:myapp/business/theme/ThemeScreen.dart';
-import 'package:myapp/business/site/SiteScreen.dart';
-import 'package:myapp/business/discover/DiscoverScreen.dart';
-import 'package:myapp/business/search/SearchScreen.dart';
+import 'package:flutter_cool/business/profile/ProfileScreen.dart';
+import 'package:flutter_cool/business/theme/ThemeScreen.dart';
+import 'package:flutter_cool/business/site/SiteScreen.dart';
+import 'package:flutter_cool/business/discover/DiscoverScreen.dart';
+import 'package:flutter_cool/business/search/SearchScreen.dart';
 
 class BottomNavigationWidget extends StatefulWidget {
   @override

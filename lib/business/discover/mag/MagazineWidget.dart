@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/widget/EmptyWidget.dart';
+import 'package:flutter_cool/widget/EmptyWidget.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_easyrefresh/phoenix_header.dart';
-import 'package:myapp/http/Http.dart';
-import 'package:myapp/http/InterfaceService.dart';
+import 'package:flutter_cool/http/Http.dart';
+import 'package:flutter_cool/http/InterfaceService.dart';
 import 'dart:convert';
-import 'package:myapp/models/magDirs.dart';
-import 'package:myapp/models/magGroup.dart';
-import 'package:myapp/business/discover/mag/PeriodListScreen.dart';
-import 'package:myapp/widget/PeriodItemWidget.dart';
+import 'package:flutter_cool/models/magDirs.dart';
+import 'package:flutter_cool/models/magGroup.dart';
+import 'package:flutter_cool/business/discover/mag/PeriodListScreen.dart';
+import 'package:flutter_cool/widget/PeriodItemWidget.dart';
 
 class MagazineWidget extends StatefulWidget {
   @override

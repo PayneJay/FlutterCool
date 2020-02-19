@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/event/EventBus.dart';
-import 'package:myapp/widget/EmptyWidget.dart';
-import 'package:myapp/business/search/ArticleResultWidget.dart';
-import 'package:myapp/business/search/TopicResultWidget.dart';
-import 'package:myapp/business/search/SiteResultWidget.dart';
-import 'package:myapp/business/search/BookResultWidget.dart';
-import 'package:myapp/event/SearchChangeEvent.dart';
+import 'package:flutter_cool/event/EventBus.dart';
+import 'package:flutter_cool/widget/EmptyWidget.dart';
+import 'package:flutter_cool/business/search/ArticleResultWidget.dart';
+import 'package:flutter_cool/business/search/TopicResultWidget.dart';
+import 'package:flutter_cool/business/search/SiteResultWidget.dart';
+import 'package:flutter_cool/business/search/BookResultWidget.dart';
+import 'package:flutter_cool/event/SearchChangeEvent.dart';
 
 class SearchResultWidget extends StatefulWidget {
   final String _inputText;

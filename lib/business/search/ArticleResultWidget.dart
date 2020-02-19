@@ -3,14 +3,14 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
-import 'package:myapp/http/Http.dart';
-import 'package:myapp/widget/ArticleItemWidget.dart';
-import 'package:myapp/http/InterfaceService.dart';
-import 'package:myapp/models/articleSearch.dart';
-import 'package:myapp/models/articles.dart';
-import 'package:myapp/widget/EmptyWidget.dart';
-import 'package:myapp/event/EventBus.dart';
-import 'package:myapp/event/SearchEvent.dart';
+import 'package:flutter_cool/http/Http.dart';
+import 'package:flutter_cool/widget/ArticleItemWidget.dart';
+import 'package:flutter_cool/http/InterfaceService.dart';
+import 'package:flutter_cool/models/articleSearch.dart';
+import 'package:flutter_cool/models/articles.dart';
+import 'package:flutter_cool/widget/EmptyWidget.dart';
+import 'package:flutter_cool/event/EventBus.dart';
+import 'package:flutter_cool/event/SearchEvent.dart';
 
 class ArticleResultWidget extends StatefulWidget {
   final String _inputText;

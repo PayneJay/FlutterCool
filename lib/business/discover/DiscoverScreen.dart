@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/business/discover/mag/MagazineWidget.dart';
-import 'package:myapp/business/discover/book/BookWidget.dart';
-import 'package:myapp/business/search/SearchScreen.dart';
+import 'package:flutter_cool/business/discover/mag/MagazineWidget.dart';
+import 'package:flutter_cool/business/discover/book/BookWidget.dart';
+import 'package:flutter_cool/business/search/SearchScreen.dart';
 
 class DiscoverScreen extends StatefulWidget {
   @override

@@ -1,4 +1,4 @@
-package com.example.myapp.wxapi;
+package com.cool.wxapi;
 
 import android.app.Activity;
 

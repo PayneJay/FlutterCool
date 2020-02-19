@@ -1,12 +1,12 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:myapp/business/site/SiteDetailScreen.dart';
-import 'package:myapp/http/Http.dart';
-import 'package:myapp/http/InterfaceService.dart';
-import 'package:myapp/models/siteDirs.dart';
-import 'package:myapp/models/siteGroup.dart';
-import 'package:myapp/models/siteChild.dart';
+import 'package:flutter_cool/business/site/SiteDetailScreen.dart';
+import 'package:flutter_cool/http/Http.dart';
+import 'package:flutter_cool/http/InterfaceService.dart';
+import 'package:flutter_cool/models/siteDirs.dart';
+import 'package:flutter_cool/models/siteGroup.dart';
+import 'package:flutter_cool/models/siteChild.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class SiteListWidget extends StatefulWidget {

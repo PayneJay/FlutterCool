@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/widget/EmptyWidget.dart';
+import 'package:flutter_cool/widget/EmptyWidget.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_easyrefresh/phoenix_header.dart';
-import 'package:myapp/http/Http.dart';
-import 'package:myapp/http/InterfaceService.dart';
+import 'package:flutter_cool/http/Http.dart';
+import 'package:flutter_cool/http/InterfaceService.dart';
 import 'dart:convert';
-import 'package:myapp/models/bookDirs.dart';
-import 'package:myapp/models/bookGroup.dart';
-import 'package:myapp/business/discover/book/BookTagScreen.dart';
-import 'package:myapp/widget/BookItemWidget.dart';
+import 'package:flutter_cool/models/bookDirs.dart';
+import 'package:flutter_cool/models/bookGroup.dart';
+import 'package:flutter_cool/business/discover/book/BookTagScreen.dart';
+import 'package:flutter_cool/widget/BookItemWidget.dart';
 
 class BookWidget extends StatefulWidget {
   @override

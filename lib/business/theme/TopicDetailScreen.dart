@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/widget/TopicDetailWidget.dart';
-import 'package:myapp/http/Http.dart';
-import 'package:myapp/models/topicDetail.dart';
+import 'package:flutter_cool/widget/TopicDetailWidget.dart';
+import 'package:flutter_cool/http/Http.dart';
+import 'package:flutter_cool/models/topicDetail.dart';
 import 'dart:convert';
 
 class TopicDetailScreen extends StatefulWidget {

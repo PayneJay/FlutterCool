@@ -24,7 +24,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="FlutterCool">
         <activity
-            android:name=".MainActivity"
+            android:name="com.cool.MainActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|layoutDirection|fontScale|screenLayout|density"
             android:hardwareAccelerated="true"
             android:launchMode="singleTop"
@@ -44,11 +44,11 @@
         </activity>
 
         <activity
-            android:name=".wxapi.WXEntryActivity"
+            android:name="com.cool.wxapi.WXEntryActivity"
             android:exported="true"
             android:launchMode="singleTop" />
         <activity
-            android:name=".wxapi.WXPayEntryActivity"
+            android:name="com.cool.wxapi.WXPayEntryActivity"
             android:exported="true"
             android:launchMode="singleTop">
 

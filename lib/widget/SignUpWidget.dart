@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/business/login/style/Theme.dart' as Theme;
+import 'package:flutter_cool/business/login/style/Theme.dart' as Theme;
 import 'package:overlay_support/overlay_support.dart';
 
 class SignUpWidget extends StatefulWidget {
