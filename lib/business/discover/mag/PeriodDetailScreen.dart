@@ -24,41 +24,37 @@ class PeriodDetailScreenState extends State<PeriodDetailScreen>
   @override
   Widget build(BuildContext context) {
     return Material(
-      child: CustomScrollView(
-        slivers: <Widget>[
-          //AppBar，包含一个导航栏
-          SliverAppBar(
-            pinned: true,
-            expandedHeight: 250.0,
-            flexibleSpace: FlexibleSpaceBar(
-              title: Text(
-                widget._magChild.title,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18.0,
-                ),
-              ),
-              background: Image.network(
-                "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1531798262708&di=53d278a8427f482c5b836fa0e057f4ea&imgtype=0&src=http%3A%2F%2Fh.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F342ac65c103853434cc02dda9f13b07eca80883a.jpg",
-                fit: BoxFit.cover,
-              ),
+      child: NestedScrollView(
+        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+          return <Widget>[
+            SliverAppBar(
+              expandedHeight: 250.0,
+              pinned: true, //是否固定在顶部
+              flexibleSpace: FlexibleSpaceBar(
+                  centerTitle: true,
+                  title: Text(widget._magChild.title,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18.0,
+                      )),
+                  background: Image.network(
+                    "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1531798262708&di=53d278a8427f482c5b836fa0e057f4ea&imgtype=0&src=http%3A%2F%2Fh.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F342ac65c103853434cc02dda9f13b07eca80883a.jpg",
+                    fit: BoxFit.cover,
+                  )),
             ),
-          ),
-
-          ///List
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (BuildContext context, int index) {
-                //创建列表项
-                return Container(
-                  alignment: Alignment.center,
-                  child: _buildExpandTiles(_magGroup[index]),
-                );
-              },
-              childCount: _magGroup.length,
-            ),
-          ),
-        ],
+          ];
+        },
+        body: MediaQuery.removePadding(
+          context: context,
+          removeTop: true,
+          child: ListView.builder(
+              itemCount: _magGroup.length,
+              itemBuilder: (context, i) {
+                return _magGroup.length == 0
+                    ? EmptyWidget()
+                    : _buildExpandTiles(_magGroup[i]);
+              }),
+        ),
       ),
     );
   }
