@@ -78,6 +78,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                 .map((item) => Column(
                       children: <Widget>[
                         GestureDetector(
+                          behavior: HitTestBehavior.opaque,
                           child: Row(
                             children: <Widget>[
                               Container(
@@ -85,9 +86,11 @@ class ProfileScreenState extends State<ProfileScreen> {
                                 alignment: Alignment.center,
                                 padding:
                                     const EdgeInsets.only(left: 15, right: 15),
-                                child: Text(
-                                  item.title,
-                                  style: TextStyle(fontSize: 16),
+                                child: Center(
+                                  child: Text(
+                                    item.title,
+                                    style: TextStyle(fontSize: 16),
+                                  ),
                                 ),
                               )
                             ],

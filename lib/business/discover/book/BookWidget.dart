@@ -71,7 +71,7 @@ class BookWidgetState extends State<BookWidget> {
               )
             ],
           ),
-          padding: const EdgeInsets.fromLTRB(15, 10, 10, 10),
+          padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
           color: Color(0x11000000),
           width: MediaQuery.of(context).size.width,
         ),

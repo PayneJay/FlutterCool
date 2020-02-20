@@ -17,13 +17,14 @@ class MagDetailChildItemWidget extends StatelessWidget {
           children: <Widget>[
             Container(
                 width: MediaQuery.of(context).size.width,
-                padding: const EdgeInsets.fromLTRB(15, 5, 10, 5),
+                padding: const EdgeInsets.all(15),
                 child: Text(
                   _magChild == null ? '' : _magChild.title,
                   style: TextStyle(fontSize: 16),
                 )),
             Divider(
               color: Colors.black12,
+              height: 1,
             )
           ],
         ),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cool/models/magChild.dart';
 import 'package:cool/business/discover/mag/PeriodDetailScreen.dart';
-import 'package:cool/business/discover/mag/PeriodDetailScreen.dart';
 
 class PeriodItemWidget extends StatelessWidget {
   final MagChild _magChild;
@@ -12,32 +11,38 @@ class PeriodItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-        child: Column(
-          children: <Widget>[
-            Padding(
-                padding: const EdgeInsets.fromLTRB(15, 5, 10, 5),
+    return Column(
+      children: <Widget>[
+        GestureDetector(
+            child: Container(
+                padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text(
-                      _magChild == null ? '' : _magChild.title,
-                      style: TextStyle(fontSize: 16),
+                    Expanded(
+                      child: Text(
+                        _magChild == null ? '' : _magChild.title,
+                        style: TextStyle(fontSize: 16),
+                      ),
                     ),
-                    Text(
-                      _magChild == null ? '' : _formatDate(_magChild.time),
-                      style: TextStyle(fontSize: 16, color: Colors.black45),
+                    Expanded(
+                      child: Text(
+                        _magChild == null ? '' : _formatDate(_magChild.time),
+                        style: TextStyle(fontSize: 16, color: Colors.black45),
+                        textAlign: TextAlign.end,
+                      ),
                     )
                   ],
                 )),
-            Divider(
-              color: Colors.black12,
-            )
-          ],
-        ),
-        onTap: () {
-          _onPeriodItemClick();
-        });
+            onTap: () {
+              _onPeriodItemClick();
+            }),
+        Divider(
+          color: Colors.black12,
+          height: 1,
+        )
+      ],
+    );
   }
 
   void _onPeriodItemClick() {

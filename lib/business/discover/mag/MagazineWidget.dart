@@ -58,7 +58,7 @@ class MagazineWidgetState extends State<MagazineWidget> {
       children: <Widget>[
         Container(
             width: MediaQuery.of(context).size.width,
-            padding: const EdgeInsets.fromLTRB(15, 10, 10, 10),
+            padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
             color: Color(0x11000000),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -82,7 +82,6 @@ class MagazineWidgetState extends State<MagazineWidget> {
               itemBuilder: (context, i) {
                 return PeriodItemWidget(group.items[i], context);
               }),
-          margin: const EdgeInsets.only(top: 10),
         )
       ],
     );

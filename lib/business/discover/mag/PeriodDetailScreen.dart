@@ -23,34 +23,42 @@ class PeriodDetailScreenState extends State<PeriodDetailScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: NestedScrollView(
-        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-          return <Widget>[
-            SliverAppBar(
-              expandedHeight: 200.0,
-              pinned: true,
-              flexibleSpace: FlexibleSpaceBar(
-                  centerTitle: true,
-                  title: Text(widget._magChild.title,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18.0,
-                      )),
-                  background: Image.network(
-                    "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1531798262708&di=53d278a8427f482c5b836fa0e057f4ea&imgtype=0&src=http%3A%2F%2Fh.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F342ac65c103853434cc02dda9f13b07eca80883a.jpg",
-                    fit: BoxFit.fill,
-                  )),
+    return Material(
+      child: CustomScrollView(
+        slivers: <Widget>[
+          //AppBar，包含一个导航栏
+          SliverAppBar(
+            pinned: true,
+            expandedHeight: 250.0,
+            flexibleSpace: FlexibleSpaceBar(
+              title: Text(
+                widget._magChild.title,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18.0,
+                ),
+              ),
+              background: Image.network(
+                "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1531798262708&di=53d278a8427f482c5b836fa0e057f4ea&imgtype=0&src=http%3A%2F%2Fh.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F342ac65c103853434cc02dda9f13b07eca80883a.jpg",
+                fit: BoxFit.cover,
+              ),
             ),
-          ];
-        },
-        body: ListView.builder(
-            itemCount: _magGroup.length,
-            itemBuilder: (context, i) {
-              return _magGroup.length == 0
-                  ? EmptyWidget()
-                  : _buildExpandTiles(_magGroup[i]);
-            }),
+          ),
+
+          ///List
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (BuildContext context, int index) {
+                //创建列表项
+                return Container(
+                  alignment: Alignment.center,
+                  child: _buildExpandTiles(_magGroup[index]),
+                );
+              },
+              childCount: _magGroup.length,
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -60,21 +68,22 @@ class PeriodDetailScreenState extends State<PeriodDetailScreen>
     return Column(
       children: <Widget>[
         Container(
-            width: MediaQuery.of(context).size.width,
-            padding: const EdgeInsets.fromLTRB(15, 10, 10, 10),
-            color: Color(0x11000000),
-            child: Text(group.name,
-                style: TextStyle(fontSize: 16, color: Colors.blueAccent))),
-        Container(
-          child: ListView.builder(
-              itemCount: group.items.length,
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              itemBuilder: (context, i) {
-                return MagDetailChildItemWidget(group.items[i], context);
-              }),
-          margin: const EdgeInsets.only(top: 10),
-        )
+          width: MediaQuery.of(context).size.width,
+          padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
+          color: Color(0x11000000),
+          child: Text(
+            group.name,
+            style: TextStyle(fontSize: 16, color: Colors.blueAccent),
+          ),
+        ),
+        ListView.builder(
+          itemCount: group.items.length,
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          itemBuilder: (context, i) {
+            return MagDetailChildItemWidget(group.items[i], context);
+          },
+        ),
       ],
     );
   }

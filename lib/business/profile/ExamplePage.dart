@@ -36,16 +36,16 @@ class _ExamplePageState extends State<ExamplePage>
             ),
             SliverPersistentHeader(
                 delegate: _SliverAppBarDelegate(
-              TabBar(
-                controller: TabController(length: 2, vsync: this),
-                labelColor: Colors.black87,
-                unselectedLabelColor: Colors.grey,
-                tabs: [
-                  Tab(icon: Icon(Icons.security), text: "security"),
-                  Tab(icon: Icon(Icons.cake), text: "cake"),
-                ],
-              ),
-            ))
+                  TabBar(
+                    controller: TabController(length: 2, vsync: this),
+                    labelColor: Colors.black87,
+                    unselectedLabelColor: Colors.grey,
+                    tabs: [
+                      Tab(icon: Icon(Icons.security), text: "security"),
+                      Tab(icon: Icon(Icons.cake), text: "cake"),
+                    ],
+                  ),
+                ))
           ];
         },
         body: Center(
