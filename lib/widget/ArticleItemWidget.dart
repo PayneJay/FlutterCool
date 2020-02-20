@@ -15,7 +15,10 @@ class ArticleItemWidget extends StatelessWidget {
       child: Container(
         margin: const EdgeInsets.fromLTRB(10, 10, 10, 0),
         child: Card(
-          elevation: 3,
+          elevation: 5,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(8.0)),
+          ), //设置圆角
           child: Container(
             padding: const EdgeInsets.all(15),
             child: Row(
@@ -47,18 +50,11 @@ class ArticleItemWidget extends StatelessWidget {
                   height: 80,
                   child: Stack(
                     children: <Widget>[
-                      Center(
-                          child: _articles.img.isNotEmpty
-                              ? Material(
-                                  child: FadeInImage.memoryNetwork(
-                                    image: _articles.img,
-                                    placeholder: kTransparentImage /* 透明图片 */,
-                                  ),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(5)))
-                              : Image(
-                                  image: AssetImage('images/img_default.jpg'),
-                                  fit: BoxFit.cover))
+                      ClipRRect(
+                        //剪裁为圆角矩形
+                        borderRadius: BorderRadius.circular(5.0),
+                        child: _buildImageView(),
+                      ),
                     ],
                   ),
                 ),
@@ -71,6 +67,17 @@ class ArticleItemWidget extends StatelessWidget {
         _viewDetail();
       },
     );
+  }
+
+  Widget _buildImageView() {
+    return _articles.img.isNotEmpty
+        ? Material(
+            child: FadeInImage.memoryNetwork(
+              image: _articles.img,
+              placeholder: kTransparentImage /* 透明图片 */,
+            ),
+            borderRadius: BorderRadius.all(Radius.circular(10)))
+        : Image(image: AssetImage('images/img_default.jpg'), fit: BoxFit.cover);
   }
 
   void _viewDetail() {
