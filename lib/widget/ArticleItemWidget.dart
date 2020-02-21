@@ -24,6 +24,7 @@ class ArticleItemWidget extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.all(15),
             child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Expanded(
                   child: Column(
@@ -31,7 +32,7 @@ class ArticleItemWidget extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 0, 5, 5),
+                        padding: const EdgeInsets.fromLTRB(0, 0, 5, 10),
                         child: Text(
                           _articles.title,
                           maxLines: 2,
@@ -41,13 +42,11 @@ class ArticleItemWidget extends StatelessWidget {
                               fontWeight: FontWeight.bold, fontSize: 16),
                         ),
                       ),
-                      Container(
-                        child: Text(
-                          _articles.feed_title + "  " + _articles.rectime,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(color: Colors.grey[500]),
-                        ),
+                      Text(
+                        _articles.feed_title + "  " + _articles.rectime,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(color: Colors.grey[500]),
                       ),
                     ],
                   ),
