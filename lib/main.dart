@@ -48,7 +48,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   _register() {
-//  注册
-    fluwx.register(appId: "wx974682567cca6ff8");
+    ///  注册
+    fluwx.registerWxApi(appId: "wx974682567cca6ff8");
   }
 }

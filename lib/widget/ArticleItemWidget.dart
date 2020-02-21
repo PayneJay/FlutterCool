@@ -17,7 +17,9 @@ class ArticleItemWidget extends StatelessWidget {
         child: Card(
           elevation: 5,
           shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(8.0)),
+            borderRadius: BorderRadius.all(
+              Radius.circular(8.0),
+            ),
           ), //设置圆角
           child: Container(
             padding: const EdgeInsets.all(15),
@@ -28,20 +30,25 @@ class ArticleItemWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 0, 5, 5),
+                        child: Text(
+                          _articles.title,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          softWrap: true,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 16),
+                        ),
+                      ),
                       Container(
-                          padding: const EdgeInsets.fromLTRB(0, 0, 5, 5),
-                          child: Text(_articles.title,
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              softWrap: true,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 16))),
-                      Container(
-                          child: Text(
-                              _articles.feed_title + "  " + _articles.rectime,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(color: Colors.grey[500])))
+                        child: Text(
+                          _articles.feed_title + "  " + _articles.rectime,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(color: Colors.grey[500]),
+                        ),
+                      ),
                     ],
                   ),
                 ),

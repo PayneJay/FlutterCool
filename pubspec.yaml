@@ -61,7 +61,7 @@ dev_dependencies:
 #  EventBus消息通知
   event_bus: ^1.1.0
 #  微信分享
-  fluwx: ^1.0.3
+  fluwx: ^1.2.1
 #  字体
   font_awesome_flutter: ^8.4.0
 
