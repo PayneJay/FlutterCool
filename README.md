@@ -1,4 +1,4 @@
-# myapp
+# fluttercool
 
 A new Flutter project.
 
