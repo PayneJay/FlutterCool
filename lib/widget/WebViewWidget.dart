@@ -91,10 +91,18 @@ class WebViewWidgetState extends State<WebViewWidget> {
       // 登录的URL
       appBar: AppBar(
         titleSpacing: 0,
-        title: Text(widget._title,
+        title: ConstrainedBox(
+          constraints: BoxConstraints.tightFor(
+              width: MediaQuery.of(context).size.width - 2 * kToolbarHeight),
+          child: Text(
+            widget._title,
             maxLines: 1,
-            textAlign: TextAlign.end,
-            style: TextStyle(color: Colors.white)),
+            textAlign: TextAlign.center,
+            style: TextStyle(color: Colors.white),
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
+        centerTitle: true,
       ),
       withZoom: true,
       // 允许网页缩放

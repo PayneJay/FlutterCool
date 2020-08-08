@@ -18,27 +18,27 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^0.1.2
-  english_words: ^3.1.0
+  cupertino_icons: ^0.1.3
+  english_words: ^3.1.5
   #  链接跳转
-  url_launcher: ^5.0.2
+  url_launcher: ^5.5.0
 #  网络库
-  dio: ^2.0.10
-  json_annotation: ^2.1.1
-  transparent_image: ^0.1.0
+  dio: ^3.0.9
+  json_annotation: ^2.0.0
+  transparent_image: ^1.0.0
 #  下拉刷新
   flutter_easyrefresh: ^1.2.7
 #  常用工具类库
-  common_utils: ^1.1.3
+  common_utils: ^1.2.1
 
-  shared_preferences: ^0.5.3+4
+  shared_preferences: ^0.5.8
 #  图片加载缩放
   flutter_drag_scale:
     git:
       url: https://github.com/LiuC520/flutter_drag_scale.git
       ref: 'master'
 
-  fish_redux: 0.2.4
+  fish_redux: 0.3.4
 
 
 
@@ -55,15 +55,15 @@ dev_dependencies:
 #  Toast
   overlay_support: ^0.3.0
 #  图片选择库
-  image_picker: ^0.6.0+8
+  image_picker: ^0.6.7+4
 #  加载webView
-  flutter_webview_plugin: ^0.3.9+1
+  flutter_webview_plugin: ^0.3.11
 #  EventBus消息通知
-  event_bus: ^1.1.0
+  event_bus: ^1.1.1
 #  微信分享
   fluwx: ^1.2.1
 #  字体
-  font_awesome_flutter: ^8.4.0
+  font_awesome_flutter: ^8.8.1
 
 
 

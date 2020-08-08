@@ -7,7 +7,7 @@ var dio = new Dio(new BaseOptions(
   connectTimeout: 10000,
   receiveTimeout: 30000,
   headers: _getHeaders(),
-  contentType: ContentType.json,
+  contentType: "json",
   // Transform the response data to a String encoded with UTF8.
   // The default value is [ResponseType.JSON].
   responseType: ResponseType.json,

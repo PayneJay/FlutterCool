@@ -1,6 +1,11 @@
 # myapp
 
-A new Flutter project.
+一个仿推酷的Flutter应用
+## 运行环境
+Flutter 1.20.1 • channel stable • https://github.com/flutter/flutter.git
+Framework • revision 2ae34518b8 (2 days ago)
+Engine • revision c8e3b94853
+Tools • Dart 2.9.0
 
 ## Getting Started
 
