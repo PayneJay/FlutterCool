@@ -64,6 +64,7 @@ class TopicResultWidgetState extends State<TopicResultWidget> {
     return ListView.separated(
         itemBuilder: (context, index) {
           return GestureDetector(
+            behavior: HitTestBehavior.translucent,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
