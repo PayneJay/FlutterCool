@@ -15,12 +15,15 @@ class BookItemWidget extends StatelessWidget {
         child: Column(
           children: <Widget>[
             Image(image: NetworkImage(_bookChild.thumb)),
-            Padding(
+            Expanded(
+              child: Padding(
                 padding: const EdgeInsets.all(10),
                 child: Text(_bookChild.title,
                     style: TextStyle(fontSize: 16),
                     maxLines: 2,
-                    overflow: TextOverflow.ellipsis))
+                    overflow: TextOverflow.ellipsis),
+              ),
+            )
           ],
         ),
         onTap: () {

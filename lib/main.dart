@@ -27,16 +27,16 @@ class _MyAppState extends State<MyApp> {
       return showDialog(
             context: context,
             builder: (context) => AlertDialog(
-              title: Text('Are you sure?'),
-              content: Text('Do you want to exit an App'),
+              title: Text('确定退出?'),
+              content: Text('您要退出应用程序吗？'),
               actions: <Widget>[
                 FlatButton(
                   onPressed: () => Navigator.of(context).pop(false),
-                  child: Text('No'),
+                  child: Text('取消'),
                 ),
                 FlatButton(
                   onPressed: () => Navigator.of(context).pop(true),
-                  child: Text('Yes'),
+                  child: Text('确定'),
                 ),
               ],
             ),

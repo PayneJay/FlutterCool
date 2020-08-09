@@ -22,17 +22,22 @@ class ArticleItemWidget extends StatelessWidget {
             ),
           ), //设置圆角
           child: Container(
-            padding: const EdgeInsets.all(15),
+            padding: const EdgeInsets.all(10),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Expanded(
+                  flex: 2,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 0, 5, 10),
+                      Container(
+                        decoration: new BoxDecoration(
+                            border: new Border.all(
+                          //新手建议给每一个组件写一个border
+                          color: const Color(0xff6d9eeb),
+                        )),
                         child: Text(
                           _articles.title,
                           maxLines: 2,
@@ -42,26 +47,31 @@ class ArticleItemWidget extends StatelessWidget {
                               fontWeight: FontWeight.bold, fontSize: 16),
                         ),
                       ),
-                      Text(
-                        _articles.feed_title + "  " + _articles.rectime,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(color: Colors.grey[500]),
+                      Container(
+                        decoration: new BoxDecoration(
+                            border: new Border.all(
+                          //新手建议给每一个组件写一个border
+                          color: const Color(0xff6d9eeb),
+                        )),
+                        child: Text(
+                          _articles.feed_title + "  " + _articles.rectime,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(color: Colors.grey[500]),
+                        ),
                       ),
                     ],
                   ),
                 ),
-                Container(
-                  width: 120,
-                  height: 80,
-                  child: Stack(
-                    children: <Widget>[
-                      ClipRRect(
-                        //剪裁为圆角矩形
-                        borderRadius: BorderRadius.circular(5.0),
-                        child: _buildImageView(),
-                      ),
-                    ],
+                Padding(padding: const EdgeInsets.only(right: 10)),
+                Expanded(
+                  child: Container(
+                    alignment: Alignment.center,
+                    child: ClipRRect(
+                      //剪裁为圆角矩形
+                      borderRadius: BorderRadius.circular(5.0),
+                      child: _buildImageView(),
+                    ),
                   ),
                 ),
               ],
