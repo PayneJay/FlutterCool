@@ -13,6 +13,7 @@ class ArticleItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       child: Container(
+        height: 120,
         margin: const EdgeInsets.fromLTRB(10, 10, 10, 0),
         child: Card(
           elevation: 5,
@@ -27,46 +28,33 @@ class ArticleItemWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Expanded(
-                  flex: 2,
+                  flex: 4,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Container(
-                        decoration: new BoxDecoration(
-                            border: new Border.all(
-                          //新手建议给每一个组件写一个border
-                          color: const Color(0xff6d9eeb),
-                        )),
-                        child: Text(
-                          _articles.title,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          softWrap: true,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 16),
-                        ),
+                      Text(
+                        _articles.title,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        softWrap: true,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 16),
                       ),
-                      Container(
-                        decoration: new BoxDecoration(
-                            border: new Border.all(
-                          //新手建议给每一个组件写一个border
-                          color: const Color(0xff6d9eeb),
-                        )),
-                        child: Text(
-                          _articles.feed_title + "  " + _articles.rectime,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(color: Colors.grey[500]),
-                        ),
+                      Text(
+                        _articles.feed_title + "  " + _articles.rectime,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(color: Colors.grey[500]),
                       ),
                     ],
                   ),
                 ),
                 Padding(padding: const EdgeInsets.only(right: 10)),
                 Expanded(
+                  flex: 3,
                   child: Container(
-                    alignment: Alignment.center,
+                    alignment: Alignment.centerRight,
                     child: ClipRRect(
                       //剪裁为圆角矩形
                       borderRadius: BorderRadius.circular(5.0),

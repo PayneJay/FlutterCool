@@ -78,12 +78,12 @@ class SharePanelState extends State<SharePanel> {
   }
 
   Future _shareText() async {
-    fluwx.share(WeChatShareTextModel(
+    fluwx.shareToWeChat(WeChatShareTextModel(
         text: "text from fluwx", transaction: "transaction}", scene: scene));
   }
 
   Future _shareImage() async {
-    fluwx.share(fluwx.WeChatShareImageModel(
+    fluwx.shareToWeChat(fluwx.WeChatShareImageModel(
         image: _imageUrl,
         thumbnail: '',
         transaction: _imageUrl,
@@ -98,7 +98,7 @@ class SharePanelState extends State<SharePanel> {
         thumbnail: _imageUrl,
         scene: scene,
         transaction: "hh");
-    fluwx.share(model);
+    fluwx.shareToWeChat(model);
   }
 
   Future _shareMusic() async {
@@ -110,7 +110,7 @@ class SharePanelState extends State<SharePanel> {
         musicLowBandUrl: 'https://music.163.com/#/song?id=436514312',
         scene: scene);
 
-    fluwx.share(model);
+    fluwx.shareToWeChat(model);
   }
 
   Future _shareVideo() async {
@@ -123,7 +123,7 @@ class SharePanelState extends State<SharePanel> {
         description: _feedTitle,
         title: _title,
         scene: scene);
-    fluwx.share(model);
+    fluwx.shareToWeChat(model);
   }
 
   Future _shareMiniProgram() async {
@@ -134,7 +134,7 @@ class SharePanelState extends State<SharePanel> {
         title: _title,
         description: _feedTitle,
         thumbnail: _imageUrl);
-    fluwx.share(model);
+    fluwx.shareToWeChat(model);
   }
 
   void handleShareChanged(fluwx.WeChatScene scene) {
