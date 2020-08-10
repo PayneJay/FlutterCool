@@ -23,10 +23,6 @@ class BookResultWidget extends StatefulWidget {
 }
 
 class BookResultWidgetState extends State<BookResultWidget> {
-  GlobalKey<EasyRefreshState> _easyRefreshKey = GlobalKey<EasyRefreshState>();
-  GlobalKey<RefreshHeaderState> _headerKey = GlobalKey<RefreshHeaderState>();
-  GlobalKey<RefreshFooterState> _footerKey = GlobalKey<RefreshFooterState>();
-
   var _books = List<BookChild>();
 
   var _currentPage;
@@ -42,28 +38,22 @@ class BookResultWidgetState extends State<BookResultWidget> {
   @override
   Widget build(BuildContext context) {
     return EasyRefresh(
-        key: _easyRefreshKey,
-        behavior: ScrollOverBehavior(),
-        refreshHeader: ClassicsHeader(
-          key: _headerKey,
-          bgColor: Colors.transparent,
-          textColor: Colors.black87,
-          moreInfoColor: Colors.black54,
-          showMore: true,
-        ),
-        refreshFooter: ClassicsFooter(
-          key: _footerKey,
-          bgColor: Colors.transparent,
-          textColor: Colors.black87,
-          moreInfoColor: Colors.black54,
-          showMore: true,
-        ),
-        child: _buildListView(),
-        onRefresh: _onRefresh,
-        loadMore: _loadMore,
-        autoLoad: true,
-        firstRefresh: true,
-        emptyWidget: EmptyWidget());
+      header: ClassicalHeader(
+        bgColor: Colors.transparent,
+        textColor: Colors.black87,
+        infoColor: Colors.black54,
+      ),
+      footer: ClassicalFooter(
+        bgColor: Colors.transparent,
+        textColor: Colors.black87,
+        infoColor: Colors.black54,
+      ),
+      child: _buildListView(),
+      onRefresh: _onRefresh,
+      onLoad: _loadMore,
+      firstRefresh: true,
+      emptyWidget: EmptyWidget(),
+    );
   }
 
   Widget _buildListView() {
@@ -71,34 +61,34 @@ class BookResultWidgetState extends State<BookResultWidget> {
         itemBuilder: (context, index) {
           return GestureDetector(
               child: Container(
-                  height: 80,
-                  padding: const EdgeInsets.only(
-                      left: 10, top: 5, right: 10, bottom: 5),
-                  child: Row(
-                    children: <Widget>[
-                      Container(
-                          margin: const EdgeInsets.only(right: 10),
-                          child: Stack(
-                            children: <Widget>[
-                              Center(
-                                  child: _books[index].thumb.isNotEmpty
-                                      ? Material(
-                                          child: FadeInImage.memoryNetwork(
-                                            image: _books[index].thumb,
-                                            fit: BoxFit.fill,
-                                            placeholder:
-                                                kTransparentImage /* 透明图片 */,
-                                          ),
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(5)))
-                                      : Image(
-                                          image: AssetImage(
-                                              'images/img_default.jpg'),
-                                          fit: BoxFit.fill))
-                            ],
-                          )),
-                      Expanded(
-                          child: Column(
+                height: 80,
+                padding: const EdgeInsets.only(
+                    left: 10, top: 5, right: 10, bottom: 5),
+                child: Row(
+                  children: <Widget>[
+                    Container(
+                      margin: const EdgeInsets.only(right: 10),
+                      child: Stack(
+                        children: <Widget>[
+                          Center(
+                            child: _books[index].thumb.isNotEmpty
+                                ? Material(
+                                    child: FadeInImage.memoryNetwork(
+                                      image: _books[index].thumb,
+                                      fit: BoxFit.fill,
+                                      placeholder: kTransparentImage /* 透明图片 */,
+                                    ),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(5)))
+                                : Image(
+                                    image: AssetImage('images/img_default.jpg'),
+                                    fit: BoxFit.fill),
+                          )
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
@@ -112,9 +102,11 @@ class BookResultWidgetState extends State<BookResultWidget> {
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(color: Colors.grey[500]))
                         ],
-                      ))
-                    ],
-                  )),
+                      ),
+                    )
+                  ],
+                ),
+              ),
               onTap: () {
                 _onItemClick(_books[index]);
               });

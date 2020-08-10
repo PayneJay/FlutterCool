@@ -16,18 +16,12 @@ class BookWidget extends StatefulWidget {
 }
 
 class BookWidgetState extends State<BookWidget> {
-  GlobalKey<EasyRefreshState> _easyRefreshKey = GlobalKey<EasyRefreshState>();
-  GlobalKey<RefreshHeaderState> _headerKey = GlobalKey<RefreshHeaderState>();
   List<BookGroup> _bookGroup = List();
 
   @override
   Widget build(BuildContext context) {
     return EasyRefresh(
-      key: _easyRefreshKey,
-      behavior: ScrollOverBehavior(),
-      refreshHeader: PhoenixHeader(
-        key: _headerKey,
-      ),
+      header: PhoenixHeader(),
       child: ListView.builder(
           shrinkWrap: true,
           itemCount: _bookGroup.length,
@@ -37,7 +31,6 @@ class BookWidgetState extends State<BookWidget> {
                 : _buildExpandTiles(_bookGroup[i]);
           }),
       onRefresh: _getBookDir,
-      autoLoad: true,
       firstRefresh: true,
       emptyWidget: EmptyWidget(),
     );

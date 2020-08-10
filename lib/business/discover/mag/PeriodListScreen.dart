@@ -20,9 +20,6 @@ class PeriodListScreen extends StatefulWidget {
 }
 
 class PeriodListScreenState extends State<PeriodListScreen> {
-  GlobalKey<EasyRefreshState> _easyRefreshKey = GlobalKey<EasyRefreshState>();
-  GlobalKey<RefreshHeaderState> _headerKey = GlobalKey<RefreshHeaderState>();
-
   final MagGroup _magGroup;
   var _type;
   List<MagChild> _periodList = List();
@@ -33,19 +30,17 @@ class PeriodListScreenState extends State<PeriodListScreen> {
   Widget build(BuildContext context) {
     _type = _magGroup.type;
     return Scaffold(
-        appBar: AppBar(title: Text(_magGroup == null ? '' : _magGroup.name)),
-        body: EasyRefresh(
-          key: _easyRefreshKey,
-          behavior: ScrollOverBehavior(),
-          refreshHeader: PhoenixHeader(key: _headerKey),
-          child: _periodList.length == 0
-              ? EmptyWidget()
-              : _buildChildTiles(_periodList),
-          onRefresh: _onRefresh,
-          autoLoad: true,
-          firstRefresh: true,
-          emptyWidget: EmptyWidget(),
-        ));
+      appBar: AppBar(title: Text(_magGroup == null ? '' : _magGroup.name)),
+      body: EasyRefresh(
+        header: PhoenixHeader(),
+        child: _periodList.length == 0
+            ? EmptyWidget()
+            : _buildChildTiles(_periodList),
+        onRefresh: _onRefresh,
+        firstRefresh: true,
+        emptyWidget: EmptyWidget(),
+      ),
+    );
   }
 
   Future<void> _getPeriodList() async {

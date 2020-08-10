@@ -295,21 +295,22 @@ class SignInWidgetState extends State<SignInWidget> {
 
   loginByEmail() async {
     if (!RegexUtil.isEmail(_email)) {
-      toast(_context, '来个正经邮箱吧');
+      toast('来个正经邮箱吧');
       return;
     }
 
     if (_password == null) {
-      toast(_context, '请输入密码');
+      toast('请输入密码');
       return;
     }
     await dio.post(loginUrl,
         data: {"email": _email, "password": _password}).then((response) {
       setState(() {
+        print('************************'+Utf8Codec().decode(response.data));
         print(response.toString());
         UserInfo userInfo = UserInfo.fromJson(json.decode(response.toString()));
         if (userInfo.error != null) {
-          toast(_context, userInfo.error);
+          toast(userInfo.error);
         } else {
           saveString(USER_INFO_KEY, json.encode(userInfo.user));
           saveBool(USER_LOGIN_STATUS_KEY, true);
@@ -320,10 +321,10 @@ class SignInWidgetState extends State<SignInWidget> {
   }
 
   loginByWeChat(String text) {
-    toast(_context, text);
+    toast(text);
   }
 
   loginByQQ(String text) {
-    toast(_context, text);
+    toast(text);
   }
 }

@@ -9,6 +9,7 @@ import 'package:cool/models/articleDetail.dart';
 import 'dart:convert';
 import 'package:html/parser.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_html/style.dart';
 import 'package:cool/http/InterfaceService.dart';
 
 class ArticleDetailScreen extends StatefulWidget {
@@ -186,13 +187,12 @@ Widget _buildDetail() {
           Container(
             child: Html(
               data: _htmlContent.trim(),
-              defaultTextStyle: TextStyle(fontSize: 18, height: 1.4),
-              padding: const EdgeInsets.only(left: 15, right: 15, bottom: 15),
-              linkStyle: const TextStyle(
-                color: Colors.blueAccent,
-                decorationColor: Colors.blueAccent,
-                decoration: TextDecoration.underline,
-              ),
+              style: {
+                'html': Style(
+                  fontSize: FontSize(17),
+                  padding: const EdgeInsets.fromLTRB(15, 0, 15, 10),
+                ),
+              },
               onLinkTap: (url) {
                 _launchURL(url);
               },

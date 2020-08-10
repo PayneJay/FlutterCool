@@ -12,13 +12,13 @@ class SignUpWidgetState extends State<SignUpWidget> {
   final FocusNode myFocusNodeEmail = FocusNode();
   final FocusNode myFocusNodeName = FocusNode();
 
-  bool _obscureTextSignup = true;
-  bool _obscureTextSignupConfirm = true;
+  bool _obscureTextSignUp = true;
+  bool _obscureTextSignUpConfirm = true;
 
-  TextEditingController signupEmailController = TextEditingController();
-  TextEditingController signupNameController = TextEditingController();
-  TextEditingController signupPasswordController = TextEditingController();
-  TextEditingController signupConfirmPasswordController =
+  TextEditingController signUpEmailController = TextEditingController();
+  TextEditingController signUpNameController = TextEditingController();
+  TextEditingController signUpPasswordController = TextEditingController();
+  TextEditingController signUpConfirmPasswordController =
       TextEditingController();
 
   BuildContext _context;
@@ -50,7 +50,7 @@ class SignUpWidgetState extends State<SignUpWidget> {
                             top: 20.0, bottom: 20.0, left: 25.0, right: 25.0),
                         child: TextField(
                           focusNode: myFocusNodeName,
-                          controller: signupNameController,
+                          controller: signUpNameController,
                           keyboardType: TextInputType.text,
                           textCapitalization: TextCapitalization.words,
                           style: TextStyle(
@@ -79,7 +79,7 @@ class SignUpWidgetState extends State<SignUpWidget> {
                             top: 20.0, bottom: 20.0, left: 25.0, right: 25.0),
                         child: TextField(
                           focusNode: myFocusNodeEmail,
-                          controller: signupEmailController,
+                          controller: signUpEmailController,
                           keyboardType: TextInputType.emailAddress,
                           style: TextStyle(
                               fontFamily: "WorkSansSemiBold",
@@ -107,8 +107,8 @@ class SignUpWidgetState extends State<SignUpWidget> {
                             top: 20.0, bottom: 20.0, left: 25.0, right: 25.0),
                         child: TextField(
                           focusNode: myFocusNodePassword,
-                          controller: signupPasswordController,
-                          obscureText: _obscureTextSignup,
+                          controller: signUpPasswordController,
+                          obscureText: _obscureTextSignUp,
                           style: TextStyle(
                               fontFamily: "WorkSansSemiBold",
                               fontSize: 16.0,
@@ -123,9 +123,9 @@ class SignUpWidgetState extends State<SignUpWidget> {
                             hintStyle: TextStyle(
                                 fontFamily: "WorkSansSemiBold", fontSize: 16.0),
                             suffixIcon: GestureDetector(
-                              onTap: _toggleSignup,
+                              onTap: _toggleSignUp,
                               child: Icon(
-                                _obscureTextSignup
+                                _obscureTextSignUp
                                     ? Icons.visibility_off
                                     : Icons.visibility,
                                 size: 15.0,
@@ -144,8 +144,8 @@ class SignUpWidgetState extends State<SignUpWidget> {
                         padding: EdgeInsets.only(
                             top: 20.0, bottom: 20.0, left: 25.0, right: 25.0),
                         child: TextField(
-                          controller: signupConfirmPasswordController,
-                          obscureText: _obscureTextSignupConfirm,
+                          controller: signUpConfirmPasswordController,
+                          obscureText: _obscureTextSignUpConfirm,
                           style: TextStyle(
                               fontFamily: "WorkSansSemiBold",
                               fontSize: 16.0,
@@ -160,9 +160,9 @@ class SignUpWidgetState extends State<SignUpWidget> {
                             hintStyle: TextStyle(
                                 fontFamily: "WorkSansSemiBold", fontSize: 16.0),
                             suffixIcon: GestureDetector(
-                              onTap: _toggleSignupConfirm,
+                              onTap: _toggleSignUpConfirm,
                               child: Icon(
-                                _obscureTextSignupConfirm
+                                _obscureTextSignUpConfirm
                                     ? Icons.visibility_off
                                     : Icons.visibility,
                                 size: 15.0,
@@ -231,19 +231,19 @@ class SignUpWidgetState extends State<SignUpWidget> {
     super.dispose();
   }
 
-  void _toggleSignup() {
+  void _toggleSignUp() {
     setState(() {
-      _obscureTextSignup = !_obscureTextSignup;
+      _obscureTextSignUp = !_obscureTextSignUp;
     });
   }
 
-  void _toggleSignupConfirm() {
+  void _toggleSignUpConfirm() {
     setState(() {
-      _obscureTextSignupConfirm = !_obscureTextSignupConfirm;
+      _obscureTextSignUpConfirm = !_obscureTextSignUpConfirm;
     });
   }
 
   doRegister(String text) {
-    toast(_context, text);
+    toast(text);
   }
 }

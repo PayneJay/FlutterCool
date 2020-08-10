@@ -42,34 +42,42 @@ class SharePanelState extends State<SharePanel> {
   Widget buildGrid() {
     return Container(
         child: GridView(
-          padding: EdgeInsets.zero,
+          padding: const EdgeInsets.all(10),
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 3, //每行三列
             childAspectRatio: 1.5,
           ),
           children: <Widget>[
             getImageWidget(
-                'images/icon_socialize_wechat.png', WeChatScene.SESSION),
+                'images/icon_socialize_wechat.png', WeChatScene.SESSION, '微信'),
+            getImageWidget('images/icon_socialize_wxcircle.png',
+                WeChatScene.TIMELINE, '朋友圈'),
             getImageWidget(
-                'images/icon_socialize_wxcircle.png', WeChatScene.TIMELINE),
+                'images/icon_socialize_fav.png', WeChatScene.FAVORITE, '收藏'),
             getImageWidget(
-                'images/icon_socialize_fav.png', WeChatScene.FAVORITE),
-            getImageWidget('images/icon_socialize_qq.png', WeChatScene.SESSION),
+                'images/icon_socialize_qq.png', WeChatScene.SESSION, 'QQ'),
             getImageWidget(
-                'images/icon_socialize_qzone.png', WeChatScene.SESSION),
+                'images/icon_socialize_qzone.png', WeChatScene.SESSION, 'QQ空间'),
             getImageWidget(
-                'images/icon_socialize_sina.png', WeChatScene.SESSION)
+                'images/icon_socialize_sina.png', WeChatScene.SESSION, '微博'),
           ],
         ),
         height: 200);
   }
 
-  Widget getImageWidget(String imagePath, WeChatScene scene) {
+  Widget getImageWidget(
+      String imagePath, WeChatScene scene, String channelName) {
     return GestureDetector(
-        child: IconButton(
-          icon: Image.asset(imagePath, width: 40, height: 40),
-          padding: EdgeInsets.all(3),
-          onPressed: null,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            IconButton(
+              icon: Image.asset(imagePath, width: 40, height: 40),
+              padding: EdgeInsets.all(3),
+              onPressed: null,
+            ),
+            Text(channelName)
+          ],
         ),
         onTap: () {
           handleShareChanged(scene);
@@ -78,26 +86,24 @@ class SharePanelState extends State<SharePanel> {
   }
 
   Future _shareText() async {
-    fluwx.shareToWeChat(WeChatShareTextModel(
-        text: "text from fluwx", transaction: "transaction}", scene: scene));
+    fluwx.shareToWeChat(WeChatShareTextModel("text from fluwx", scene: scene));
   }
 
   Future _shareImage() async {
-    fluwx.shareToWeChat(fluwx.WeChatShareImageModel(
-        image: _imageUrl,
-        thumbnail: '',
-        transaction: _imageUrl,
-        scene: scene,
-        description: "image"));
+    fluwx.shareToWeChat(
+      fluwx.WeChatShareImageModel(WeChatImage.network(_imageUrl),
+          thumbnail: WeChatImage.asset('images/app_logo.png'),
+          description: "image"),
+    );
   }
 
   Future _shareWebPage() async {
     var model = fluwx.WeChatShareWebPageModel(
-        webPage: _url,
-        title: _title,
-        thumbnail: _imageUrl,
-        scene: scene,
-        transaction: "hh");
+      _url,
+      title: _title,
+      thumbnail: WeChatImage.asset('images/app_logo.png'),
+      scene: scene,
+    );
     fluwx.shareToWeChat(model);
   }
 
@@ -105,9 +111,9 @@ class SharePanelState extends State<SharePanel> {
     var model = WeChatShareMusicModel(
         title: _title,
         description: _feedTitle,
-        transaction: "music",
         musicUrl: 'https://music.163.com/#/song?id=436514312',
         musicLowBandUrl: 'https://music.163.com/#/song?id=436514312',
+        thumbnail: WeChatImage.asset('images/app_logo.png'),
         scene: scene);
 
     fluwx.shareToWeChat(model);
@@ -116,10 +122,9 @@ class SharePanelState extends State<SharePanel> {
   Future _shareVideo() async {
     var model = fluwx.WeChatShareVideoModel(
         videoUrl: 'https://weibo.com/tv/v/HdIR7rTPR?fid=1034:4332706902024776',
-        transaction: "video",
         videoLowBandUrl:
             'https://weibo.com/tv/v/HdIR7rTPR?fid=1034:4332706902024776',
-        thumbnail: _imageUrl,
+        thumbnail: WeChatImage.asset('images/app_logo.png'),
         description: _feedTitle,
         title: _title,
         scene: scene);
@@ -128,12 +133,13 @@ class SharePanelState extends State<SharePanel> {
 
   Future _shareMiniProgram() async {
     var model = fluwx.WeChatShareMiniProgramModel(
-        webPageUrl: _url,
-        miniProgramType: fluwx.WXMiniProgramType.RELEASE,
-        userName: "Flutter",
-        title: _title,
-        description: _feedTitle,
-        thumbnail: _imageUrl);
+      webPageUrl: _url,
+      miniProgramType: fluwx.WXMiniProgramType.RELEASE,
+      userName: "Flutter",
+      title: _title,
+      description: _feedTitle,
+      thumbnail: WeChatImage.asset('images/app_logo.png'),
+    );
     fluwx.shareToWeChat(model);
   }
 

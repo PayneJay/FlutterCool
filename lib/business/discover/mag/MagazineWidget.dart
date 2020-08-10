@@ -16,18 +16,12 @@ class MagazineWidget extends StatefulWidget {
 }
 
 class MagazineWidgetState extends State<MagazineWidget> {
-  GlobalKey<EasyRefreshState> _easyRefreshKey = GlobalKey<EasyRefreshState>();
-  GlobalKey<RefreshHeaderState> _headerKey = GlobalKey<RefreshHeaderState>();
   List<MagGroup> _magGroup = List();
 
   @override
   Widget build(BuildContext context) {
     return EasyRefresh(
-      key: _easyRefreshKey,
-      behavior: ScrollOverBehavior(),
-      refreshHeader: PhoenixHeader(
-        key: _headerKey,
-      ),
+      header: PhoenixHeader(),
       child: ListView.builder(
           itemCount: _magGroup.length,
           shrinkWrap: true,
@@ -37,7 +31,6 @@ class MagazineWidgetState extends State<MagazineWidget> {
                 : _buildExpandTiles(_magGroup[i]);
           }),
       onRefresh: _getMagDir,
-      autoLoad: true,
       firstRefresh: true,
       emptyWidget: EmptyWidget(),
     );
@@ -57,23 +50,24 @@ class MagazineWidgetState extends State<MagazineWidget> {
     return Column(
       children: <Widget>[
         Container(
-            width: MediaQuery.of(context).size.width,
-            padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
-            color: Color(0x11000000),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text(group.name,
-                    style: TextStyle(fontSize: 16, color: Colors.blueAccent)),
-                GestureDetector(
-                  child: Text('更多',
-                      style: TextStyle(fontSize: 16, color: Colors.black45)),
-                  onTap: () {
-                    _goPeriodList(group);
-                  },
-                )
-              ],
-            )),
+          width: MediaQuery.of(context).size.width,
+          padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
+          color: Color(0x11000000),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Text(group.name,
+                  style: TextStyle(fontSize: 16, color: Colors.blueAccent)),
+              GestureDetector(
+                child: Text('更多',
+                    style: TextStyle(fontSize: 16, color: Colors.black45)),
+                onTap: () {
+                  _goPeriodList(group);
+                },
+              )
+            ],
+          ),
+        ),
         Container(
           child: ListView.builder(
               itemCount: group.items.length,

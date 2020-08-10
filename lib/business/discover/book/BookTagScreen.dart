@@ -20,10 +20,6 @@ class BookTagScreen extends StatefulWidget {
 }
 
 class BookTagScreenState extends State<BookTagScreen> {
-  GlobalKey<EasyRefreshState> _easyRefreshKey = GlobalKey<EasyRefreshState>();
-  GlobalKey<RefreshHeaderState> _headerKey = GlobalKey<RefreshHeaderState>();
-  GlobalKey<RefreshFooterState> _footerKey = GlobalKey<RefreshFooterState>();
-
   final BookGroup _bookGroup;
   var _tagId;
   var _currentPage = 0;
@@ -39,22 +35,17 @@ class BookTagScreenState extends State<BookTagScreen> {
         appBar:
             AppBar(title: Text(_bookGroup == null ? '' : _bookGroup.tagName)),
         body: EasyRefresh(
-          key: _easyRefreshKey,
-          behavior: ScrollOverBehavior(),
-          refreshHeader: PhoenixHeader(key: _headerKey),
-          refreshFooter: ClassicsFooter(
-            key: _footerKey,
+          header: PhoenixHeader(),
+          footer: ClassicalFooter(
             bgColor: Colors.transparent,
             textColor: Colors.black87,
-            moreInfoColor: Colors.black54,
-            showMore: true,
+            infoColor: Colors.black54,
           ),
           child: _bookList.length == 0
               ? EmptyWidget()
               : _buildChildTiles(_bookList),
           onRefresh: _onRefresh,
-          loadMore: _loadMore,
-          autoLoad: true,
+          onLoad: _loadMore,
           firstRefresh: true,
           emptyWidget: EmptyWidget(),
         ));
@@ -77,20 +68,21 @@ class BookTagScreenState extends State<BookTagScreen> {
   Widget _buildChildTiles(List<BookChild> list) {
     if (list == null) return ListTile(title: Text('must not be null'));
     return Padding(
-        padding: const EdgeInsets.all(10),
-        child: GridView.builder(
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3, //每行三列
-              childAspectRatio: 0.6,
-            ),
-            itemCount: list.length,
-            itemBuilder: (context, index) {
-              return Padding(
-                  padding: const EdgeInsets.only(top: 15),
-                  child: BookItemWidget(list[index], context));
-            }));
+      padding: const EdgeInsets.all(10),
+      child: GridView.builder(
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 3, //每行三列
+            childAspectRatio: 0.6,
+          ),
+          itemCount: list.length,
+          itemBuilder: (context, index) {
+            return Padding(
+                padding: const EdgeInsets.only(top: 15),
+                child: BookItemWidget(list[index], context));
+          }),
+    );
   }
 
   Future<void> _onRefresh() {

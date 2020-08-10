@@ -23,9 +23,6 @@ class TopicResultWidget extends StatefulWidget {
 }
 
 class TopicResultWidgetState extends State<TopicResultWidget> {
-  GlobalKey<EasyRefreshState> _easyRefreshKey = GlobalKey<EasyRefreshState>();
-  GlobalKey<RefreshHeaderState> _headerKey = GlobalKey<RefreshHeaderState>();
-  GlobalKey<RefreshFooterState> _footerKey = GlobalKey<RefreshFooterState>();
   var _topics = List<TopicChild>();
 
   StreamSubscription<SearchEvent> subscription;
@@ -37,27 +34,21 @@ class TopicResultWidgetState extends State<TopicResultWidget> {
   @override
   Widget build(BuildContext context) {
     return EasyRefresh(
-        key: _easyRefreshKey,
-        behavior: ScrollOverBehavior(),
-        refreshHeader: ClassicsHeader(
-          key: _headerKey,
-          bgColor: Colors.transparent,
-          textColor: Colors.black87,
-          moreInfoColor: Colors.black54,
-          showMore: true,
-        ),
-        refreshFooter: ClassicsFooter(
-          key: _footerKey,
-          bgColor: Colors.transparent,
-          textColor: Colors.black87,
-          moreInfoColor: Colors.black54,
-          showMore: true,
-        ),
-        child: _buildListView(),
-        onRefresh: _onRefresh,
-        autoLoad: true,
-        firstRefresh: true,
-        emptyWidget: EmptyWidget());
+      header: ClassicalHeader(
+        bgColor: Colors.transparent,
+        textColor: Colors.black87,
+        infoColor: Colors.black54,
+      ),
+      footer: ClassicalFooter(
+        bgColor: Colors.transparent,
+        textColor: Colors.black87,
+        infoColor: Colors.black54,
+      ),
+      child: _buildListView(),
+      onRefresh: _onRefresh,
+      firstRefresh: true,
+      emptyWidget: EmptyWidget(),
+    );
   }
 
   Widget _buildListView() {

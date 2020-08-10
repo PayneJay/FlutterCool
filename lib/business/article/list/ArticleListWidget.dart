@@ -19,9 +19,6 @@ class ArticleListWidget extends StatefulWidget {
 }
 
 class ArticleListWidgetState extends State<ArticleListWidget> {
-  GlobalKey<EasyRefreshState> _easyRefreshKey = GlobalKey<EasyRefreshState>();
-  GlobalKey<RefreshHeaderState> _headerKey = GlobalKey<RefreshHeaderState>();
-  GlobalKey<RefreshFooterState> _footerKey = GlobalKey<RefreshFooterState>();
   List<Articles> _articleList = List();
 
   final Choice _choice;
@@ -42,39 +39,34 @@ class ArticleListWidgetState extends State<ArticleListWidget> {
     }
 
     return Center(
-      child: EasyRefresh(
-        key: _easyRefreshKey,
-        behavior: ScrollOverBehavior(),
-        refreshHeader: ClassicsHeader(
-          key: _headerKey,
+      child: EasyRefresh.custom(
+        header: ClassicalHeader(
           bgColor: Colors.transparent,
           textColor: Colors.black87,
-          moreInfoColor: Colors.black54,
-          showMore: true,
+          infoColor: Colors.black54,
         ),
-        refreshFooter: ClassicsFooter(
-          key: _footerKey,
+        footer: ClassicalFooter(
           bgColor: Colors.transparent,
           textColor: Colors.black87,
-          moreInfoColor: Colors.black54,
-          showMore: true,
+          infoColor: Colors.black54,
         ),
-        child: ListView.builder(
-            itemCount: _articleList.length,
-            itemBuilder: (context, i) {
-              return _buildRow(i);
-            }),
+        slivers: <Widget>[
+          SliverList(
+            delegate: SliverChildBuilderDelegate((context, index) {
+              return _buildRow(context, index);
+            }, childCount: _articleList.length),
+          ),
+        ],
         onRefresh: _onRefresh,
-        loadMore: _loadMore,
-        autoLoad: true,
+        onLoad: _loadMore,
         firstRefresh: true,
-        emptyWidget: EmptyWidget(),
+        emptyWidget: _articleList.length == 0 ? EmptyWidget() : null,
       ),
     );
   }
 
   //  创建列表条目
-  Widget _buildRow(int i) {
+  Widget _buildRow(BuildContext context, int i) {
     return ArticleItemWidget(context, _articleList[i]);
   }
 

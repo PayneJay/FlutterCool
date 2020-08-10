@@ -22,10 +22,6 @@ class ArticleResultWidget extends StatefulWidget {
 }
 
 class ArticleResultWidgetState extends State<ArticleResultWidget> {
-  GlobalKey<EasyRefreshState> _easyRefreshKey = GlobalKey<EasyRefreshState>();
-  GlobalKey<RefreshHeaderState> _headerKey = GlobalKey<RefreshHeaderState>();
-  GlobalKey<RefreshFooterState> _footerKey = GlobalKey<RefreshFooterState>();
-
   var _articles = List<Articles>();
 
   var _currentPage;
@@ -41,21 +37,15 @@ class ArticleResultWidgetState extends State<ArticleResultWidget> {
   @override
   Widget build(BuildContext context) {
     return EasyRefresh(
-        key: _easyRefreshKey,
-        behavior: ScrollOverBehavior(),
-        refreshHeader: ClassicsHeader(
-          key: _headerKey,
+        header: ClassicalHeader(
           bgColor: Colors.transparent,
           textColor: Colors.black87,
-          moreInfoColor: Colors.black54,
-          showMore: true,
+          infoColor: Colors.black54,
         ),
-        refreshFooter: ClassicsFooter(
-          key: _footerKey,
+        footer: ClassicalFooter(
           bgColor: Colors.transparent,
           textColor: Colors.black87,
-          moreInfoColor: Colors.black54,
-          showMore: true,
+          infoColor: Colors.black54,
         ),
         child: ListView.builder(
             itemBuilder: (context, index) {
@@ -64,8 +54,7 @@ class ArticleResultWidgetState extends State<ArticleResultWidget> {
             itemCount: _articles.length,
             itemExtent: 120),
         onRefresh: _onRefresh,
-        loadMore: _loadMore,
-        autoLoad: true,
+        onLoad: _loadMore,
         firstRefresh: true,
         emptyWidget: EmptyWidget());
   }
